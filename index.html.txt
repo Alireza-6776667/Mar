@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Snake Game</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Arial,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden}
+#w{width:min(100%,300px);padding:8px;display:flex;flex-direction:column;align-items:center;gap:8px}
+#sc{width:96px;height:20px;image-rendering:pixelated;align-self:flex-start}
+#c{width:100%;aspect-ratio:400/520;display:block}
+#md{display:flex;gap:6px;width:100%}
+#md button{flex:1;height:40px;border-radius:14px;border:2px solid #333;background:#1c1c1c;color:#aaa;font-size:13px;font-family:inherit;font-weight:bold;padding:0}
+#md button.on{background:#6ccf70;border-color:#4fa855;color:#000}
+#ft{display:flex;width:100%;align-items:center;gap:12px}
+#pl{width:38px;height:38px;border-radius:12px;border:2px solid #333;background:#1c1c1c;color:#fff;font-size:14px;padding:0}
+#ft div{flex:1}
+#ft b{font-size:17px;display:block}
+#ft small{color:#999;font-size:12px}
+#ft span{text-align:right;color:#999;font-size:10px;letter-spacing:2px}
+#ft span b{color:#6ccf70;font-size:20px;letter-spacing:0}
+</style>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+<div id="w">
+<canvas id="sc" width="120" height="25"></canvas>
+<canvas id="c" width="400" height="520"></canvas>
+<div id="md"></div>
+<div id="ft"><button id="pl">▶</button><div><b>Snake Game</b><small>Solo</small></div><span>BEST<b id="bs">0</b></span></div>
+</div>
+<script>
+const $=i=>document.getElementById(i),c=$('c'),g=c.getContext('2d'),sg=$('sc').getContext('2d');
+const CO=18,RO=24,Z=20,M=20,W=400,H=520;
+const DG=['111101101101111','010110010010111','111001111100111','111001111001111','101101111001001','111100111001111','111100111101111','111001001001001','111101111101111','111101111001111'];
+let sn,d,nd,fd,pt,ov=0,ovt=0,run,md=0,col='#6ccf70',best=0,tm;
+try{best=+localStorage.sb||0}catch(e){}
+$('bs').textContent=best;
+const TG=window.Telegram&&window.Telegram.WebApp;
+if(TG){try{TG.ready();TG.expand();TG.disableVerticalSwipes();TG.setBackgroundColor('#000000');TG.setHeaderColor('#000000');
+TG.CloudStorage.getItem('best',(e,v)=>{if(!e&&+v>best){best=+v;$('bs').textContent=best}})}catch(e){}}
+function hp(k){try{k?TG.HapticFeedback.notificationOccurred('error'):TG.HapticFeedback.impactOccurred('light')}catch(e){}}
+['No walls','Walls','Advanced'].forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;
+b.onclick=()=>{md=i;mark();init()};$('md').appendChild(b)});
+function mark(){[...$('md').children].forEach((b,i)=>b.className=i==md?'on':'')}
+$('pl').onclick=()=>init();
+function init(){clearTimeout(tm);sn=[{x:9,y:12},{x:8,y:12},{x:7,y:12}];d=nd={x:1,y:0};pt=0;ov=0;run=0;place();sco();draw()}
+function place(){do fd={x:Math.random()*CO|0,y:Math.random()*RO|0};while(sn.some(s=>s.x==fd.x&&s.y==fd.y))}
+function go(a,b){if(ov){if(Date.now()-ovt<600)return;init()}
+if(a==-d.x&&b==-d.y)return;nd={x:a,y:b};if(!run){run=1;tick()}}
+function die(){ov=1;ovt=Date.now();run=0;
+if(pt>best){best=pt;$('bs').textContent=best;try{localStorage.sb=best;TG.CloudStorage.setItem('best',''+best)}catch(e){}}hp(1);draw()}
+function tick(){d=nd;let x=sn[0].x+d.x,y=sn[0].y+d.y;
+if(md){if(x<0||y<0||x>=CO||y>=RO)return die()}else{x=(x+CO)%CO;y=(y+RO)%RO}
+const a=x==fd.x&&y==fd.y;
+if((a?sn:sn.slice(0,-1)).some(s=>s.x==x&&s.y==y))return die();
+sn.unshift({x,y});if(a){pt+=10;place();sco();hp(0)}else sn.pop();
+draw();tm=setTimeout(tick,md>1?Math.max(60,130-pt*.3):130)}
+function sco(){sg.clearRect(0,0,120,25);sg.fillStyle=col;
+String(pt).padStart(6,'0').split('').forEach((n,i)=>{const p=DG[n];
+for(let r=0;r<5;r++)for(let k=0;k<3;k++)if(p[r*3+k]=='1')sg.fillRect((i*4+k)*5,r*5,4,4)})}
+function draw(){g.fillStyle='#000';g.fillRect(0,0,W,H);
+g.strokeStyle=col;g.lineWidth=5;g.setLineDash(md?[]:[5,6]);g.strokeRect(M-9,M-9,CO*Z+18,RO*Z+18);
+const fx=M+fd.x*Z+Z/2,fy=M+fd.y*Z+Z/2;g.fillStyle='#ffd166';
+[[0,0],[-6,0],[6,0],[0,-6],[0,6]].forEach(([a,b])=>g.fillRect(fx+a-3,fy+b-3,6,6));
+sn.forEach((s,i)=>{const px=M+s.x*Z,py=M+s.y*Z;g.fillStyle=col;g.fillRect(px+1,py+1,Z-2,Z-2);
+if(i%2){g.fillStyle='#0004';g.fillRect(px+7,py+7,6,6)}});
+const h=sn[0],cx=M+h.x*Z+Z/2,cy=M+h.y*Z+Z/2;g.fillStyle='#000';
+for(const s of[-1,1])g.fillRect(cx+d.x*3-d.y*s*4-1.5,cy+d.y*3+d.x*s*4-1.5,3,3);
+if(!run){g.textAlign='center';g.fillStyle=col;g.font='60px sans-serif';g.fillText('✥',W/2,H/2-30);
+g.font='bold 34px "Arial Rounded MT Bold",Arial,sans-serif';g.fillText(ov?'Game over':'Swipe to start',W/2,H/2+30);
+if(ov){g.font='bold 20px Arial,sans-serif';g.fillText('Swipe to restart',W/2,H/2+66)}}}
+let tx,ty,on=0;
+function pos(e){return e.touches?e.touches[0]:e}
+function ts(e){if(e.target.closest('button'))return;const p=pos(e);tx=p.clientX;ty=p.clientY;on=1}
+function tmv(e){if(!on)return;e.preventDefault();const p=pos(e),a=p.clientX-tx,b=p.clientY-ty;
+if(Math.max(Math.abs(a),Math.abs(b))>18){if(Math.abs(a)>Math.abs(b))go(a>0?1:-1,0);else go(0,b>0?1:-1);tx=p.clientX;ty=p.clientY}}
+document.addEventListener('touchstart',ts,{passive:false});
+document.addEventListener('touchmove',tmv,{passive:false});
+document.addEventListener('touchend',()=>on=0);
+document.addEventListener('mousedown',ts);
+document.addEventListener('mousemove',tmv);
+document.addEventListener('mouseup',()=>on=0);
+document.addEventListener('keydown',e=>{const k={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(k){e.preventDefault();go(k[0],k[1])}});
+mark();init();
+</script>
+</body>
+</html>
