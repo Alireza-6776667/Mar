@@ -21,13 +21,22 @@ body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Ari
 #ft small{color:#999;font-size:12px}
 #ft span{text-align:right;color:#999;font-size:10px;letter-spacing:2px}
 #ft span b{color:#6ccf70;font-size:20px;letter-spacing:0}
-#lb{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;padding:40px 20px;gap:8px}
+#lb{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;padding:14px 14px 20px;gap:8px;overflow:auto}
 #lb[hidden]{display:none}
-#lb h3{margin:0 0 10px;font-size:24px}
-#lx{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:12px;border:2px solid #333;background:#1c1c1c;color:#fff;font-size:18px;padding:0}
-.r{width:min(100%,340px);display:flex;justify-content:space-between;padding:10px 14px;border-radius:12px;background:#1c1c1c;font-size:18px}
-.r.me{background:#6ccf70;color:#000}
-.m{margin-top:12px;color:#6ccf70;font-size:16px}
+#lb>*{width:min(100%,460px)}
+#lb h3{margin:0 0 4px;font-size:26px}
+#lx{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:12px;border:2px solid #333;background:#1c1c1c;color:#fff;font-size:18px;padding:0}
+.tb{display:flex;gap:6px}
+.tb button{flex:1;height:40px;border-radius:14px;border:2px solid #333;background:#1c1c1c;color:#aaa;font-size:14px;font-family:inherit;font-weight:bold;padding:0}
+.tb button.on{background:#6ccf70;border-color:#4fa855;color:#000}
+.sum,.r{display:flex;align-items:center;gap:10px;background:#161616;border-radius:18px;padding:12px 14px}
+.sum{justify-content:space-between}.sum b{font-size:20px;display:block}.sum small{color:#999;font-size:12px}
+.sum .st{text-align:center}.sum .st b{color:#6ccf70}
+.r.me{background:#16301c;color:#6ccf70}
+.k{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#999;flex:none}
+.g1{background:#f2d04b;color:#000}.g2{background:#cfcfd4;color:#000}.g3{background:#c4895a;color:#000}
+.av{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#000;flex:none}
+.n{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.sc{font-size:18px}
 </style>
 </head>
 <body>
@@ -37,7 +46,7 @@ body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Ari
 <div id="md"></div>
 <div id="ft"><button id="pl">▶</button><div><b>Snake Game</b><small>Solo</small></div><button id="tp">🏆</button><span>BEST<b id="bs">0</b></span></div>
 </div>
-<div id="lb" hidden><button id="lx">✕</button><h3>🏆 Top players</h3><div id="lr"></div></div>
+<div id="lb" hidden><button id="lx">✕</button><h3>Leaderboard</h3><div class="tb" id="lt"></div><div class="tb" id="lm"></div><div id="lr"></div></div>
 <script>
 const $=i=>document.getElementById(i),c=$('c'),g=c.getContext('2d'),sg=$('sc').getContext('2d');
 const CO=18,RO=24,Z=40,M=40,W=800,H=1040,COL='#6ccf70';
@@ -49,29 +58,40 @@ try{best=+localStorage.sb||0}catch(e){}
 $('bs').textContent=best;
 function hp(k){try{k?TG.HapticFeedback.notificationOccurred('error'):TG.HapticFeedback.impactOccurred('light')}catch(e){}}
 function sync(i,cb){try{TG.Serverless.call('sync',i,(e,r)=>cb&&cb(e,r))}catch(e){cb&&cb(e)}}
-function ab(r){if(r&&r.best>best){best=r.best;$('bs').textContent=best}}
-sync({},(e,r)=>{if(!e)ab(r)});
-function fill(e,r){const o=$('lr');o.textContent='';
-if(e||!r){o.textContent='Leaderboard coming soon';return}
-r.top.forEach(t=>{const x=document.createElement('div');x.className='r'+(t.me?' me':'');
-x.textContent='#'+t.rank+'   '+t.score+(t.me?'  (you)':'');o.appendChild(x)});
-const m=document.createElement('div');m.className='m';
-m.textContent=r.rank?'Your rank: #'+r.rank+'  |  Best '+r.best:'Play a game to get ranked';o.appendChild(m);ab(r)}
-$('tp').onclick=()=>{$('lb').hidden=false;$('lr').textContent='...';sync({},fill)};
+function ab(r){if(r&&r.overall&&r.overall.best>best){best=r.overall.best;$('bs').textContent=best}}
+const E=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+let lp='daily',lm=0,lc=null;
+function row(t){const r=E('div','r'+(t.me?' me':'')),k=E('span','k'+(t.rank<4?' g'+t.rank:''),t.rank),a=E('span','av',(t.name||'?')[0].toUpperCase());
+a.style.background=['#e8584a','#6ccf70','#f2d04b','#5aa9e6','#b784e0'][(t.name||'?').charCodeAt(0)%5];
+r.append(k,a,E('span','n',t.name),E('span','sc',t.score.toLocaleString()));return r}
+function lrender(){const o=$('lr');o.textContent='';
+if(lc===0){o.textContent='...';return}
+const r=lc&&lc[lp];if(!r){o.textContent='Leaderboard coming soon';return}
+const sm=E('div','sum'),a=E('div'),b=E('div','st'),c=E('div','st');
+a.append(E('b','','Snake Game'),E('small','',lp=='daily'?'Everyone, resets at midnight':'All time'));
+b.append(E('b','','#'+(r.rank||'-')),E('small','','YOU'));c.append(E('b','',r.players),E('small','','PLAYERS'));
+sm.append(a,b,c);o.append(sm);
+r.top.forEach(t=>o.append(row(t)));
+if(r.rank>10)o.append(row({rank:r.rank,name:'You',score:r.best,me:1}))}
+function lload(){lc=0;lrender();sync({mode:lm},(e,r)=>{lc=e?null:r;if(!e)ab(r);lrender()})}
+function tabs(id,names,get,set){const o=$(id);o.textContent='';names.forEach((t,i)=>{const b=E('button',get()==i?'on':'',t);b.onclick=()=>{set(i);tabs(id,names,get,set)};o.appendChild(b)})}
+function ltabs(){tabs('lt',['Daily','Overall'],()=>lp=='daily'?0:1,i=>{lp=i?'overall':'daily';lrender()});
+tabs('lm',['No walls','Walls','Advanced'],()=>lm,i=>{lm=i;lload()})}
+$('tp').onclick=()=>{lm=md;$('lb').hidden=false;ltabs();lload()};
 $('lx').onclick=()=>{$('lb').hidden=true};
 ['No walls','Walls','Advanced'].forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;
-b.onclick=()=>{md=i;mark();init()};$('md').appendChild(b)});
+b.onclick=()=>{md=i;mark();init();sync({mode:md},(e,r)=>{if(!e&&r&&r.overall){best=r.overall.best;$('bs').textContent=best}})};$('md').appendChild(b)});
 function mark(){[...$('md').children].forEach((b,i)=>b.className=i==md?'on':'')}
 $('pl').onclick=()=>init();
 function init(){sn=[{x:9,y:12},{x:8,y:12},{x:7,y:12}];lt={x:6,y:12};d=nd={x:1,y:0};q=[];pt=0;ov=0;run=0;place();sco()}
 function place(){do fd={x:Math.random()*CO|0,y:Math.random()*RO|0};while(sn.some(s=>s.x==fd.x&&s.y==fd.y))}
-const sp=()=>md>1?Math.max(70,120-pt*.25):120;
+const sp=()=>md>1?Math.max(60,100-pt*.2):100;
 function go(a,b){if(ov){if(Date.now()-ovt<600)return;init()}
 const l=q.length?q[q.length-1]:d;if((a==l.x&&b==l.y)||(a==-l.x&&b==-l.y))return;
-if(q.length<2)q.push({x:a,y:b});if(!run){run=1;ls=performance.now()-sp()}}
+if(q.length<2)q.push({x:a,y:b});const n=performance.now();if(!run){run=1;ls=n-sp()}else if(q.length==1&&n-ls>=sp()*.45)step(n)}
 function die(){ov=1;ovt=Date.now();run=0;hp(1);
 if(pt>best){best=pt;$('bs').textContent=best;try{localStorage.sb=best}catch(e){}}
-sync({score:pt},(e,r)=>{if(!e)ab(r)})}
+sync({mode:md,score:pt},(e,r)=>{if(!e)ab(r)})}
 function step(n){if(q.length)nd=q.shift();d=nd;let x=sn[0].x+d.x,y=sn[0].y+d.y;
 if(md){if(x<0||y<0||x>=CO||y>=RO)return die()}else{x=(x+CO)%CO;y=(y+RO)%RO}
 const a=x==fd.x&&y==fd.y;
@@ -113,7 +133,7 @@ let tx,ty,on=0;
 function pos(e){return e.touches?e.touches[0]:e}
 function ts(e){if(e.target.closest('button,#lb'))return;const p=pos(e);tx=p.clientX;ty=p.clientY;on=1}
 function tmv(e){if(!on)return;e.preventDefault();const p=pos(e),a=p.clientX-tx,b=p.clientY-ty;
-if(Math.max(Math.abs(a),Math.abs(b))>18){if(Math.abs(a)>Math.abs(b))go(a>0?1:-1,0);else go(0,b>0?1:-1);tx=p.clientX;ty=p.clientY}}
+if(Math.max(Math.abs(a),Math.abs(b))>10){if(Math.abs(a)>Math.abs(b))go(a>0?1:-1,0);else go(0,b>0?1:-1);tx=p.clientX;ty=p.clientY}}
 document.addEventListener('touchstart',ts,{passive:false});
 document.addEventListener('touchmove',tmv,{passive:false});
 document.addEventListener('touchend',()=>on=0);
@@ -121,7 +141,7 @@ document.addEventListener('mousedown',ts);
 document.addEventListener('mousemove',tmv);
 document.addEventListener('mouseup',()=>on=0);
 document.addEventListener('keydown',e=>{const k={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(k){e.preventDefault();go(k[0],k[1])}});
-mark();init();requestAnimationFrame(loop);
+mark();init();sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
 </script>
 </body>
 </html>
