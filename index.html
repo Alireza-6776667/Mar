@@ -94,7 +94,7 @@ body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Ari
 <div id="nbw" hidden><small id="nl"></small><div class="tb" id="nb"></div></div>
 <div class="bt"><button class="big" id="ps">Play solo</button><button id="hl">🏆 Leaderboard</button><span id="bb"></span></div>
 <div id="cs"></div></div>
-<div id="ac" hidden><div class="stk" id="sk1">🦆</div><div id="at"></div></div>
+<div id="ac" hidden><div class="stk" id="sk1">🦆</div><div id="at"></div><small id="at2" style="color:#777;font-size:12px"></small></div>
 <div id="nv"><button class="on" id="n1">Games</button><button id="n2">Activity</button></div></div>
 <div id="st" hidden><button id="sx">✕</button><h3 id="sh">Settings</h3><label id="l1"></label><div class="tb" id="sl"></div><label id="l2"></label><div class="tb" id="sth"></div></div>
 <div id="un" hidden><div class="uh"><button id="ux">‹ Home</button><span id="us"></span></div><div id="ub"></div><div id="um"></div><div id="up" hidden></div><div id="uk"></div></div>
@@ -266,9 +266,15 @@ $('f1').textContent=_('snake');$('f2').textContent=_('solo1');$('bl').textConten
 $('ux').textContent=_('home');$('sh').textContent=_('set');$('l1').textContent=_('lang');$('l2').textContent=_('theme');
 $('nl').textContent=_('nbots');cbuild();mbuild();nbuild();stabs();
 if(!$('lb').hidden){ltabs();lrender()}if(U&&!$('un').hidden)ur();selg(sel)}
-async function lot(el,base){try{let d,r=await fetch(base+'.json');
-if(r.ok)d=await r.json();else{r=await fetch(base+'.tgs');if(!r.ok)return;d=JSON.parse(pako.ungzip(new Uint8Array(await r.arrayBuffer()),{to:'string'}))}
-el.textContent='';lottie.loadAnimation({container:el,renderer:'svg',loop:true,autoplay:true,animationData:d})}catch(e){}}
+async function lot(el,base){let why='';const q='?'+Date.now();try{
+if(typeof lottie=='undefined'){why='lottie library not loaded';throw 0}
+let d,r=await fetch(base+'.json'+q);
+if(r.ok)d=await r.json();else{why=base+'.json: '+r.status;r=await fetch(base+'.tgs'+q);
+if(!r.ok){why+=' | '+base+'.tgs: '+r.status;throw 0}
+if(typeof pako=='undefined'){why='pako not loaded';throw 0}
+d=JSON.parse(pako.ungzip(new Uint8Array(await r.arrayBuffer()),{to:'string'}))}
+el.textContent='';lottie.loadAnimation({container:el,renderer:'svg',loop:true,autoplay:true,animationData:d});$('at2').textContent=''}
+catch(e){$('at2').textContent='Sticker: '+(why||e)}}
 function home(){inG=0;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
 $('hb').onclick=home;
 $('ps').onclick=()=>{if(sel=='uno'){uno();return}inG=1;$('hm').hidden=true;init()};
