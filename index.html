@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>Snake Game</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
 <style>
 :root{--a:#6ccf70;--d:#4fa855;--m:#16301c;--u:#0b1a10}
 *{box-sizing:border-box}
@@ -67,6 +69,7 @@ body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Ari
 .big2{width:100%;height:50px;border-radius:16px;border:0;background:var(--a);font:bold 18px inherit;font-family:inherit}
 .pv{flex:1;display:flex;align-items:center;justify-content:center;width:100%;position:relative;overflow:hidden}
 .pv canvas{width:100%;height:100%;object-fit:contain}
+.stk{width:130px;height:130px;margin:0 auto 10px;font-size:84px;line-height:130px}
 #lb{z-index:8}
 .hh{display:flex;align-items:center;justify-content:space-between}.hh h1{margin:0}.hh span{width:40px}
 #gr,#sx{width:40px;height:40px;border-radius:12px;border:2px solid #333;background:#1c1c1c;color:#fff;font-size:20px;padding:0}
@@ -91,7 +94,7 @@ body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Ari
 <div id="nbw" hidden><small id="nl"></small><div class="tb" id="nb"></div></div>
 <div class="bt"><button class="big" id="ps">Play solo</button><button id="hl">🏆 Leaderboard</button><span id="bb"></span></div>
 <div id="cs"></div></div>
-<div id="ac" hidden></div>
+<div id="ac" hidden><div class="stk" id="sk1">🦆</div><div id="at"></div></div>
 <div id="nv"><button class="on" id="n1">Games</button><button id="n2">Activity</button></div></div>
 <div id="st" hidden><button id="sx">✕</button><h3 id="sh">Settings</h3><label id="l1"></label><div class="tb" id="sl"></div><label id="l2"></label><div class="tb" id="sth"></div></div>
 <div id="un" hidden><div class="uh"><button id="ux">‹ Home</button><span id="us"></span></div><div id="ub"></div><div id="um"></div><div id="up" hidden></div><div id="uk"></div></div>
@@ -252,7 +255,7 @@ function pvU(){const w=E('div');w.style.cssText='position:relative;width:110px;h
 [['#e8453c','7',-22,0],['#f2c230','+2',0,16],['#3b82e0','⊘',22,32]].forEach(([c,t,r,x])=>{const e=E('div','uc2',t);e.style.cssText+=';background:'+c+';position:absolute;left:'+(x+8)+'px;top:6px;transform:rotate('+r+'deg)';w.append(e)});return w}
 function cbuild(){$('cs').textContent='';[[_('snake'),_('arc'),'snake',pvS],['UNO',_('vsb'),'uno',pvU],[_('more'),_('way')]].forEach(([n,d,k,pv])=>{
 const c=E('div','cd'+(k?'':' off')),p=E('div','pv');if(k)c.dataset.k=k;if(pv)p.append(pv());c.append(p,E('span','',n),E('small','',d));if(k)c.onclick=()=>selg(k);$('cs').appendChild(c)})}
-function acs(){$('ac').textContent=_('bestsc')+': '+best+'  |  '+_('unow')+': '+wins()}
+function acs(){$('at').textContent=_('bestsc')+': '+best+'  |  '+_('unow')+': '+wins()}
 function selg(k){sel=k;const u=k=='uno';$('fe').children[0].textContent=u?'UNO':_('snake');
 $('fe').children[1].textContent=u?_('und'):_('snd');$('ps').textContent=u?_('vs'):_('solo');$('hl').textContent=_('lbb');
 $('hl').hidden=u;$('nbw').hidden=!u;$('bb').textContent=u?_('wins')+' '+wins():_('best')+' '+best;
@@ -263,6 +266,9 @@ $('f1').textContent=_('snake');$('f2').textContent=_('solo1');$('bl').textConten
 $('ux').textContent=_('home');$('sh').textContent=_('set');$('l1').textContent=_('lang');$('l2').textContent=_('theme');
 $('nl').textContent=_('nbots');cbuild();mbuild();nbuild();stabs();
 if(!$('lb').hidden){ltabs();lrender()}if(U&&!$('un').hidden)ur();selg(sel)}
+async function lot(el,base){try{let d,r=await fetch(base+'.json');
+if(r.ok)d=await r.json();else{r=await fetch(base+'.tgs');if(!r.ok)return;d=JSON.parse(pako.ungzip(new Uint8Array(await r.arrayBuffer()),{to:'string'}))}
+el.textContent='';lottie.loadAnimation({container:el,renderer:'svg',loop:true,autoplay:true,animationData:d})}catch(e){}}
 function home(){inG=0;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
 $('hb').onclick=home;
 $('ps').onclick=()=>{if(sel=='uno'){uno();return}inG=1;$('hm').hidden=true;init()};
@@ -270,7 +276,7 @@ $('hl').onclick=()=>$('tp').onclick();
 $('n1').onclick=()=>{$('g1').hidden=false;$('ac').hidden=true;$('n1').className='on';$('n2').className=''};
 $('n2').onclick=()=>{$('g1').hidden=true;$('ac').hidden=false;$('n2').className='on';$('n1').className='';acs()};
 
-loadS();mark();init();applyAll();sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
+loadS();mark();init();applyAll();lot($('sk1'),'duck');sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
 </script>
 </body>
 </html>
