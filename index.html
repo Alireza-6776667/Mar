@@ -182,7 +182,7 @@ let sel='snake',U=null,pend=-1;
 const wins=()=>{try{return +localStorage.uw||0}catch(e){return 0}};
 function ucard(c,cls){const e=E('div','uc2 '+(cls||''));e.style.background=UC[c.c];e.textContent=LB[c.v]||c.v;return e}
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
-const top=()=>U.ds[U.ds.length-1],okc=c=>c.c=='W'||c.c==U.cur||c.v==top().v;
+const tc=()=>U.ds[U.ds.length-1],okc=c=>c.c=='W'||c.c==U.cur||c.v==tc().v;
 function udraw(n,p){for(let i=0;i<n;i++){if(!U.dk.length){const t=U.ds.pop();U.dk=shuf(U.ds);U.ds=[t]}if(U.dk.length)U.h[p].push(U.dk.pop())}}
 function uno(){const dk=[];for(const c of 'RYGB'){dk.push({c,v:'0'});for(const v of '123456789SRD'){dk.push({c,v});dk.push({c,v})}}
 for(let i=0;i<4;i++){dk.push({c:'W',v:'W'});dk.push({c:'W',v:'F'})}
@@ -207,7 +207,7 @@ function udeck(){if(U.t!=0||U.w>=0||pend>=0)return;udraw(1,0);U.t=1;ur();unext()
 function ur(){const b=$('ub'),m=$('um'),k=$('uk');b.textContent='';m.textContent='';k.textContent='';
 b.append(E('div','ul','Bot · '+U.h[1].length+' cards'));const bk=E('div','bks');U.h[1].forEach(()=>bk.append(E('div','uc2 bk')));b.append(bk);
 const dk=E('div','uc2 bk','UNO');dk.onclick=udeck;const dot=E('div','cdot');dot.style.background=UC[U.cur];
-m.append(dk,ucard(top(),'tp'),dot);
+m.append(dk,ucard(tc(),'tp'),dot);
 U.h[0].forEach((c,i)=>{const e=ucard(c,U.t==0&&U.w<0&&okc(c)?'':'dim');e.onclick=()=>utap(i);k.append(e)});
 $('us').textContent=U.w>=0?(U.w==0?'You win! 🎉':'Bot wins 😢'):(U.t==0?(U.h[0].length==1?'UNO! ':'')+'Your turn':'Bot is thinking...');
 if(U.w>=0){const r=E('button','big2','Play again');r.onclick=uno;m.append(r)}}
