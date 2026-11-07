@@ -37,6 +37,21 @@ body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Ari
 .g1{background:#f2d04b;color:#000}.g2{background:#cfcfd4;color:#000}.g3{background:#c4895a;color:#000}
 .av{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#000;flex:none}
 .n{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.sc{font-size:18px}
+#hm{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;padding:16px 16px 0;z-index:5}
+#hm[hidden]{display:none}
+#hm h1{margin:6px 0 0;font-size:22px;text-align:center}
+#fe{margin-top:auto}#fe h2{margin:0;font-size:30px}#fe p{margin:4px 0 14px;color:#999}
+.bt{display:flex;gap:10px;margin-bottom:22px;position:relative}
+.bt button{flex:1;height:64px;border-radius:20px;border:3px solid #333;background:#1c1c1c;color:#ccc;font:bold 20px inherit;font-family:inherit}
+.bt .big{background:#6ccf70;border-color:#4fa855;color:#000}
+#bb{position:absolute;right:calc(25% - 34px);top:-26px;background:#fff;color:#000;border-radius:10px;padding:4px 10px;font-size:13px}
+#cs{display:flex;gap:12px;overflow-x:auto;touch-action:pan-x;padding-bottom:14px}
+.cd{flex:none;width:150px;height:190px;border-radius:24px;border:3px solid #222;background:#111;padding:14px;display:flex;flex-direction:column;justify-content:flex-end;font-size:22px;font-weight:bold}
+.cd small{font-size:13px;color:#6ccf70;font-weight:normal}.cd.off{opacity:.5}.cd.sel{border-color:#6ccf70}
+#nv{display:flex;border-top:1px solid #222;margin:0 -16px}
+#nv button{flex:1;height:64px;background:none;border:0;color:#777;font:bold 17px inherit;font-family:inherit}
+#nv button.on{color:#fff}
+#ac{margin:auto 0;text-align:center;font-size:20px;line-height:2}
 </style>
 </head>
 <body>
@@ -44,14 +59,20 @@ body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Ari
 <canvas id="sc" width="120" height="25"></canvas>
 <canvas id="c" width="800" height="1040"></canvas>
 <div id="md"></div>
-<div id="ft"><button id="pl">▶</button><div><b>Snake Game</b><small>Solo</small></div><button id="tp">🏆</button><span>BEST<b id="bs">0</b></span></div>
+<div id="ft"><button id="hb">⌂</button><button id="pl">▶</button><div><b>Snake Game</b><small>Solo</small></div><button id="tp">🏆</button><span>BEST<b id="bs">0</b></span></div>
 </div>
+<div id="hm"><h1>Mar Games</h1>
+<div id="g1" style="display:flex;flex-direction:column;flex:1"><div id="fe"><h2>Snake Game</h2><p>Eat, grow and don't bite your tail.</p></div>
+<div class="bt"><button class="big" id="ps">Play solo</button><button id="hl">🏆 Leaderboard</button><span id="bb"></span></div>
+<div id="cs"></div></div>
+<div id="ac" hidden></div>
+<div id="nv"><button class="on" id="n1">Games</button><button id="n2">Activity</button></div></div>
 <div id="lb" hidden><button id="lx">✕</button><h3>Leaderboard</h3><div class="tb" id="lt"></div><div class="tb" id="lm"></div><div id="lr"></div></div>
 <script>
 const $=i=>document.getElementById(i),c=$('c'),g=c.getContext('2d'),sg=$('sc').getContext('2d');
 const CO=18,RO=24,Z=40,M=40,W=800,H=1040,COL='#6ccf70';
 const DG=['111101101101111','010110010010111','111001111100111','111001111001111','101101111001001','111100111001111','111100111101111','111001001001001','111101111101111','111101111001111'];
-let sn,d,nd,q,fd,pt,ov=0,ovt=0,run=0,md=0,best=0,ls=0,lt=null;
+let inG=0,sn,d,nd,q,fd,pt,ov=0,ovt=0,run=0,md=0,best=0,ls=0,lt=null;
 const TG=window.Telegram&&window.Telegram.WebApp;
 if(TG){try{TG.ready();TG.expand();TG.disableVerticalSwipes();TG.setBackgroundColor('#000000');TG.setHeaderColor('#000000')}catch(e){}}
 try{best=+localStorage.sb||0}catch(e){}
@@ -80,13 +101,20 @@ tabs('lm',['No walls','Walls','Advanced'],()=>lm,i=>{lm=i;lload()})}
 $('tp').onclick=()=>{lm=md;$('lb').hidden=false;ltabs();lload()};
 $('lx').onclick=()=>{$('lb').hidden=true};
 ['No walls','Walls','Advanced'].forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;
-b.onclick=()=>{md=i;mark();init();sync({mode:md},(e,r)=>{if(!e&&r&&r.overall){best=r.overall.best;$('bs').textContent=best}})};$('md').appendChild(b)});
+b.onclick=()=>{md=i;function home(){inG=0;$('hm').hidden=false;$('bb').textContent='Best '+best;$('ac').textContent='Best score: '+best}
+$('hb').onclick=home;
+$('ps').onclick=()=>{inG=1;$('hm').hidden=true;init()};
+$('hl').onclick=()=>$('tp').onclick();
+$('n1').onclick=()=>{$('g1').hidden=false;$('ac').hidden=true;$('n1').className='on';$('n2').className=''};
+$('n2').onclick=()=>{$('g1').hidden=true;$('ac').hidden=false;$('n2').className='on';$('n1').className='';$('ac').textContent='Best score: '+best};
+[['Snake','Classic arcade',1],['Cards','Coming soon'],['More','On its way']].forEach(([n,d,on])=>{const c=E('div','cd'+(on?' sel':' off'));c.append(E('span','',n),E('small','',d));$('cs').appendChild(c)});
+mark();init();home();sync({mode:md},(e,r)=>{if(!e&&r&&r.overall){best=r.overall.best;$('bs').textContent=best}})};$('md').appendChild(b)});
 function mark(){[...$('md').children].forEach((b,i)=>b.className=i==md?'on':'')}
 $('pl').onclick=()=>init();
 function init(){sn=[{x:9,y:12},{x:8,y:12},{x:7,y:12}];lt={x:6,y:12};d=nd={x:1,y:0};q=[];pt=0;ov=0;run=0;place();sco()}
 function place(){do fd={x:Math.random()*CO|0,y:Math.random()*RO|0};while(sn.some(s=>s.x==fd.x&&s.y==fd.y))}
 const sp=()=>md>1?Math.max(60,100-pt*.2):100;
-function go(a,b){if(ov){if(Date.now()-ovt<600)return;init()}
+function go(a,b){if(!inG)return;if(ov){if(Date.now()-ovt<600)return;init()}
 const l=q.length?q[q.length-1]:d;if((a==l.x&&b==l.y)||(a==-l.x&&b==-l.y))return;
 if(q.length<2)q.push({x:a,y:b});const n=performance.now();if(!run){run=1;ls=n-sp()}else if(q.length==1&&n-ls>=sp()*.45)step(n)}
 function die(){ov=1;ovt=Date.now();run=0;hp(1);
@@ -132,8 +160,8 @@ function loop(n){requestAnimationFrame(loop);if(run&&n-ls>=sp())step(n);render(n
 let tx,ty,on=0;
 function pos(e){return e.touches?e.touches[0]:e}
 function ts(e){if(e.target.closest('button,#lb'))return;const p=pos(e);tx=p.clientX;ty=p.clientY;on=1}
-function tmv(e){if(!on)return;e.preventDefault();const p=pos(e),a=p.clientX-tx,b=p.clientY-ty;
-if(Math.max(Math.abs(a),Math.abs(b))>10){if(Math.abs(a)>Math.abs(b))go(a>0?1:-1,0);else go(0,b>0?1:-1);tx=p.clientX;ty=p.clientY}}
+function tmv(e){if(!on||!inG)return;e.preventDefault();const p=pos(e),a=p.clientX-tx,b=p.clientY-ty,x=Math.abs(a),y=Math.abs(b);
+if(Math.max(x,y)>20&&(x>y*1.5||y>x*1.5)){if(x>y)go(a>0?1:-1,0);else go(0,b>0?1:-1);tx=p.clientX;ty=p.clientY}}
 document.addEventListener('touchstart',ts,{passive:false});
 document.addEventListener('touchmove',tmv,{passive:false});
 document.addEventListener('touchend',()=>on=0);
