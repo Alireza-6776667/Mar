@@ -101,14 +101,7 @@ tabs('lm',['No walls','Walls','Advanced'],()=>lm,i=>{lm=i;lload()})}
 $('tp').onclick=()=>{lm=md;$('lb').hidden=false;ltabs();lload()};
 $('lx').onclick=()=>{$('lb').hidden=true};
 ['No walls','Walls','Advanced'].forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;
-b.onclick=()=>{md=i;function home(){inG=0;$('hm').hidden=false;$('bb').textContent='Best '+best;$('ac').textContent='Best score: '+best}
-$('hb').onclick=home;
-$('ps').onclick=()=>{inG=1;$('hm').hidden=true;init()};
-$('hl').onclick=()=>$('tp').onclick();
-$('n1').onclick=()=>{$('g1').hidden=false;$('ac').hidden=true;$('n1').className='on';$('n2').className=''};
-$('n2').onclick=()=>{$('g1').hidden=true;$('ac').hidden=false;$('n2').className='on';$('n1').className='';$('ac').textContent='Best score: '+best};
-[['Snake','Classic arcade',1],['Cards','Coming soon'],['More','On its way']].forEach(([n,d,on])=>{const c=E('div','cd'+(on?' sel':' off'));c.append(E('span','',n),E('small','',d));$('cs').appendChild(c)});
-mark();init();home();sync({mode:md},(e,r)=>{if(!e&&r&&r.overall){best=r.overall.best;$('bs').textContent=best}})};$('md').appendChild(b)});
+b.onclick=()=>{md=i;mark();init();sync({mode:md},(e,r)=>{if(!e&&r&&r.overall){best=r.overall.best;$('bs').textContent=best}})};$('md').appendChild(b)});
 function mark(){[...$('md').children].forEach((b,i)=>b.className=i==md?'on':'')}
 $('pl').onclick=()=>init();
 function init(){sn=[{x:9,y:12},{x:8,y:12},{x:7,y:12}];lt={x:6,y:12};d=nd={x:1,y:0};q=[];pt=0;ov=0;run=0;place();sco()}
@@ -169,7 +162,14 @@ document.addEventListener('mousedown',ts);
 document.addEventListener('mousemove',tmv);
 document.addEventListener('mouseup',()=>on=0);
 document.addEventListener('keydown',e=>{const k={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(k){e.preventDefault();go(k[0],k[1])}});
-mark();init();sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
+function home(){inG=0;$('hm').hidden=false;$('bb').textContent='Best '+best;$('ac').textContent='Best score: '+best}
+$('hb').onclick=home;
+$('ps').onclick=()=>{inG=1;$('hm').hidden=true;init()};
+$('hl').onclick=()=>$('tp').onclick();
+$('n1').onclick=()=>{$('g1').hidden=false;$('ac').hidden=true;$('n1').className='on';$('n2').className=''};
+$('n2').onclick=()=>{$('g1').hidden=true;$('ac').hidden=false;$('n2').className='on';$('n1').className='';$('ac').textContent='Best score: '+best};
+[['Snake','Classic arcade',1],['Cards','Coming soon'],['More','On its way']].forEach(([n,d,on])=>{const c=E('div','cd'+(on?' sel':' off'));c.append(E('span','',n),E('small','',d));$('cs').appendChild(c)});
+mark();init();home();sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
 </script>
 </body>
 </html>
