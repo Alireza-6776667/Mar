@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>Snake Game</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
+<script>window.Peer||document.write('<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"><\/script>')</script>
 <style>
 :root{--a:#6ccf70;--d:#4fa855;--m:#16301c;--u:#0b1a10}
 *{box-sizing:border-box}
@@ -69,8 +69,10 @@ body{margin:0;background:#000;color:#fff;font-family:ui-rounded,"SF Pro Rounded"
 .big2{width:100%;height:50px;border-radius:16px;border:0;background:var(--a);font:bold 18px inherit;font-family:inherit}
 .pv{flex:1;display:flex;align-items:center;justify-content:center;width:100%;position:relative;overflow:hidden}
 .pv canvas{width:100%;height:100%;object-fit:contain}
-.stk{width:130px;height:130px;margin:0 auto 10px;font-size:84px;line-height:130px}
-#sd{font-size:12px;color:#777;margin-top:6px}
+#lby{position:fixed;inset:0;background:#000;z-index:7;display:flex;flex-direction:column;padding:16px;gap:10px;align-items:center;overflow:auto}
+#lby[hidden]{display:none}#lby>*{width:min(100%,460px)}#lby h3{margin:0;font-size:26px;text-align:center}
+#lby small{color:#999;text-align:center}.code{font-size:46px;font-weight:800;letter-spacing:8px;text-align:center;color:var(--a)}
+.sec{height:44px;border-radius:12px;border:2px solid #333;background:#1c1c1c;color:#fff;font-size:20px;padding:0}
 #lb{z-index:8}
 .hh{display:flex;align-items:center;justify-content:space-between}.hh h1{margin:0}.hh>span{width:46px}
 #gr,#sx{width:40px;height:40px;border-radius:12px;border:2px solid #333;background:#1c1c1c;color:#fff;font-size:20px;padding:0}
@@ -103,9 +105,10 @@ body{margin:0;background:#000;color:#fff;font-family:ui-rounded,"SF Pro Rounded"
 <div id="nbw" hidden><small id="nl"></small><div class="tb" id="nb"></div></div>
 <div class="bt"><button class="big" id="ps">Play solo</button><button id="hl">🏆 Leaderboard</button><span id="bb"></span></div>
 <div id="cs"></div></div>
-<div id="ac" hidden><div class="stk" id="sk1">🦆</div><div id="at"></div><div id="sd"></div></div>
+<div id="ac" hidden><div id="at"></div></div>
 <div id="nv"><button class="on" id="n1">Games</button><button id="n2">Activity</button></div></div>
 <div id="st" hidden><button id="sx">✕</button><h3 id="sh">Settings</h3><label id="l1"></label><div class="tb" id="sl"></div><label id="l2"></label><div class="tb" id="sth"></div></div>
+<div id="lby" hidden></div>
 <div id="un" hidden><div class="uh"><button id="ux">‹ Home</button><span id="us"></span></div><div id="ub"></div><div id="um"></div><div id="up" hidden></div><div id="uk"></div></div>
 <div id="lb" hidden><button id="lx">✕</button><h3 id="lh">Leaderboard</h3><div class="tb" id="lt"></div><div class="tb" id="lm"></div><div id="lr"></div></div>
 <script>
@@ -200,8 +203,8 @@ document.addEventListener('mousedown',ts);
 document.addEventListener('mousemove',tmv);
 document.addEventListener('mouseup',()=>on=0);
 document.addEventListener('keydown',e=>{const k={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(k){e.preventDefault();go(k[0],k[1])}});
-const L={en:{title:'gameVex',games:'Games',activity:'Activity',snake:'Snake Game',snd:"Eat, grow and don't bite your tail.",solo:'Play solo',solo1:'Solo',lbb:'🏆 Leaderboard',best:'Best',bestl:'BEST',wins:'Wins',vs:'Play vs Bots',und:'Beat the bots. Match colors or numbers.',arc:'Classic arcade',vsb:'Play vs bots',more:'More',way:'On its way',start:'Swipe to start',over:'Game over',rest:'Swipe to restart',soon:'Leaderboard coming soon',every:'Everyone, resets at midnight',all:'All time',you:'YOU',players:'PLAYERS',youn:'You',daily:'Daily',overall:'Overall',nw:'No walls',w:'Walls',adv:'Advanced',lead:'Leaderboard',home:'‹ Home',bot:'Bot',cards:'cards',win:'You win! 🎉',lose:'You lost 😢',turn:'Your turn',think:'Bots are playing...',again:'Play again',set:'Settings',lang:'Language',theme:'Theme',tw:'White',tg:'Green',ty:'Yellow',nbots:'Number of bots',bestsc:'Best score',unow:'UNO wins'},
-fa:{title:'gameVex',games:'بازی‌ها',activity:'فعالیت',snake:'بازی مار',snd:'بخور، بزرگ شو و دمت را گاز نگیر.',solo:'بازی تک‌نفره',solo1:'تک‌نفره',lbb:'🏆 جدول امتیاز',best:'بهترین',bestl:'بهترین',wins:'برد',vs:'بازی با بات‌ها',und:'بات‌ها را شکست بده. رنگ یا عدد را هماهنگ کن.',arc:'آرکید کلاسیک',vsb:'بازی با بات‌ها',more:'بیشتر',way:'به‌زودی',start:'برای شروع بکش',over:'باختی',rest:'برای شروع دوباره بکش',soon:'جدول امتیاز به‌زودی',every:'همه، نیمه‌شب صفر می‌شود',all:'کل زمان',you:'شما',players:'بازیکن',youn:'شما',daily:'روزانه',overall:'کلی',nw:'بدون دیوار',w:'دیوار',adv:'پیشرفته',lead:'جدول امتیاز',home:'‹ خانه',bot:'بات',cards:'کارت',win:'تو بردی! 🎉',lose:'باختی 😢',turn:'نوبت توست',think:'بات‌ها بازی می‌کنند...',again:'بازی دوباره',set:'تنظیمات',lang:'زبان',theme:'تم',tw:'سفید',tg:'سبز',ty:'زرد',nbots:'تعداد بات',bestsc:'بهترین امتیاز',unow:'بردهای UNO'}};
+const L={en:{title:'gameVex',games:'Games',activity:'Activity',snake:'Snake Game',snd:"Eat, grow and don't bite your tail.",solo:'Play solo',solo1:'Solo',lbb:'🏆 Leaderboard',best:'Best',bestl:'BEST',wins:'Wins',vs:'Play vs Bots',und:'Beat the bots. Match colors or numbers.',arc:'Classic arcade',vsb:'Play vs bots',more:'More',way:'On its way',start:'Swipe to start',over:'Game over',rest:'Swipe to restart',soon:'Leaderboard coming soon',every:'Everyone, resets at midnight',all:'All time',you:'YOU',players:'PLAYERS',youn:'You',daily:'Daily',overall:'Overall',nw:'No walls',w:'Walls',adv:'Advanced',lead:'Leaderboard',home:'‹ Home',bot:'Bot',cards:'cards',win:'You win! 🎉',lose:'You lost 😢',turn:'Your turn',think:'Bots are playing...',again:'Play again',set:'Settings',lang:'Language',theme:'Theme',tw:'White',tg:'Green',ty:'Yellow',nbots:'Number of bots',bestsc:'Best score',unow:'UNO wins',inv:'Invite friends',friends:'Play with friends',share:'Share invite link',startg:'Start game',waitho:'Waiting for the host...',botsl:'Bots',invtxt:'Join my UNO game!',left:'Disconnected',started:'Game already started',plays:'is playing...',wonb:'wins'},
+fa:{title:'gameVex',games:'بازی‌ها',activity:'فعالیت',snake:'بازی مار',snd:'بخور، بزرگ شو و دمت را گاز نگیر.',solo:'بازی تک‌نفره',solo1:'تک‌نفره',lbb:'🏆 جدول امتیاز',best:'بهترین',bestl:'بهترین',wins:'برد',vs:'بازی با بات‌ها',und:'بات‌ها را شکست بده. رنگ یا عدد را هماهنگ کن.',arc:'آرکید کلاسیک',vsb:'بازی با بات‌ها',more:'بیشتر',way:'به‌زودی',start:'برای شروع بکش',over:'باختی',rest:'برای شروع دوباره بکش',soon:'جدول امتیاز به‌زودی',every:'همه، نیمه‌شب صفر می‌شود',all:'کل زمان',you:'شما',players:'بازیکن',youn:'شما',daily:'روزانه',overall:'کلی',nw:'بدون دیوار',w:'دیوار',adv:'پیشرفته',lead:'جدول امتیاز',home:'‹ خانه',bot:'بات',cards:'کارت',win:'تو بردی! 🎉',lose:'باختی 😢',turn:'نوبت توست',think:'بات‌ها بازی می‌کنند...',again:'بازی دوباره',set:'تنظیمات',lang:'زبان',theme:'تم',tw:'سفید',tg:'سبز',ty:'زرد',nbots:'تعداد بات',bestsc:'بهترین امتیاز',unow:'بردهای UNO',inv:'دعوت دوستان',friends:'بازی با دوستان',share:'ارسال لینک دعوت',startg:'شروع بازی',waitho:'منتظر میزبان...',botsl:'بات‌ها',invtxt:'بیا با هم UNO بازی کنیم!',left:'اتصال قطع شد',started:'بازی شروع شده',plays:'در حال بازی...',wonb:'برنده شد'}};
 const TH={green:['#6ccf70','#4fa855','#16301c','#0b1a10'],white:['#e8e8e8','#bdbdbd','#2a2a2a','#111'],yellow:['#e3c35c','#b99a38','#2d2711','#15120a']};
 let lg='en',th='green',nb=1,sel='snake',U=null,pend=-1;
 const _=k=>(L[lg]&&L[lg][k])||L.en[k]||k;
@@ -216,41 +219,77 @@ function mbuild(){$('md').textContent='';[_('nw'),_('w'),_('adv')].forEach((n,i)
 b.onclick=()=>{md=i;mark();init();sync({mode:md},(e,r)=>{if(!e&&r&&r.overall){best=r.overall.best;$('bs').textContent=best}})};$('md').appendChild(b)});mark()}
 function ucard(c,cls){const e=E('div','uc2 '+(cls||''));e.style.background=UC[c.c];e.textContent=LB[c.v]||c.v;return e}
 const UC={R:'#e8453c',Y:'#f2c230',G:'#3fae5a',B:'#3b82e0',W:'#222'},LB={S:'⊘',R:'⇄',D:'+2',W:'★',F:'+4'};
+let NET=null,V=null;
+const myn=()=>{try{return String(TG.initDataUnsafe.user.first_name||'Player').slice(0,14)}catch(e){return 'Player'}};
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
-const tc=()=>U.ds[U.ds.length-1],okc=c=>c.c=='W'||c.c==U.cur||c.v==tc().v;
+const tc=()=>U.ds[U.ds.length-1],okc=c=>c.c=='W'||c.c==U.cur||c.v==tc().v,okv=c=>c.c=='W'||c.c==V.cur||c.v==V.tp.v;
 const nx=(p,s=1)=>(((p+U.dr*s)%U.n)+U.n)%U.n;
 function udraw(n,p){for(let i=0;i<n;i++){if(!U.dk.length){const t=U.ds.pop();U.dk=shuf(U.ds);U.ds=[t]}if(U.dk.length)U.h[p].push(U.dk.pop())}}
-function uno(){const dk=[];for(const c of 'RYGB'){dk.push({c,v:'0'});for(const v of '123456789SRD'){dk.push({c,v});dk.push({c,v})}}
+function ugame(ty,nm){const dk=[];for(const c of 'RYGB'){dk.push({c,v:'0'});for(const v of '123456789SRD'){dk.push({c,v});dk.push({c,v})}}
 for(let i=0;i<4;i++){dk.push({c:'W',v:'W'});dk.push({c:'W',v:'F'})}
-shuf(dk);U={dk,ds:[],h:[],t:0,w:-1,cur:'',dr:1,n:nb+1};pend=-1;$('up').hidden=true;
+shuf(dk);U={dk,ds:[],h:[],t:0,w:-1,cur:'',dr:1,n:ty.length,ty,nm};pend=-1;$('up').hidden=true;
 for(let i=0;i<U.n;i++){U.h.push([]);udraw(7,i)}
 let f;for(;;){f=U.dk.pop();if(f.c=='W'||isNaN(f.v))U.dk.unshift(f);else break}
-U.ds.push(f);U.cur=f.c;$('un').hidden=false;$('hm').hidden=true;inG=0;ur()}
+U.ds.push(f);U.cur=f.c;$('un').hidden=false;$('hm').hidden=true;$('lby').hidden=true;inG=0;ur()}
+function uno(){NET=null;ugame(['h',...Array(nb).fill('b')],[myn(),...Array.from({length:nb},(x,i)=>_('bot')+' '+(i+1))])}
+function hostStart(){const pr=NET.peers.filter(p=>p.conn.open),bn=Math.min(NET.bots,5-1-pr.length);
+NET.seats=[null,...pr];ugame(['h',...pr.map(()=>'h'),...Array(bn).fill('b')],[myn(),...pr.map(p=>p.name),...Array.from({length:bn},(x,i)=>_('bot')+' '+(i+1))])}
 function uplay(p,i,col){const c=U.h[p].splice(i,1)[0];U.ds.push(c);U.cur=c.c=='W'?col:c.c;let sk=0;
 if(c.v=='R'){if(U.n==2)sk=1;else U.dr*=-1}else if(c.v=='S')sk=1;
 else if(c.v=='D'){udraw(2,nx(p));sk=1}else if(c.v=='F'){udraw(4,nx(p));sk=1}
 if(!U.h[p].length){U.w=p;if(!p)try{localStorage.uw=wins()+1}catch(e){}ur();return}
 U.t=nx(p,sk?2:1);ur();unext()}
-function unext(){if(U.t!=0&&U.w<0)setTimeout(()=>ubot(U.t),900)}
-function ubot(p){if(U.w>=0||U.t!=p)return;const h=U.h[p],ok=[];h.forEach((c,i)=>{if(okc(c))ok.push(i)});
+function unext(){if(U.w<0&&U.ty[U.t]=='b'){const p=U.t;setTimeout(()=>ubot(p),900)}}
+function ubot(p){if(!U||U.w>=0||U.t!=p||U.ty[p]!='b')return;const h=U.h[p],ok=[];h.forEach((c,i)=>{if(okc(c))ok.push(i)});
 if(!ok.length){udraw(1,p);U.t=nx(p);ur();unext();return}
 const nw=ok.filter(i=>h[i].c!='W'),pl=nw.length?nw:ok,i=pl[Math.random()*pl.length|0];
 let col='RYGB'[Math.random()*4|0];const cn={R:0,Y:0,G:0,B:0};h.forEach((c,k)=>{if(k!=i&&c.c!='W')cn[c.c]++});
 const m=Object.keys(cn).sort((a,b)=>cn[b]-cn[a])[0];if(cn[m]>0)col=m;
 uplay(p,i,col)}
-function utap(i){if(U.t!=0||U.w>=0||pend>=0)return;const c=U.h[0][i];if(!okc(c))return;
-if(c.c=='W'){pend=i;$('up').hidden=false;return}uplay(0,i)}
-function upick(col){const i=pend;pend=-1;$('up').hidden=true;uplay(0,i,col)}
-function udeck(){if(U.t!=0||U.w>=0||pend>=0)return;udraw(1,0);U.t=nx(0);ur();unext()}
-function ur(){const b=$('ub'),m=$('um'),k=$('uk');b.textContent='';m.textContent='';k.textContent='';
-for(let i=1;i<U.n;i++){const x=E('div','bx'+(U.t==i&&U.w<0?' act':''));
-x.append(E('div','ul',_('bot')+(U.n>2?' '+i:'')+' · '+U.h[i].length+' '+_('cards')));
-const bk=E('div','bks');U.h[i].slice(0,12).forEach(()=>bk.append(E('div','uc2 bk')));x.append(bk);b.append(x)}
-const dk=E('div','uc2 bk','UNO');dk.onclick=udeck;const dot=E('div','cdot');dot.style.background=UC[U.cur];
-m.append(dk,ucard(tc(),'tp'),dot,E('div','',U.dr>0?'↻':'↺'));
-U.h[0].forEach((c,i)=>{const e=ucard(c,U.t==0&&U.w<0&&okc(c)?'':'dim');e.onclick=()=>utap(i);k.append(e)});
-$('us').textContent=U.w>=0?(U.w==0?_('win'):_('lose')):(U.t==0?(U.h[0].length==1?'UNO! ':'')+_('turn'):_('think'));
-if(U.w>=0){const r=E('button','big2',_('again'));r.onclick=uno;m.append(r)}}
+function hact(s,a){if(!U||U.w>=0||U.t!=s)return;
+if(a.a=='draw'){udraw(1,s);U.t=nx(s);ur();unext()}
+else if(a.a=='play'){const c=U.h[s][a.i];if(!c||!okc(c)||(c.c=='W'&&!'RYGB'.includes(a.col)))return;uplay(s,a.i,a.col)}}
+function act(a){if(NET&&NET.role=='guest'){try{NET.conn.send(a)}catch(e){}}else hact(0,a)}
+function utap(i){if(!V||V.t!=V.me||V.w>=0||pend>=0)return;const c=V.hand[i];if(!okv(c))return;
+if(c.c=='W'){pend=i;$('up').hidden=false;return}act({a:'play',i})}
+function upick(col){const i=pend;pend=-1;$('up').hidden=true;act({a:'play',i,col})}
+function udeck(){if(!V||V.t!=V.me||V.w>=0||pend>=0)return;act({a:'draw'})}
+const mkv=s=>({me:s,nm:U.nm,cnt:U.h.map(h=>h.length),hand:U.h[s],tp:tc(),cur:U.cur,t:U.t,dr:U.dr,w:U.w});
+function ur(){V=mkv(0);rv();if(NET&&NET.role=='host')NET.seats.forEach((s,i)=>{if(s&&s.conn.open)s.conn.send({v:mkv(i)})})}
+function rv(){const b=$('ub'),m=$('um'),k=$('uk');b.textContent='';m.textContent='';k.textContent='';
+V.nm.forEach((n,i)=>{if(i==V.me)return;const x=E('div','bx'+(V.t==i&&V.w<0?' act':''));
+x.append(E('div','ul',n+' · '+V.cnt[i]+' '+_('cards')));
+const bk=E('div','bks');for(let j=0;j<Math.min(12,V.cnt[i]);j++)bk.append(E('div','uc2 bk'));x.append(bk);b.append(x)});
+const dk=E('div','uc2 bk','UNO');dk.onclick=udeck;const dot=E('div','cdot');dot.style.background=UC[V.cur];
+m.append(dk,ucard(V.tp,'tp'),dot,E('div','',V.dr>0?'↻':'↺'));
+V.hand.forEach((c,i)=>{const e=ucard(c,V.t==V.me&&V.w<0&&okv(c)?'':'dim');e.onclick=()=>utap(i);k.append(e)});
+$('us').textContent=V.w>=0?(V.w==V.me?_('win'):V.nm[V.w]+' '+_('wonb')):(V.t==V.me?(V.hand.length==1?'UNO! ':'')+_('turn'):V.nm[V.t]+' '+_('plays'));
+$('un').hidden=false;
+if(V.w>=0&&(!NET||NET.role=='host')){const r=E('button','big2',_('again'));r.onclick=()=>NET?hostStart():uno();m.append(r)}}
+function lbc(){const nm=[myn(),...NET.peers.map(p=>p.name)];NET.peers.forEach(p=>{try{p.conn.send({lob:{nm}})}catch(e){}});NET.lob={nm};lrv()}
+function hostRoom(){if(NET)return;if(typeof Peer=='undefined'){NET={role:'host',code:'-----',peers:[],bots:0,seats:[],msg:'connection library did not load'};lrv();return}const code=Math.random().toString(36).slice(2,7);NET={role:'host',code,peers:[],bots:1,seats:[]};lrv();
+const pe=new Peer('gvuno-'+code);NET.peer=pe;pe.on('error',e=>{NET.msg=e.type;lrv()});
+pe.on('connection',c=>{c.on('data',d=>{
+if(d.a=='join'){if(U||NET.peers.length>=4){c.send({err:'started'});return}NET.peers.push({conn:c,name:String(d.name||'Player').slice(0,14)});lbc()}
+else if(d.a=='play'||d.a=='draw'){const s=NET.seats.findIndex(x=>x&&x.conn===c);if(s>0)hact(s,d)}});
+c.on('close',()=>{const s=NET.seats.findIndex(x=>x&&x.conn===c);NET.peers=NET.peers.filter(p=>p.conn!==c);
+if(U&&s>0&&U.w<0){U.ty[s]='b';U.nm[s]+=' (bot)';ur();unext()}else if(!U)lbc()})})}
+function joinRoom(code){if(NET)return;if(typeof Peer=='undefined'){NET={role:'guest',code,msg:'connection library did not load'};lrv();return}NET={role:'guest',code};lrv();const pe=new Peer();NET.peer=pe;
+pe.on('error',e=>{NET.msg=e.type;lrv()});
+pe.on('open',()=>{const c=pe.connect('gvuno-'+code,{reliable:true});NET.conn=c;
+c.on('open',()=>c.send({a:'join',name:myn()}));
+c.on('data',d=>{if(d.v){V=d.v;$('lby').hidden=true;$('hm').hidden=true;rv()}else if(d.lob){NET.lob=d.lob;lrv()}else if(d.err){NET.msg=_('started');lrv()}});
+c.on('close',()=>{NET.msg=_('left');if(V&&!$('un').hidden)$('us').textContent=_('left');else lrv()})})}
+function shareInv(){const u=location.href.split('?')[0]+'?room='+NET.code,x='https://t.me/share/url?url='+encodeURIComponent(u)+'&text='+encodeURIComponent(_('invtxt'));
+try{TG.openTelegramLink(x)}catch(e){try{navigator.share({title:'UNO',text:_('invtxt'),url:u})}catch(e2){prompt('',u)}}}
+function lrv(){const o=$('lby'),h=NET.role=='host';o.textContent='';o.hidden=false;$('hm').hidden=true;
+const bk=E('button','sec','‹');bk.style.width='48px';bk.onclick=home;o.append(bk,E('h3','',_('friends')),E('div','code',NET.code.toUpperCase()));
+((h?[myn(),...NET.peers.map(p=>p.name)]:(NET.lob?NET.lob.nm:[])).forEach((n,i)=>o.append(E('div','r',(i?'':'👑 ')+n))));
+if(NET.msg)o.append(E('small','',NET.msg));
+if(h){const s=E('button','big2',_('share'));s.onclick=shareInv;o.append(s,E('small','',_('botsl')),E('div','tb'));
+o.lastChild.id='lbt';tabs('lbt',['0','1','2','3'],()=>NET.bots,i=>{NET.bots=i});
+const g=E('button','big2',_('startg'));g.onclick=()=>{if(NET.peers.length+NET.bots>0)hostStart()};o.append(g)}
+else o.append(E('small','',_('waitho')))}
 ['R','Y','G','B'].forEach(c=>{const b=E('button');b.style.background=UC[c];b.onclick=()=>upick(c);$('up').append(b)});
 $('ux').onclick=()=>home();
 function gear(){let d='';for(let k=0;k<8;k++){const a=k*Math.PI/4;[[7.2,-16],[10,-9],[10,9],[7.2,16]].forEach(([r,o],j)=>{const t=a+o*Math.PI/180;d+=(k||j?'L':'M')+(r*Math.cos(t)).toFixed(2)+' '+(r*Math.sin(t)).toFixed(2)})}
@@ -269,32 +308,22 @@ function cbuild(){$('cs').textContent='';[[_('snake'),_('arc'),'snake',pvS],['UN
 const c=E('div','cd'+(k?'':' off')),p=E('div','pv');if(k)c.dataset.k=k;if(pv)p.append(pv());c.append(p,E('span','',n),E('small','',d));if(k)c.onclick=()=>selg(k);$('cs').appendChild(c)})}
 function acs(){$('at').textContent=_('bestsc')+': '+best+'  |  '+_('unow')+': '+wins()}
 function selg(k){sel=k;const u=k=='uno';$('fe').children[0].textContent=u?'UNO':_('snake');
-$('fe').children[1].textContent=u?_('und'):_('snd');$('ps').textContent=u?_('vs'):_('solo');$('hl').textContent=_('lbb');
-$('hl').hidden=u;$('nbw').hidden=!u;$('bb').textContent=u?_('wins')+' '+wins():_('best')+' '+best;
+$('fe').children[1].textContent=u?_('und'):_('snd');$('ps').textContent=u?_('vs'):_('solo');$('hl').textContent=u?_('inv'):_('lbb');$('nbw').hidden=!u;$('bb').textContent=u?_('wins')+' '+wins():_('best')+' '+best;
 [...$('cs').children].forEach(c=>c.classList.toggle('sel',c.dataset.k==k));acs()}
 function applyAll(){theme();document.title=_('title');
 $('hh').innerHTML='game<span class="vx">Vex</span>';$('n1').textContent=_('games');$('n2').textContent=_('activity');
 $('f1').textContent=_('snake');$('f2').textContent=_('solo1');$('bl').textContent=_('bestl');$('lh').textContent=_('lead');
 $('ux').textContent=_('home');$('sh').textContent=_('set');$('l1').textContent=_('lang');$('l2').textContent=_('theme');
 $('nl').textContent=_('nbots');cbuild();mbuild();nbuild();stabs();
-if(!$('lb').hidden){ltabs();lrender()}if(U&&!$('un').hidden)ur();selg(sel)}
-async function lot(el,base){const sd=$('sd');
-const get=async u=>{const r=await fetch(u);if(!r.ok)return null;const b=new Uint8Array(await r.arrayBuffer());
-if(b[0]==80&&b[1]==75)throw Error('this is a ZIP file, unzip it first');
-return JSON.parse((b[0]==31&&b[1]==139)?pako.ungzip(b,{to:'string'}):new TextDecoder().decode(b))};
-try{let d=null,er='';for(const e of['.json','.tgs']){try{d=await get(base+e);if(d)break}catch(x){er=base+e+': '+x.message}}
-if(!d){sd.textContent=er||'file not found: '+base+'.json';return}
-if(typeof lottie=='undefined'){sd.textContent='lottie library did not load';return}
-el.textContent='';lottie.loadAnimation({container:el,renderer:'svg',loop:true,autoplay:true,animationData:d});sd.textContent=''}
-catch(e){sd.textContent='error: '+e.message}}
-function home(){inG=0;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
+if(!$('lb').hidden){ltabs();lrender()}if(V&&!$('un').hidden)rv();selg(sel)}
+function home(){inG=0;if(NET){try{NET.peer.destroy()}catch(e){}NET=null}U=null;V=null;$('lby').hidden=true;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
 $('hb').onclick=home;
 $('ps').onclick=()=>{if(sel=='uno'){uno();return}inG=1;$('hm').hidden=true;init()};
-$('hl').onclick=()=>$('tp').onclick();
+$('hl').onclick=()=>sel=='uno'?hostRoom():$('tp').onclick();
 $('n1').onclick=()=>{$('g1').hidden=false;$('ac').hidden=true;$('n1').className='on';$('n2').className=''};
 $('n2').onclick=()=>{$('g1').hidden=true;$('ac').hidden=false;$('n2').className='on';$('n1').className='';acs()};
 
-loadS();mark();init();applyAll();lot($('sk1'),'duck');sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
+loadS();mark();init();applyAll();{const rm=new URLSearchParams(location.search).get('room')||(()=>{try{return TG.initDataUnsafe.start_param}catch(e){}})();if(rm&&/^[a-z0-9]{3,8}$/.test(rm)){sel='uno';selg('uno');joinRoom(rm)}}sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
 </script>
 </body>
 </html>
