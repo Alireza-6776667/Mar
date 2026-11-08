@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>Snake Game</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
 <script>window.Peer||document.write('<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"><\/script>')</script>
 <style>
@@ -69,6 +71,8 @@ body{margin:0;background:#000;color:#fff;font-family:ui-rounded,"SF Pro Rounded"
 .big2{width:100%;height:50px;border-radius:16px;border:0;background:var(--a);font:bold 18px inherit;font-family:inherit}
 .pv{flex:1;display:flex;align-items:center;justify-content:center;width:100%;position:relative;overflow:hidden}
 .pv canvas{width:100%;height:100%;object-fit:contain}
+.stk{width:130px;height:130px;margin:0 auto 10px;font-size:84px;line-height:130px}
+#sd{font-size:12px;color:#777;margin-top:6px}
 #lby{position:fixed;inset:0;background:#000;z-index:7;display:flex;flex-direction:column;padding:16px;gap:10px;align-items:center;overflow:auto}
 #lby[hidden]{display:none}#lby>*{width:min(100%,460px)}#lby h3{margin:0;font-size:26px;text-align:center}
 #lby small{color:#999;text-align:center}.code{font-size:46px;font-weight:800;letter-spacing:8px;text-align:center;color:var(--a)}
@@ -105,7 +109,7 @@ body{margin:0;background:#000;color:#fff;font-family:ui-rounded,"SF Pro Rounded"
 <div id="nbw" hidden><small id="nl"></small><div class="tb" id="nb"></div></div>
 <div class="bt"><button class="big" id="ps">Play solo</button><button id="hl">🏆 Leaderboard</button><span id="bb"></span></div>
 <div id="cs"></div></div>
-<div id="ac" hidden><div id="at"></div></div>
+<div id="ac" hidden><div class="stk" id="sk1">🦆</div><div id="at"></div><div id="sd"></div></div>
 <div id="nv"><button class="on" id="n1">Games</button><button id="n2">Activity</button></div></div>
 <div id="st" hidden><button id="sx">✕</button><h3 id="sh">Settings</h3><label id="l1"></label><div class="tb" id="sl"></div><label id="l2"></label><div class="tb" id="sth"></div></div>
 <div id="lby" hidden></div>
@@ -267,14 +271,14 @@ $('us').textContent=V.w>=0?(V.w==V.me?_('win'):V.nm[V.w]+' '+_('wonb')):(V.t==V.
 $('un').hidden=false;
 if(V.w>=0&&(!NET||NET.role=='host')){const r=E('button','big2',_('again'));r.onclick=()=>NET?hostStart():uno();m.append(r)}}
 function lbc(){const nm=[myn(),...NET.peers.map(p=>p.name)];NET.peers.forEach(p=>{try{p.conn.send({lob:{nm}})}catch(e){}});NET.lob={nm};lrv()}
-function hostRoom(){if(NET)return;if(typeof Peer=='undefined'){NET={role:'host',code:'-----',peers:[],bots:0,seats:[],msg:'connection library did not load'};lrv();return}const code=Math.random().toString(36).slice(2,7);NET={role:'host',code,peers:[],bots:1,seats:[]};lrv();
+function hostRoom(){if(NET)return;const code=Math.random().toString(36).slice(2,7);NET={role:'host',code,peers:[],bots:1,seats:[]};lrv();
 const pe=new Peer('gvuno-'+code);NET.peer=pe;pe.on('error',e=>{NET.msg=e.type;lrv()});
 pe.on('connection',c=>{c.on('data',d=>{
 if(d.a=='join'){if(U||NET.peers.length>=4){c.send({err:'started'});return}NET.peers.push({conn:c,name:String(d.name||'Player').slice(0,14)});lbc()}
 else if(d.a=='play'||d.a=='draw'){const s=NET.seats.findIndex(x=>x&&x.conn===c);if(s>0)hact(s,d)}});
 c.on('close',()=>{const s=NET.seats.findIndex(x=>x&&x.conn===c);NET.peers=NET.peers.filter(p=>p.conn!==c);
 if(U&&s>0&&U.w<0){U.ty[s]='b';U.nm[s]+=' (bot)';ur();unext()}else if(!U)lbc()})})}
-function joinRoom(code){if(NET)return;if(typeof Peer=='undefined'){NET={role:'guest',code,msg:'connection library did not load'};lrv();return}NET={role:'guest',code};lrv();const pe=new Peer();NET.peer=pe;
+function joinRoom(code){if(NET)return;NET={role:'guest',code};lrv();const pe=new Peer();NET.peer=pe;
 pe.on('error',e=>{NET.msg=e.type;lrv()});
 pe.on('open',()=>{const c=pe.connect('gvuno-'+code,{reliable:true});NET.conn=c;
 c.on('open',()=>c.send({a:'join',name:myn()}));
@@ -316,6 +320,15 @@ $('f1').textContent=_('snake');$('f2').textContent=_('solo1');$('bl').textConten
 $('ux').textContent=_('home');$('sh').textContent=_('set');$('l1').textContent=_('lang');$('l2').textContent=_('theme');
 $('nl').textContent=_('nbots');cbuild();mbuild();nbuild();stabs();
 if(!$('lb').hidden){ltabs();lrender()}if(V&&!$('un').hidden)rv();selg(sel)}
+async function lot(el,base){const sd=$('sd');
+const get=async u=>{const r=await fetch(u);if(!r.ok)return null;const b=new Uint8Array(await r.arrayBuffer());
+if(b[0]==80&&b[1]==75)throw Error('this is a ZIP file, unzip it first');
+return JSON.parse((b[0]==31&&b[1]==139)?pako.ungzip(b,{to:'string'}):new TextDecoder().decode(b))};
+try{let d=null,er='';for(const e of['.json','.tgs']){try{d=await get(base+e);if(d)break}catch(x){er=base+e+': '+x.message}}
+if(!d){sd.textContent=er||'file not found: '+base+'.json';return}
+if(typeof lottie=='undefined'){sd.textContent='lottie library did not load';return}
+el.textContent='';lottie.loadAnimation({container:el,renderer:'svg',loop:true,autoplay:true,animationData:d});sd.textContent=''}
+catch(e){sd.textContent='error: '+e.message}}
 function home(){inG=0;if(NET){try{NET.peer.destroy()}catch(e){}NET=null}U=null;V=null;$('lby').hidden=true;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
 $('hb').onclick=home;
 $('ps').onclick=()=>{if(sel=='uno'){uno();return}inG=1;$('hm').hidden=true;init()};
@@ -323,7 +336,7 @@ $('hl').onclick=()=>sel=='uno'?hostRoom():$('tp').onclick();
 $('n1').onclick=()=>{$('g1').hidden=false;$('ac').hidden=true;$('n1').className='on';$('n2').className=''};
 $('n2').onclick=()=>{$('g1').hidden=true;$('ac').hidden=false;$('n2').className='on';$('n1').className='';acs()};
 
-loadS();mark();init();applyAll();{const rm=new URLSearchParams(location.search).get('room')||(()=>{try{return TG.initDataUnsafe.start_param}catch(e){}})();if(rm&&/^[a-z0-9]{3,8}$/.test(rm)){sel='uno';selg('uno');joinRoom(rm)}}sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
+loadS();mark();init();applyAll();lot($('sk1'),'duck');{const rm=new URLSearchParams(location.search).get('room')||(()=>{try{return TG.initDataUnsafe.start_param}catch(e){}})();if(rm&&/^[a-z0-9]{3,8}$/.test(rm)){sel='uno';selg('uno');joinRoom(rm)}}sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
 </script>
 </body>
 </html>
