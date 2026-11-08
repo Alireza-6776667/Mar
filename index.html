@@ -333,7 +333,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&NET&&NET.
 $('n1').onclick=()=>{$('g1').hidden=false;$('ac').hidden=true;$('n1').className='on';$('n2').className=''};
 $('n2').onclick=()=>{$('g1').hidden=true;$('ac').hidden=false;$('n2').className='on';$('n1').className='';acs()};
 
-loadS();mark();init();applyAll();{const rm=new URLSearchParams(location.search).get('room')||(()=>{try{return TG.initDataUnsafe.start_param}catch(e){}})();if(rm&&/^[a-z0-9]{3,8}$/.test(rm)){sel='uno';selg('uno');joinRoom(rm)}}sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
+loadS();mark();init();applyAll();{const rm=new URLSearchParams(location.search).get('room')||(()=>{try{return TG.initDataUnsafe.start_param}catch(e){}})();if(rm&&/^[a-z0-9]{3,8}$/.test(rm)){sel='uno';selg('uno');joinRoom(rm)}}{const gm=new URLSearchParams(location.search).get('game');if(gm=='snake'){selg('snake');$('ps').onclick()}else if(gm=='uno')selg('uno')}sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
 </script>
 </body>
 </html>
