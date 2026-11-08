@@ -10,7 +10,7 @@
 <style>
 :root{--a:#6ccf70;--d:#4fa855;--m:#16301c;--u:#0b1a10}
 *{box-sizing:border-box}
-body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Arial,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden}
+body{margin:0;background:#000;color:#fff;font-family:ui-rounded,"SF Pro Rounded","Arial Rounded MT Bold",Nunito,system-ui,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden}
 #w{width:min(100%,480px);padding:8px;display:flex;flex-direction:column;align-items:center;gap:8px}
 #sc{width:120px;height:25px;image-rendering:pixelated;align-self:flex-start}
 #c{width:min(100%,calc((var(--tg-viewport-stable-height,100vh) - 200px)*.7692));aspect-ratio:800/1040;display:block}
@@ -72,7 +72,7 @@ body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Ari
 .stk{width:130px;height:130px;margin:0 auto 10px;font-size:84px;line-height:130px}
 #sd{font-size:12px;color:#777;margin-top:6px}
 #lb{z-index:8}
-.hh{display:flex;align-items:center;justify-content:space-between}.hh h1{margin:0}.hh span{width:40px}
+.hh{display:flex;align-items:center;justify-content:space-between}.hh h1{margin:0}.hh>span{width:46px}
 #gr,#sx{width:40px;height:40px;border-radius:12px;border:2px solid #333;background:#1c1c1c;color:#fff;font-size:20px;padding:0}
 #st{position:fixed;inset:0;background:#000;z-index:9;display:flex;flex-direction:column;padding:14px;gap:10px;align-items:center}
 #st[hidden]{display:none}#st>*{width:min(100%,460px)}#st h3{margin:0;font-size:26px}#st label{color:#999;margin-top:10px}
@@ -81,6 +81,14 @@ body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Ari
 #ft span i{font-style:normal}
 #ub{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.bx{padding:6px;border-radius:12px;border:2px solid transparent}.bx.act{border-color:var(--a)}
 .bks .uc2{width:20px!important;height:30px!important;margin-left:-10px!important;font-size:0}
+#hm .hh h1{font-size:28px;font-weight:800;letter-spacing:.5px}
+.hh h1 .vx{color:var(--a)}
+#gr{width:46px;height:46px;border-radius:50%;border:2px solid #2e2e2e;background:linear-gradient(#2c2c2c,#171717);color:var(--a);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 0 #ffffff14,0 4px 0 #0a0a0a,0 8px 14px #000c;transition:transform .15s,box-shadow .1s}
+#gr:active{transform:translateY(3px) rotate(60deg);box-shadow:inset 0 2px 0 #ffffff14,0 1px 0 #0a0a0a}
+.bt button{height:68px;border-radius:24px;border:0;font-family:inherit;font-weight:800;font-size:19px;letter-spacing:.4px;color:#eee;background:linear-gradient(#303030,#1b1b1b);box-shadow:inset 0 2px 0 #ffffff18,0 6px 0 #0a0a0a,0 14px 22px #000c;transition:transform .08s,box-shadow .08s}
+.bt .big{color:#0a0a0a;background:linear-gradient(var(--a),var(--d));box-shadow:inset 0 2px 0 #ffffff66,0 6px 0 var(--d),0 14px 24px #000c}
+.bt button:active{transform:translateY(5px);box-shadow:inset 0 2px 0 #ffffff18,0 1px 0 #0a0a0a,0 4px 8px #000c}
+.bt .big:active{box-shadow:inset 0 2px 0 #ffffff66,0 1px 0 var(--d),0 4px 8px #000c}
 </style>
 </head>
 <body>
@@ -90,7 +98,7 @@ body{margin:0;background:#000;color:#fff;font-family:"Arial Rounded MT Bold",Ari
 <div id="md"></div>
 <div id="ft"><button id="hb">⌂</button><button id="pl">▶</button><div><b id="f1">Snake Game</b><small id="f2">Solo</small></div><button id="tp">🏆</button><span><i id="bl">BEST</i><b id="bs">0</b></span></div>
 </div>
-<div id="hm"><div class="hh"><span></span><h1 id="hh">Mar Games</h1><button id="gr">⚙</button></div>
+<div id="hm"><div class="hh"><span></span><h1 id="hh">Mar Games</h1><button id="gr"></button></div>
 <div id="g1" style="display:flex;flex-direction:column;flex:1"><div id="fe"><h2>Snake Game</h2><p>Eat, grow and don't bite your tail.</p></div>
 <div id="nbw" hidden><small id="nl"></small><div class="tb" id="nb"></div></div>
 <div class="bt"><button class="big" id="ps">Play solo</button><button id="hl">🏆 Leaderboard</button><span id="bb"></span></div>
@@ -192,8 +200,8 @@ document.addEventListener('mousedown',ts);
 document.addEventListener('mousemove',tmv);
 document.addEventListener('mouseup',()=>on=0);
 document.addEventListener('keydown',e=>{const k={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(k){e.preventDefault();go(k[0],k[1])}});
-const L={en:{title:'Mar Games',games:'Games',activity:'Activity',snake:'Snake Game',snd:"Eat, grow and don't bite your tail.",solo:'Play solo',solo1:'Solo',lbb:'🏆 Leaderboard',best:'Best',bestl:'BEST',wins:'Wins',vs:'Play vs Bots',und:'Beat the bots. Match colors or numbers.',arc:'Classic arcade',vsb:'Play vs bots',more:'More',way:'On its way',start:'Swipe to start',over:'Game over',rest:'Swipe to restart',soon:'Leaderboard coming soon',every:'Everyone, resets at midnight',all:'All time',you:'YOU',players:'PLAYERS',youn:'You',daily:'Daily',overall:'Overall',nw:'No walls',w:'Walls',adv:'Advanced',lead:'Leaderboard',home:'‹ Home',bot:'Bot',cards:'cards',win:'You win! 🎉',lose:'You lost 😢',turn:'Your turn',think:'Bots are playing...',again:'Play again',set:'Settings',lang:'Language',theme:'Theme',tw:'White',tg:'Green',ty:'Yellow',nbots:'Number of bots',bestsc:'Best score',unow:'UNO wins'},
-fa:{title:'بازی‌های مار',games:'بازی‌ها',activity:'فعالیت',snake:'بازی مار',snd:'بخور، بزرگ شو و دمت را گاز نگیر.',solo:'بازی تک‌نفره',solo1:'تک‌نفره',lbb:'🏆 جدول امتیاز',best:'بهترین',bestl:'بهترین',wins:'برد',vs:'بازی با بات‌ها',und:'بات‌ها را شکست بده. رنگ یا عدد را هماهنگ کن.',arc:'آرکید کلاسیک',vsb:'بازی با بات‌ها',more:'بیشتر',way:'به‌زودی',start:'برای شروع بکش',over:'باختی',rest:'برای شروع دوباره بکش',soon:'جدول امتیاز به‌زودی',every:'همه، نیمه‌شب صفر می‌شود',all:'کل زمان',you:'شما',players:'بازیکن',youn:'شما',daily:'روزانه',overall:'کلی',nw:'بدون دیوار',w:'دیوار',adv:'پیشرفته',lead:'جدول امتیاز',home:'‹ خانه',bot:'بات',cards:'کارت',win:'تو بردی! 🎉',lose:'باختی 😢',turn:'نوبت توست',think:'بات‌ها بازی می‌کنند...',again:'بازی دوباره',set:'تنظیمات',lang:'زبان',theme:'تم',tw:'سفید',tg:'سبز',ty:'زرد',nbots:'تعداد بات',bestsc:'بهترین امتیاز',unow:'بردهای UNO'}};
+const L={en:{title:'gameVex',games:'Games',activity:'Activity',snake:'Snake Game',snd:"Eat, grow and don't bite your tail.",solo:'Play solo',solo1:'Solo',lbb:'🏆 Leaderboard',best:'Best',bestl:'BEST',wins:'Wins',vs:'Play vs Bots',und:'Beat the bots. Match colors or numbers.',arc:'Classic arcade',vsb:'Play vs bots',more:'More',way:'On its way',start:'Swipe to start',over:'Game over',rest:'Swipe to restart',soon:'Leaderboard coming soon',every:'Everyone, resets at midnight',all:'All time',you:'YOU',players:'PLAYERS',youn:'You',daily:'Daily',overall:'Overall',nw:'No walls',w:'Walls',adv:'Advanced',lead:'Leaderboard',home:'‹ Home',bot:'Bot',cards:'cards',win:'You win! 🎉',lose:'You lost 😢',turn:'Your turn',think:'Bots are playing...',again:'Play again',set:'Settings',lang:'Language',theme:'Theme',tw:'White',tg:'Green',ty:'Yellow',nbots:'Number of bots',bestsc:'Best score',unow:'UNO wins'},
+fa:{title:'gameVex',games:'بازی‌ها',activity:'فعالیت',snake:'بازی مار',snd:'بخور، بزرگ شو و دمت را گاز نگیر.',solo:'بازی تک‌نفره',solo1:'تک‌نفره',lbb:'🏆 جدول امتیاز',best:'بهترین',bestl:'بهترین',wins:'برد',vs:'بازی با بات‌ها',und:'بات‌ها را شکست بده. رنگ یا عدد را هماهنگ کن.',arc:'آرکید کلاسیک',vsb:'بازی با بات‌ها',more:'بیشتر',way:'به‌زودی',start:'برای شروع بکش',over:'باختی',rest:'برای شروع دوباره بکش',soon:'جدول امتیاز به‌زودی',every:'همه، نیمه‌شب صفر می‌شود',all:'کل زمان',you:'شما',players:'بازیکن',youn:'شما',daily:'روزانه',overall:'کلی',nw:'بدون دیوار',w:'دیوار',adv:'پیشرفته',lead:'جدول امتیاز',home:'‹ خانه',bot:'بات',cards:'کارت',win:'تو بردی! 🎉',lose:'باختی 😢',turn:'نوبت توست',think:'بات‌ها بازی می‌کنند...',again:'بازی دوباره',set:'تنظیمات',lang:'زبان',theme:'تم',tw:'سفید',tg:'سبز',ty:'زرد',nbots:'تعداد بات',bestsc:'بهترین امتیاز',unow:'بردهای UNO'}};
 const TH={green:['#6ccf70','#4fa855','#16301c','#0b1a10'],white:['#e8e8e8','#bdbdbd','#2a2a2a','#111'],yellow:['#e3c35c','#b99a38','#2d2711','#15120a']};
 let lg='en',th='green',nb=1,sel='snake',U=null,pend=-1;
 const _=k=>(L[lg]&&L[lg][k])||L.en[k]||k;
@@ -245,6 +253,9 @@ $('us').textContent=U.w>=0?(U.w==0?_('win'):_('lose')):(U.t==0?(U.h[0].length==1
 if(U.w>=0){const r=E('button','big2',_('again'));r.onclick=uno;m.append(r)}}
 ['R','Y','G','B'].forEach(c=>{const b=E('button');b.style.background=UC[c];b.onclick=()=>upick(c);$('up').append(b)});
 $('ux').onclick=()=>home();
+function gear(){let d='';for(let k=0;k<8;k++){const a=k*Math.PI/4;[[7.2,-16],[10,-9],[10,9],[7.2,16]].forEach(([r,o],j)=>{const t=a+o*Math.PI/180;d+=(k||j?'L':'M')+(r*Math.cos(t)).toFixed(2)+' '+(r*Math.sin(t)).toFixed(2)})}
+d+='ZM3.2 0A3.2 3.2 0 1 0-3.2 0A3.2 3.2 0 1 0 3.2 0Z';return '<svg viewBox="-12 -12 24 24" width="26" height="26"><path fill="currentColor" fill-rule="evenodd" d="'+d+'"/></svg>'}
+$('gr').innerHTML=gear();
 $('gr').onclick=()=>{$('st').hidden=false;stabs()};$('sx').onclick=()=>{$('st').hidden=true};
 function pvS(){const c=E('canvas');c.width=c.height=120;const x=c.getContext('2d');x.fillStyle='#000';x.fillRect(0,0,120,120);
 x.strokeStyle=COL;x.lineWidth=3;x.setLineDash([4,4]);x.strokeRect(6,6,108,108);x.setLineDash([]);x.lineCap=x.lineJoin='round';
@@ -262,15 +273,17 @@ $('fe').children[1].textContent=u?_('und'):_('snd');$('ps').textContent=u?_('vs'
 $('hl').hidden=u;$('nbw').hidden=!u;$('bb').textContent=u?_('wins')+' '+wins():_('best')+' '+best;
 [...$('cs').children].forEach(c=>c.classList.toggle('sel',c.dataset.k==k));acs()}
 function applyAll(){theme();document.title=_('title');
-$('hh').textContent=_('title');$('n1').textContent=_('games');$('n2').textContent=_('activity');
+$('hh').innerHTML='game<span class="vx">Vex</span>';$('n1').textContent=_('games');$('n2').textContent=_('activity');
 $('f1').textContent=_('snake');$('f2').textContent=_('solo1');$('bl').textContent=_('bestl');$('lh').textContent=_('lead');
 $('ux').textContent=_('home');$('sh').textContent=_('set');$('l1').textContent=_('lang');$('l2').textContent=_('theme');
 $('nl').textContent=_('nbots');cbuild();mbuild();nbuild();stabs();
 if(!$('lb').hidden){ltabs();lrender()}if(U&&!$('un').hidden)ur();selg(sel)}
-async function lot(el,base){const sd=$('sd');try{let d,r=await fetch(base+'.json');
-if(r.ok)d=await r.json();else{sd.textContent='no '+base+'.json ('+r.status+')';r=await fetch(base+'.tgs');
-if(!r.ok){sd.textContent+=' / no '+base+'.tgs ('+r.status+')';return}
-d=JSON.parse(pako.ungzip(new Uint8Array(await r.arrayBuffer()),{to:'string'}))}
+async function lot(el,base){const sd=$('sd');
+const get=async u=>{const r=await fetch(u);if(!r.ok)return null;const b=new Uint8Array(await r.arrayBuffer());
+if(b[0]==80&&b[1]==75)throw Error('this is a ZIP file, unzip it first');
+return JSON.parse((b[0]==31&&b[1]==139)?pako.ungzip(b,{to:'string'}):new TextDecoder().decode(b))};
+try{let d=null,er='';for(const e of['.json','.tgs']){try{d=await get(base+e);if(d)break}catch(x){er=base+e+': '+x.message}}
+if(!d){sd.textContent=er||'file not found: '+base+'.json';return}
 if(typeof lottie=='undefined'){sd.textContent='lottie library did not load';return}
 el.textContent='';lottie.loadAnimation({container:el,renderer:'svg',loop:true,autoplay:true,animationData:d});sd.textContent=''}
 catch(e){sd.textContent='error: '+e.message}}
