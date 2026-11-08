@@ -285,8 +285,10 @@ pe.on('open',()=>{NET.msg=_('contohost');lrv();const c=pe.connect('gvuno-'+code,
 c.on('open',()=>{c.o2=1;NET.msg=_('ok');lrv();c.send({a:'join',name:myn()})});
 c.on('data',d=>{if(d.v){V=d.v;$('lby').hidden=true;$('hm').hidden=true;rv()}else if(d.lob){NET.lob=d.lob;lrv()}else if(d.err){NET.msg=_('started');lrv()}});
 c.on('close',()=>{NET.msg=_('left');if(V&&!$('un').hidden)$('us').textContent=_('left');else lrv()})})}
-function copyInv(){const u=location.href.split('?')[0]+'?room='+NET.code;try{navigator.clipboard.writeText(u).then(()=>{NET.msg=_('copied');lrv()},()=>prompt('',u))}catch(e){prompt('',u)}}
-function shareInv(){const u=location.href.split('?')[0]+'?room='+NET.code,x='https://t.me/share/url?url='+encodeURIComponent(u)+'&text='+encodeURIComponent(_('invtxt'));
+const BOT='Maaafffar_bot',APP='';
+const invLink=()=>'https://t.me/'+BOT+(APP?'/'+APP:'')+'?startapp='+NET.code;
+function copyInv(){const u=invLink();try{navigator.clipboard.writeText(u).then(()=>{NET.msg=_('copied');lrv()},()=>prompt('',u))}catch(e){prompt('',u)}}
+function shareInv(){const u=invLink(),x='https://t.me/share/url?url='+encodeURIComponent(u)+'&text='+encodeURIComponent(_('invtxt')+' '+NET.code.toUpperCase());
 try{TG.openTelegramLink(x)}catch(e){try{navigator.share({title:'UNO',text:_('invtxt'),url:u})}catch(e2){prompt('',u)}}}
 function lrv(){const o=$('lby'),h=NET.role=='host';o.textContent='';o.hidden=false;$('hm').hidden=true;
 const bk=E('button','sec','‹');bk.style.width='48px';bk.onclick=home;o.append(bk,E('h3','',_('friends')),E('div','code',NET.code.toUpperCase()));
