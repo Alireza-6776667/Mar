@@ -100,6 +100,19 @@ body{margin:0;background:#000;color:#fff;font-family:GV,ui-rounded,"SF Pro Round
 .seat .cn{font-size:12px;background:#ffffff1c;border-radius:10px;padding:1px 9px}
 .seat.act .av2{border-color:var(--a);box-shadow:0 0 0 4px var(--g),0 0 18px var(--a)}.seat.act{transform:translate(-50%,-50%) scale(1.08)}
 .p-top{left:50%;top:13%}.p-left{left:14%;top:46%}.p-right{left:86%;top:46%}.p-tl{left:30%;top:14%}.p-tr{left:70%;top:14%}
+#go{position:fixed;inset:0;z-index:6;background:#0008;display:flex;align-items:flex-end}#go[hidden]{display:none}
+.gcard{width:100%;min-height:50vh;border-radius:30px 30px 0 0;padding:22px 18px 30px;background:var(--bg);border-top:1px solid #ffffff22;box-shadow:0 -20px 60px #000;display:flex;flex-direction:column;align-items:center;gap:8px;animation:gup .28s ease-out}
+@keyframes gup{from{transform:translateY(100%)}to{transform:none}}
+.gcard>*{max-width:460px}
+#gt{color:#aaa;font-size:15px}
+#gs{font-size:96px;font-weight:700;line-height:1.05;color:var(--a);text-shadow:0 6px 0 var(--d)}
+#gn{background:var(--a);color:#000;border-radius:12px;padding:3px 12px;font-size:13px;font-weight:700}#gn[hidden]{display:none}
+#gb{font-size:18px;font-weight:700;margin-bottom:12px}
+.gbig{width:100%;height:64px;border-radius:22px;border:0;font-family:inherit;font-weight:700;font-size:20px;color:#0a0a0a;background:linear-gradient(var(--a),var(--d));box-shadow:inset 0 2px 0 #ffffff66,0 6px 0 var(--d),0 12px 22px #000c;transition:transform .08s,box-shadow .08s}
+.gbig:active{transform:translateY(5px);box-shadow:inset 0 2px 0 #ffffff66,0 1px 0 var(--d),0 4px 8px #000c}
+.grow{display:flex;gap:10px;width:100%;margin-top:12px}
+.grow button{flex:1;height:54px;border-radius:18px;border:0;font-family:inherit;font-weight:700;font-size:15px;color:#eee;background:linear-gradient(#303030,#1b1b1b);box-shadow:inset 0 2px 0 #ffffff18,0 5px 0 #0a0a0a,0 10px 18px #000c;transition:transform .08s,box-shadow .08s}
+.grow button:active{transform:translateY(4px);box-shadow:inset 0 2px 0 #ffffff18,0 1px 0 #0a0a0a}
 #lb{z-index:8}
 .hh{display:flex;align-items:center;justify-content:space-between}.hh h1{margin:0}.hh>span{width:46px}
 #gr,#sx{width:40px;height:40px;border-radius:12px;border:2px solid #333;background:#1c1c1c;color:#fff;font-size:20px;padding:0}
@@ -136,6 +149,7 @@ body{margin:0;background:#000;color:#fff;font-family:GV,ui-rounded,"SF Pro Round
 <div id="ac" hidden><div id="at"></div></div>
 <div id="nv"><button class="on" id="n1">Games</button><button id="n2">Activity</button></div></div>
 <div id="st" hidden><button id="sx">✕</button><h3 id="sh">Settings</h3><label id="l1"></label><div class="tb" id="sl"></div><label id="l2"></label><div class="tb" id="sth"></div><label id="l3"></label><div class="tb" id="sv"></div></div>
+<div id="go" hidden><div class="gcard"><div id="gt"></div><div id="gs"></div><div id="gn" hidden></div><div id="gb"></div><button class="gbig" id="ga"></button><div class="grow"><button id="gsh"></button><button id="gh"></button></div></div></div>
 <div id="lby" hidden></div>
 <div id="un" hidden><div class="uh"><button id="ux">‹ Home</button><span id="us"></span></div><div id="tb"><div id="ub"></div><div id="um"></div></div><div id="up" hidden></div><div id="uk"></div></div>
 <div id="lb" hidden><button id="lx">✕</button><h3 id="lh">Leaderboard</h3><div class="tb" id="lt"></div><div class="tb" id="lm"></div><div id="lr"></div></div>
@@ -174,15 +188,15 @@ $('tp').onclick=()=>{lm=md;$('lb').hidden=false;ltabs();lload()};
 $('lx').onclick=()=>{$('lb').hidden=true};
 function mark(){[...$('md').children].forEach((b,i)=>b.className=i==md?'on':'')}
 $('pl').onclick=()=>init();
-function init(){sn=[{x:9,y:12},{x:8,y:12},{x:7,y:12}];lt={x:6,y:12};d=nd={x:1,y:0};q=[];pt=0;ov=0;run=0;place();sco()}
+function init(){$('go').hidden=true;sn=[{x:9,y:12},{x:8,y:12},{x:7,y:12}];lt={x:6,y:12};d=nd={x:1,y:0};q=[];pt=0;ov=0;run=0;place();sco()}
 function place(){do fd={x:Math.random()*CO|0,y:Math.random()*RO|0};while(sn.some(s=>s.x==fd.x&&s.y==fd.y))}
 const sp=()=>md>1?Math.max(60,100-pt*.2):100;
-function go(a,b){if(!inG)return;if(ov){if(Date.now()-ovt<600)return;init()}
+function go(a,b){if(!inG||ov)return;
 const l=q.length?q[q.length-1]:d;if((a==l.x&&b==l.y)||(a==-l.x&&b==-l.y))return;
 if(q.length<2){q.push({x:a,y:b});hs()}const n=performance.now();if(!run){run=1;ls=n-sp()}else if(q.length==1&&n-ls>=sp()*.45)step(n)}
-function die(){ov=1;ovt=Date.now();run=0;hp(1);addH({g:'snake',m:md,s:pt});
+function die(){const pb=best;ov=1;ovt=Date.now();run=0;hp(1);addH({g:'snake',m:md,s:pt});
 if(pt>best){best=pt;$('bs').textContent=best;try{localStorage.sb=best}catch(e){}}
-sync({mode:md,score:pt},(e,r)=>{if(!e)ab(r)})}
+sync({mode:md,score:pt},(e,r)=>{if(!e)ab(r)});setTimeout(()=>showGO(pb),400)}
 function step(n){if(q.length)nd=q.shift();d=nd;let x=sn[0].x+d.x,y=sn[0].y+d.y;
 if(md){if(x<0||y<0||x>=CO||y>=RO)return die()}else{x=(x+CO)%CO;y=(y+RO)%RO}
 const a=x==fd.x&&y==fd.y;
@@ -216,13 +230,13 @@ g.strokeStyle=COL;g.lineWidth=8;g.setLineDash(md?[]:[10,12]);g.strokeRect(M-18,M
 const s=1+Math.sin(n/200)*.08;g.save();g.translate(M+fd.x*Z+Z/2,M+fd.y*Z+Z/2);g.scale(s,s);g.fillStyle='#ffd166';
 [[0,0],[-1,0],[1,0],[0,-1],[0,1]].forEach(([a,b])=>g.fillRect(a*Z*.26-Z*.13,b*Z*.26-Z*.13,Z*.26,Z*.26));g.restore();
 drawSnake(bp(p));
-if(!run){g.textAlign='center';g.fillStyle=COL;g.font='120px sans-serif';g.fillText('✥',W/2,H/2-60);
+if(!run&&!ov){g.textAlign='center';g.fillStyle=COL;g.font='120px sans-serif';g.fillText('✥',W/2,H/2-60);
 g.font='bold 68px "Arial Rounded MT Bold",Arial,sans-serif';g.fillText(ov?_('over'):_('start'),W/2,H/2+60);
 if(ov){g.font='bold 40px Arial,sans-serif';g.fillText(_('rest'),W/2,H/2+132)}}}
 function loop(n){requestAnimationFrame(loop);if(run&&n-ls>=sp())step(n);render(n)}
 let tx,ty,on=0;
 function pos(e){return e.touches?e.touches[0]:e}
-function ts(e){if(e.target.closest('button,#lb'))return;const p=pos(e);tx=p.clientX;ty=p.clientY;on=1}
+function ts(e){if(e.target.closest('button,#lb,#go'))return;const p=pos(e);tx=p.clientX;ty=p.clientY;on=1}
 function tmv(e){if(!on||!inG)return;e.preventDefault();const p=pos(e),a=p.clientX-tx,b=p.clientY-ty,x=Math.abs(a),y=Math.abs(b);
 if(Math.max(x,y)>20&&(x>y*1.5||y>x*1.5)){if(x>y)go(a>0?1:-1,0);else go(0,b>0?1:-1);tx=p.clientX;ty=p.clientY}}
 document.addEventListener('touchstart',ts,{passive:false});
@@ -232,8 +246,8 @@ document.addEventListener('mousedown',ts);
 document.addEventListener('mousemove',tmv);
 document.addEventListener('mouseup',()=>on=0);
 document.addEventListener('keydown',e=>{const k={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(k){e.preventDefault();go(k[0],k[1])}});
-const L={en:{title:'gameVex',games:'Games',activity:'Activity',snake:'Snake Game',snd:"Eat, grow and don't bite your tail.",solo:'Play solo',solo1:'Solo',lbb:'🏆 Leaderboard',best:'Best',bestl:'BEST',wins:'Wins',vs:'Play vs Bots',und:'Beat the bots. Match colors or numbers.',arc:'Classic arcade',vsb:'Play vs bots',more:'More',way:'On its way',start:'Swipe to start',over:'Game over',rest:'Swipe to restart',soon:'Leaderboard coming soon',every:'Everyone, resets at midnight',all:'All time',you:'YOU',players:'PLAYERS',youn:'You',daily:'Daily',overall:'Overall',nw:'No walls',w:'Walls',adv:'Advanced',lead:'Leaderboard',home:'‹ Home',bot:'Bot',cards:'cards',win:'You win! 🎉',lose:'You lost 😢',turn:'Your turn',think:'Bots are playing...',again:'Play again',set:'Settings',lang:'Language',theme:'Theme',tw:'White',tg:'Green',ty:'Yellow',nbots:'Number of bots',bestsc:'Best score',unow:'UNO wins',inv:'Invite friends',friends:'Play with friends',share:'Share invite link',startg:'Start game',waitho:'Waiting for the host...',botsl:'Bots',invtxt:'Join my UNO game!',left:'Disconnected',started:'Game already started',plays:'is playing...',wonb:'wins',conn:'Connecting to server...',ready:'Ready! Waiting for friends...',contohost:'Connecting to the host...',noh:'Could not reach the host. Check the code and try again.',ok:'Connected! Waiting for the host...',copy:'Copy link',copied:'Link copied!',joinb:'Join',code:'Room code',rec:'Records',recent:'Recent activity',plays1:'Games played',nohist:'No activity yet',wonl:'Won',lostl:'Lost',today:'Today',vib:'Vibration',on:'On',off:'Off'},
-fa:{title:'gameVex',games:'بازی‌ها',activity:'فعالیت',snake:'بازی مار',snd:'بخور، بزرگ شو و دمت را گاز نگیر.',solo:'بازی تک‌نفره',solo1:'تک‌نفره',lbb:'🏆 جدول امتیاز',best:'بهترین',bestl:'بهترین',wins:'برد',vs:'بازی با بات‌ها',und:'بات‌ها را شکست بده. رنگ یا عدد را هماهنگ کن.',arc:'آرکید کلاسیک',vsb:'بازی با بات‌ها',more:'بیشتر',way:'به‌زودی',start:'برای شروع بکش',over:'باختی',rest:'برای شروع دوباره بکش',soon:'جدول امتیاز به‌زودی',every:'همه، نیمه‌شب صفر می‌شود',all:'کل زمان',you:'شما',players:'بازیکن',youn:'شما',daily:'روزانه',overall:'کلی',nw:'بدون دیوار',w:'دیوار',adv:'پیشرفته',lead:'جدول امتیاز',home:'‹ خانه',bot:'بات',cards:'کارت',win:'تو بردی! 🎉',lose:'باختی 😢',turn:'نوبت توست',think:'بات‌ها بازی می‌کنند...',again:'بازی دوباره',set:'تنظیمات',lang:'زبان',theme:'تم',tw:'سفید',tg:'سبز',ty:'زرد',nbots:'تعداد بات',bestsc:'بهترین امتیاز',unow:'بردهای UNO',inv:'دعوت دوستان',friends:'بازی با دوستان',share:'ارسال لینک دعوت',startg:'شروع بازی',waitho:'منتظر میزبان...',botsl:'بات‌ها',invtxt:'بیا با هم UNO بازی کنیم!',left:'اتصال قطع شد',started:'بازی شروع شده',plays:'در حال بازی...',wonb:'برنده شد',conn:'در حال اتصال به سرور...',ready:'آماده! منتظر دوستان...',contohost:'در حال اتصال به میزبان...',noh:'به میزبان وصل نشد. کد را چک کن و دوباره امتحان کن.',ok:'وصل شدی! منتظر میزبان...',copy:'کپی لینک',copied:'لینک کپی شد!',joinb:'ورود',code:'کد اتاق',rec:'رکوردها',recent:'فعالیت‌های اخیر',plays1:'تعداد بازی',nohist:'هنوز فعالیتی نیست',wonl:'بردی',lostl:'باختی',today:'امروز',vib:'لرزش',on:'روشن',off:'خاموش'}};
+const L={en:{title:'gameVex',games:'Games',activity:'Activity',snake:'Snake Game',snd:"Eat, grow and don't bite your tail.",solo:'Play solo',solo1:'Solo',lbb:'🏆 Leaderboard',best:'Best',bestl:'BEST',wins:'Wins',vs:'Play vs Bots',und:'Beat the bots. Match colors or numbers.',arc:'Classic arcade',vsb:'Play vs bots',more:'More',way:'On its way',start:'Swipe to start',over:'Game over',rest:'Swipe to restart',soon:'Leaderboard coming soon',every:'Everyone, resets at midnight',all:'All time',you:'YOU',players:'PLAYERS',youn:'You',daily:'Daily',overall:'Overall',nw:'No walls',w:'Walls',adv:'Advanced',lead:'Leaderboard',home:'‹ Home',bot:'Bot',cards:'cards',win:'You win! 🎉',lose:'You lost 😢',turn:'Your turn',think:'Bots are playing...',again:'Play again',set:'Settings',lang:'Language',theme:'Theme',tw:'White',tg:'Green',ty:'Yellow',nbots:'Number of bots',bestsc:'Best score',unow:'UNO wins',inv:'Invite friends',friends:'Play with friends',share:'Share invite link',startg:'Start game',waitho:'Waiting for the host...',botsl:'Bots',invtxt:'Join my UNO game!',left:'Disconnected',started:'Game already started',plays:'is playing...',wonb:'wins',conn:'Connecting to server...',ready:'Ready! Waiting for friends...',contohost:'Connecting to the host...',noh:'Could not reach the host. Check the code and try again.',ok:'Connected! Waiting for the host...',copy:'Copy link',copied:'Link copied!',joinb:'Join',code:'Room code',rec:'Records',recent:'Recent activity',plays1:'Games played',nohist:'No activity yet',wonl:'Won',lostl:'Lost',today:'Today',vib:'Vibration',on:'On',off:'Off',shr:'Share result',bhome:'Back home',yb:'Your best is {n}',nrec:'New record!',shtxt:'I scored {n} in Snake ({m}) on gameVex! Can you beat me?',beat:'Can you beat me?'},
+fa:{title:'gameVex',games:'بازی‌ها',activity:'فعالیت',snake:'بازی مار',snd:'بخور، بزرگ شو و دمت را گاز نگیر.',solo:'بازی تک‌نفره',solo1:'تک‌نفره',lbb:'🏆 جدول امتیاز',best:'بهترین',bestl:'بهترین',wins:'برد',vs:'بازی با بات‌ها',und:'بات‌ها را شکست بده. رنگ یا عدد را هماهنگ کن.',arc:'آرکید کلاسیک',vsb:'بازی با بات‌ها',more:'بیشتر',way:'به‌زودی',start:'برای شروع بکش',over:'باختی',rest:'برای شروع دوباره بکش',soon:'جدول امتیاز به‌زودی',every:'همه، نیمه‌شب صفر می‌شود',all:'کل زمان',you:'شما',players:'بازیکن',youn:'شما',daily:'روزانه',overall:'کلی',nw:'بدون دیوار',w:'دیوار',adv:'پیشرفته',lead:'جدول امتیاز',home:'‹ خانه',bot:'بات',cards:'کارت',win:'تو بردی! 🎉',lose:'باختی 😢',turn:'نوبت توست',think:'بات‌ها بازی می‌کنند...',again:'بازی دوباره',set:'تنظیمات',lang:'زبان',theme:'تم',tw:'سفید',tg:'سبز',ty:'زرد',nbots:'تعداد بات',bestsc:'بهترین امتیاز',unow:'بردهای UNO',inv:'دعوت دوستان',friends:'بازی با دوستان',share:'ارسال لینک دعوت',startg:'شروع بازی',waitho:'منتظر میزبان...',botsl:'بات‌ها',invtxt:'بیا با هم UNO بازی کنیم!',left:'اتصال قطع شد',started:'بازی شروع شده',plays:'در حال بازی...',wonb:'برنده شد',conn:'در حال اتصال به سرور...',ready:'آماده! منتظر دوستان...',contohost:'در حال اتصال به میزبان...',noh:'به میزبان وصل نشد. کد را چک کن و دوباره امتحان کن.',ok:'وصل شدی! منتظر میزبان...',copy:'کپی لینک',copied:'لینک کپی شد!',joinb:'ورود',code:'کد اتاق',rec:'رکوردها',recent:'فعالیت‌های اخیر',plays1:'تعداد بازی',nohist:'هنوز فعالیتی نیست',wonl:'بردی',lostl:'باختی',today:'امروز',vib:'لرزش',on:'روشن',off:'خاموش',shr:'اشتراک نتیجه',bhome:'بازگشت به خانه',yb:'رکورد تو {n} است',nrec:'رکورد جدید!',shtxt:'من توی بازی مار gameVex امتیاز {n} ({m}) گرفتم! می‌تونی منو ببری؟',beat:'می‌تونی منو ببری؟'}};
 const TH={green:['#6ccf70','#4fa855','#16301c','#0b1a10','rgba(108,207,112,.20)','rgba(108,207,112,.08)'],white:['#e8e8e8','#bdbdbd','#2a2a2a','#111','rgba(255,255,255,.14)','rgba(255,255,255,.05)'],yellow:['#e3c35c','#b99a38','#2d2711','#15120a','rgba(227,195,92,.18)','rgba(227,195,92,.07)']};
 let vib=true,lg='en',th='green',nb=1,sel='snake',U=null,pend=-1;
 const _=k=>(L[lg]&&L[lg][k])||L.en[k]||k;
@@ -316,6 +330,25 @@ c.on('data',d=>{if(d.v){V=d.v;$('lby').hidden=true;$('hm').hidden=true;rv()}else
 c.on('close',()=>{NET.msg=_('left');if(V&&!$('un').hidden)$('us').textContent=_('left');else lrv()})})}
 const BOT='Maaafffar_bot',APP='';
 const invLink=()=>'https://t.me/'+BOT+(APP?'/'+APP:'')+'?startapp='+NET.code;
+const mname=()=>[_('nw'),_('w'),_('adv')][md];
+function showGO(pb){if(!ov)return;$('gt').textContent='🐍 '+mname();$('gs').textContent=pt;
+$('gb').textContent=_('yb').replace('{n}',Math.max(best,pt));$('gn').textContent='🏆 '+_('nrec');$('gn').hidden=!(pt>pb&&pt>0);$('go').hidden=false}
+async function shareScore(){hp(0);const t0=_('shtxt').replace('{n}',pt).replace('{m}',mname());
+try{await document.fonts.load('700 100px GV')}catch(e){}
+try{const c=document.createElement('canvas');c.width=c.height=1080;const x=c.getContext('2d'),T=TH[th]||TH.green,F='GV,system-ui,sans-serif';
+x.fillStyle='#050505';x.fillRect(0,0,1080,1080);
+const gr=x.createRadialGradient(540,420,40,540,420,760);gr.addColorStop(0,T[4].replace('.20','.45').replace('.14','.30').replace('.18','.40'));gr.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=gr;x.fillRect(0,0,1080,1080);
+x.textAlign='left';x.font='700 84px '+F;const w1=x.measureText('game').width,w2=x.measureText('Vex').width,bx=(1080-w1-w2)/2;
+x.fillStyle='#fff';x.fillText('game',bx,170);x.fillStyle=T[0];x.fillText('Vex',bx+w1,170);
+x.textAlign='center';x.fillStyle='#aaa';x.font='500 48px '+F;x.fillText('🐍 '+mname(),540,300);
+x.font='700 380px '+F;x.fillStyle=T[1];x.fillText(String(pt),540,712);x.fillStyle=T[0];x.fillText(String(pt),540,696);
+x.fillStyle='#fff';x.font='700 54px '+F;x.fillText(_('yb').replace('{n}',Math.max(best,pt)),540,830);
+x.fillStyle='#aaa';x.font='500 46px '+F;x.fillText(_('beat'),540,950);
+const b=await new Promise(r=>c.toBlob(r,'image/png')),f=new File([b],'gamevex-score.png',{type:'image/png'});
+if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],text:t0+' https://t.me/'+BOT});return}}
+catch(e){if(e&&e.name=='AbortError')return}
+const u='https://t.me/share/url?url='+encodeURIComponent('https://t.me/'+BOT)+'&text='+encodeURIComponent(t0);
+try{TG.openTelegramLink(u)}catch(e){try{navigator.share({text:t0+' https://t.me/'+BOT})}catch(e2){window.open(u)}}}
 function copyInv(){const u=invLink();try{navigator.clipboard.writeText(u).then(()=>{NET.msg=_('copied');lrv()},()=>prompt('',u))}catch(e){prompt('',u)}}
 function shareInv(){const u=invLink(),x='https://t.me/share/url?url='+encodeURIComponent(u)+'&text='+encodeURIComponent(_('invtxt')+' '+NET.code.toUpperCase());
 try{TG.openTelegramLink(x)}catch(e){try{navigator.share({title:'UNO',text:_('invtxt'),url:u})}catch(e2){prompt('',u)}}}
@@ -363,13 +396,14 @@ $('fe').children[1].textContent=u?_('und'):_('snd');$('ps').textContent=u?_('vs'
 function applyAll(){theme();document.title=_('title');
 $('hh').innerHTML='game<span class="vx">Vex</span>';$('n1').textContent=_('games');$('n2').textContent=_('activity');
 $('f1').textContent=_('snake');$('f2').textContent=_('solo1');$('bl').textContent=_('bestl');$('lh').textContent=_('lead');
-$('ux').textContent=_('home');$('sh').textContent=_('set');$('l1').textContent=_('lang');$('l2').textContent=_('theme');$('l3').textContent=_('vib');
+$('ux').textContent=_('home');$('sh').textContent=_('set');$('l1').textContent=_('lang');$('l2').textContent=_('theme');$('l3').textContent=_('vib');$('ga').textContent=_('again');$('gsh').textContent='📤 '+_('shr');$('gh').textContent='🏠 '+_('bhome');
 $('nl').textContent=_('nbots');cbuild();mbuild();nbuild();stabs();
 if(!$('lb').hidden){ltabs();lrender()}if(V&&!$('un').hidden)rv();selg(sel)}
-function home(){inG=0;if(NET){try{NET.peer.destroy()}catch(e){}NET=null}U=null;V=null;$('lby').hidden=true;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
+function home(){inG=0;$('go').hidden=true;if(NET){try{NET.peer.destroy()}catch(e){}NET=null}U=null;V=null;$('lby').hidden=true;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
 $('hb').onclick=home;
 $('ps').onclick=()=>{if(sel=='uno'){uno();return}inG=1;$('hm').hidden=true;init()};
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button,.cd'))hp(0)},true);
+$('ga').onclick=()=>init();$('gh').onclick=()=>home();$('gsh').onclick=()=>shareScore();
 $('hl').onclick=()=>sel=='uno'?hostRoom():$('tp').onclick();
 $('jb').onclick=()=>{const v=$('jc').value.trim().toLowerCase();if(/^[a-z0-9]{3,8}$/.test(v))joinRoom(v)};
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&NET&&NET.peer&&NET.peer.disconnected){try{NET.peer.reconnect()}catch(e){}}});
