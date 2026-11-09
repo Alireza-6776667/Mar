@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>Snake Game</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
 <script>window.Peer||document.write('<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"><\/script>')</script>
 <style>
@@ -123,6 +125,12 @@ body{margin:0;background:#000;color:#fff;font-family:GV,ui-rounded,"SF Pro Round
 .hsec h4{margin:0 0 6px;color:var(--a);font-size:16px}.hsec p{margin:0;color:#cfcfcf;font-size:14px;line-height:1.7}
 .cr2{display:flex;gap:14px;align-items:center;padding:10px 0;border-top:1px solid #1d1d1d}.cr2 b{font-size:15px}.cr2 p{margin-top:2px}
 .uc2.mini{width:46px;height:68px;font-size:18px;border-width:2px;border-radius:8px}
+.stk{width:130px;height:130px;margin:0 auto 6px;font-size:84px;line-height:130px;text-align:center}
+.sd{font-size:12px;color:#777;text-align:center;margin-bottom:6px}
+#uo{position:fixed;inset:0;z-index:7;background:#0008;display:flex;align-items:flex-end}#uo[hidden]{display:none}
+#uo .stk{width:110px;height:110px;font-size:70px;line-height:110px;margin-bottom:0}
+#ut{font-size:34px;font-weight:700;text-align:center}#ut.win{color:var(--a)}
+#us2{color:#aaa;font-size:15px;margin-bottom:12px}#uw{color:#999;font-size:14px;margin-bottom:6px}#uw[hidden],#ua[hidden]{display:none}
 #lb{z-index:8}
 .hh{display:flex;align-items:center;justify-content:space-between}.hh h1{margin:0}.hh>span{width:46px}
 #gr,#sx{width:40px;height:40px;border-radius:12px;border:2px solid #333;background:#1c1c1c;color:#fff;font-size:20px;padding:0}
@@ -159,6 +167,7 @@ body{margin:0;background:#000;color:#fff;font-family:GV,ui-rounded,"SF Pro Round
 <div id="ac" hidden><div id="at"></div></div>
 <div id="nv"><button class="on" id="n1">Games</button><button id="n2">Activity</button></div></div>
 <div id="st" hidden><button id="sx">✕</button><h3 id="sh">Settings</h3><label id="l1"></label><div class="tb" id="sl"></div><label id="l2"></label><div class="tb" id="sth"></div><label id="l3"></label><div class="tb" id="sv"></div></div>
+<div id="uo" hidden><div class="gcard"><div class="stk" id="uk2"></div><div id="ut"></div><div id="us2"></div><div id="uw"></div><button class="gbig" id="ua"></button><div class="grow"><button id="uh"></button></div></div></div>
 <div id="hw" hidden><div class="hwh"><h3 id="hwt"></h3><button id="hx">✕</button></div><div id="hwc"></div></div>
 <div id="go" hidden><div class="gcard"><div id="gt"></div><div id="gs"></div><div id="gn" hidden></div><div id="gb"></div><button class="gbig" id="ga"></button><div class="grow"><button id="gsh"></button><button id="gh"></button></div></div></div>
 <div id="lby" hidden></div>
@@ -201,7 +210,7 @@ function mark(){[...$('md').children].forEach((b,i)=>b.className=i==md?'on':'')}
 $('pl').onclick=()=>init();
 function init(){$('go').hidden=true;sn=[{x:9,y:12},{x:8,y:12},{x:7,y:12}];lt={x:6,y:12};d=nd={x:1,y:0};q=[];pt=0;ov=0;run=0;place();sco()}
 function place(){do fd={x:Math.random()*CO|0,y:Math.random()*RO|0};while(sn.some(s=>s.x==fd.x&&s.y==fd.y))}
-const sp=()=>md>1?Math.max(60,100-pt*.2):100;
+const sp=()=>md>1?Math.max(60,100-pt*.25):100;
 function go(a,b){if(!inG||ov)return;
 const l=q.length?q[q.length-1]:d;if((a==l.x&&b==l.y)||(a==-l.x&&b==-l.y))return;
 if(q.length<2){q.push({x:a,y:b});hs()}const n=performance.now();if(!run){run=1;ls=n-sp()}else if(q.length==1&&n-ls>=sp()*.45)step(n)}
@@ -212,7 +221,7 @@ function step(n){if(q.length)nd=q.shift();d=nd;let x=sn[0].x+d.x,y=sn[0].y+d.y;
 if(md){if(x<0||y<0||x>=CO||y>=RO)return die()}else{x=(x+CO)%CO;y=(y+RO)%RO}
 const a=x==fd.x&&y==fd.y;
 if((a?sn:sn.slice(0,-1)).some(s=>s.x==x&&s.y==y))return die();
-sn.unshift({x,y});if(a){pt+=10;lt=null;place();sco();hp(0)}else lt=sn.pop();ls=n}
+sn.unshift({x,y});if(a){pt+=8;lt=null;place();sco();hp(0)}else lt=sn.pop();ls=n}
 function sco(){sg.clearRect(0,0,120,25);sg.fillStyle=COL;
 String(pt).padStart(6,'0').split('').forEach((n,i)=>{const p=DG[n];
 for(let r=0;r<5;r++)for(let k=0;k<3;k++)if(p[r*3+k]=='1')sg.fillRect((i*4+k)*5,r*5,4,4)})}
@@ -257,8 +266,8 @@ document.addEventListener('mousedown',ts);
 document.addEventListener('mousemove',tmv);
 document.addEventListener('mouseup',()=>on=0);
 document.addEventListener('keydown',e=>{const k={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(k){e.preventDefault();go(k[0],k[1])}});
-const L={en:{title:'gameVex',games:'Games',activity:'Activity',snake:'Snake Game',snd:"Eat, grow and don't bite your tail.",solo:'Play solo',solo1:'Solo',lbb:'🏆 Leaderboard',best:'Best',bestl:'BEST',wins:'Wins',vs:'Play vs Bots',und:'Beat the bots. Match colors or numbers.',arc:'Classic arcade',vsb:'Play vs bots',more:'More',way:'On its way',start:'Swipe to start',over:'Game over',rest:'Swipe to restart',soon:'Leaderboard coming soon',every:'Everyone, resets at midnight',all:'All time',you:'YOU',players:'PLAYERS',youn:'You',daily:'Daily',overall:'Overall',nw:'No walls',w:'Walls',adv:'Advanced',lead:'Leaderboard',home:'‹ Home',bot:'Bot',cards:'cards',win:'You win! 🎉',lose:'You lost 😢',turn:'Your turn',think:'Bots are playing...',again:'Play again',set:'Settings',lang:'Language',theme:'Theme',tw:'White',tg:'Green',ty:'Yellow',nbots:'Number of bots',bestsc:'Best score',unow:'UNO wins',inv:'Invite friends',friends:'Play with friends',share:'Share invite link',startg:'Start game',waitho:'Waiting for the host...',botsl:'Bots',invtxt:'Join my UNO game!',left:'Disconnected',started:'Game already started',plays:'is playing...',wonb:'wins',conn:'Connecting to server...',ready:'Ready! Waiting for friends...',contohost:'Connecting to the host...',noh:'Could not reach the host. Check the code and try again.',ok:'Connected! Waiting for the host...',copy:'Copy link',copied:'Link copied!',joinb:'Join',code:'Room code',rec:'Records',recent:'Recent activity',plays1:'Games played',nohist:'No activity yet',wonl:'Won',lostl:'Lost',today:'Today',vib:'Vibration',on:'On',off:'Off',shr:'Share result',bhome:'Back home',yb:'Your best is {n}',nrec:'New record!',shtxt:'I scored {n} in Snake ({m}) on gameVex! Can you beat me?',beat:'Can you beat me?'},
-fa:{title:'gameVex',games:'بازی‌ها',activity:'فعالیت',snake:'بازی مار',snd:'بخور، بزرگ شو و دمت را گاز نگیر.',solo:'بازی تک‌نفره',solo1:'تک‌نفره',lbb:'🏆 جدول امتیاز',best:'بهترین',bestl:'بهترین',wins:'برد',vs:'بازی با بات‌ها',und:'بات‌ها را شکست بده. رنگ یا عدد را هماهنگ کن.',arc:'آرکید کلاسیک',vsb:'بازی با بات‌ها',more:'بیشتر',way:'به‌زودی',start:'برای شروع بکش',over:'باختی',rest:'برای شروع دوباره بکش',soon:'جدول امتیاز به‌زودی',every:'همه، نیمه‌شب صفر می‌شود',all:'کل زمان',you:'شما',players:'بازیکن',youn:'شما',daily:'روزانه',overall:'کلی',nw:'بدون دیوار',w:'دیوار',adv:'پیشرفته',lead:'جدول امتیاز',home:'‹ خانه',bot:'بات',cards:'کارت',win:'تو بردی! 🎉',lose:'باختی 😢',turn:'نوبت توست',think:'بات‌ها بازی می‌کنند...',again:'بازی دوباره',set:'تنظیمات',lang:'زبان',theme:'تم',tw:'سفید',tg:'سبز',ty:'زرد',nbots:'تعداد بات',bestsc:'بهترین امتیاز',unow:'بردهای UNO',inv:'دعوت دوستان',friends:'بازی با دوستان',share:'ارسال لینک دعوت',startg:'شروع بازی',waitho:'منتظر میزبان...',botsl:'بات‌ها',invtxt:'بیا با هم UNO بازی کنیم!',left:'اتصال قطع شد',started:'بازی شروع شده',plays:'در حال بازی...',wonb:'برنده شد',conn:'در حال اتصال به سرور...',ready:'آماده! منتظر دوستان...',contohost:'در حال اتصال به میزبان...',noh:'به میزبان وصل نشد. کد را چک کن و دوباره امتحان کن.',ok:'وصل شدی! منتظر میزبان...',copy:'کپی لینک',copied:'لینک کپی شد!',joinb:'ورود',code:'کد اتاق',rec:'رکوردها',recent:'فعالیت‌های اخیر',plays1:'تعداد بازی',nohist:'هنوز فعالیتی نیست',wonl:'بردی',lostl:'باختی',today:'امروز',vib:'لرزش',on:'روشن',off:'خاموش',shr:'اشتراک نتیجه',bhome:'بازگشت به خانه',yb:'رکورد تو {n} است',nrec:'رکورد جدید!',shtxt:'من توی بازی مار gameVex امتیاز {n} ({m}) گرفتم! می‌تونی منو ببری؟',beat:'می‌تونی منو ببری؟'}};
+const L={en:{title:'gameVex',games:'Games',activity:'Activity',snake:'Snake Game',snd:"Eat, grow and don't bite your tail.",solo:'Play solo',solo1:'Solo',lbb:'🏆 Leaderboard',best:'Best',bestl:'BEST',wins:'Wins',vs:'Play vs Bots',und:'Beat the bots. Match colors or numbers.',arc:'Classic arcade',vsb:'Play vs bots',more:'More',way:'On its way',start:'Swipe to start',over:'Game over',rest:'Swipe to restart',soon:'Leaderboard coming soon',every:'Everyone, resets at midnight',all:'All time',you:'YOU',players:'PLAYERS',youn:'You',daily:'Daily',overall:'Overall',nw:'No walls',w:'Walls',adv:'Advanced',lead:'Leaderboard',home:'‹ Home',bot:'Bot',cards:'cards',win:'You win! 🎉',lose:'You lost 😢',turn:'Your turn',think:'Bots are playing...',again:'Play again',set:'Settings',lang:'Language',theme:'Theme',tw:'White',tg:'Green',ty:'Yellow',nbots:'Number of bots',bestsc:'Best score',unow:'UNO wins',inv:'Invite friends',friends:'Play with friends',share:'Share invite link',startg:'Start game',waitho:'Waiting for the host...',botsl:'Bots',invtxt:'Join my UNO game!',left:'Disconnected',started:'Game already started',plays:'is playing...',wonb:'wins',conn:'Connecting to server...',ready:'Ready! Waiting for friends...',contohost:'Connecting to the host...',noh:'Could not reach the host. Check the code and try again.',ok:'Connected! Waiting for the host...',copy:'Copy link',copied:'Link copied!',joinb:'Join',code:'Room code',rec:'Records',recent:'Recent activity',plays1:'Games played',nohist:'No activity yet',wonl:'Won',lostl:'Lost',today:'Today',vib:'Vibration',on:'On',off:'Off',shr:'Share result',bhome:'Back home',yb:'Your best is {n}',nrec:'New record!',shtxt:'I scored {n} in Snake ({m}) on gameVex! Can you beat me?',beat:'Can you beat me?',youwin:'You win 🏆',pl:'players'},
+fa:{title:'gameVex',games:'بازی‌ها',activity:'فعالیت',snake:'بازی مار',snd:'بخور، بزرگ شو و دمت را گاز نگیر.',solo:'بازی تک‌نفره',solo1:'تک‌نفره',lbb:'🏆 جدول امتیاز',best:'بهترین',bestl:'بهترین',wins:'برد',vs:'بازی با بات‌ها',und:'بات‌ها را شکست بده. رنگ یا عدد را هماهنگ کن.',arc:'آرکید کلاسیک',vsb:'بازی با بات‌ها',more:'بیشتر',way:'به‌زودی',start:'برای شروع بکش',over:'باختی',rest:'برای شروع دوباره بکش',soon:'جدول امتیاز به‌زودی',every:'همه، نیمه‌شب صفر می‌شود',all:'کل زمان',you:'شما',players:'بازیکن',youn:'شما',daily:'روزانه',overall:'کلی',nw:'بدون دیوار',w:'دیوار',adv:'پیشرفته',lead:'جدول امتیاز',home:'‹ خانه',bot:'بات',cards:'کارت',win:'تو بردی! 🎉',lose:'باختی 😢',turn:'نوبت توست',think:'بات‌ها بازی می‌کنند...',again:'بازی دوباره',set:'تنظیمات',lang:'زبان',theme:'تم',tw:'سفید',tg:'سبز',ty:'زرد',nbots:'تعداد بات',bestsc:'بهترین امتیاز',unow:'بردهای UNO',inv:'دعوت دوستان',friends:'بازی با دوستان',share:'ارسال لینک دعوت',startg:'شروع بازی',waitho:'منتظر میزبان...',botsl:'بات‌ها',invtxt:'بیا با هم UNO بازی کنیم!',left:'اتصال قطع شد',started:'بازی شروع شده',plays:'در حال بازی...',wonb:'برنده شد',conn:'در حال اتصال به سرور...',ready:'آماده! منتظر دوستان...',contohost:'در حال اتصال به میزبان...',noh:'به میزبان وصل نشد. کد را چک کن و دوباره امتحان کن.',ok:'وصل شدی! منتظر میزبان...',copy:'کپی لینک',copied:'لینک کپی شد!',joinb:'ورود',code:'کد اتاق',rec:'رکوردها',recent:'فعالیت‌های اخیر',plays1:'تعداد بازی',nohist:'هنوز فعالیتی نیست',wonl:'بردی',lostl:'باختی',today:'امروز',vib:'لرزش',on:'روشن',off:'خاموش',shr:'اشتراک نتیجه',bhome:'بازگشت به خانه',yb:'رکورد تو {n} است',nrec:'رکورد جدید!',shtxt:'من توی بازی مار gameVex امتیاز {n} ({m}) گرفتم! می‌تونی منو ببری؟',beat:'می‌تونی منو ببری؟',youwin:'تو بردی 🏆',pl:'بازیکن'}};
 Object.assign(L.en,{hwt:'How to play',hg_t:'Goal',hg:'Be the first player to get rid of all your cards.',hr_t:'On your turn',hr:'Play a card that matches the top card by color, number or symbol. No card to play? Tap the deck to draw one and your turn passes. Cards you can play are bright, the others are dimmed.',hs_t:'Setup',hs:'Everyone starts with 7 cards. Play against 1 to 4 bots, or invite friends with a room code or a link.',hc_t:'Card guide',hc0:'Number cards (0-9)',hd0:'Match the color or the number of the top card.',hc1:'Skip ⊘',hd1:'The next player loses their turn.',hc2:'Reverse ⇄',hd2:'Changes the direction of play. With only 2 players it works like Skip.',hc3:'Draw Two +2',hd3:'The next player draws 2 cards and loses their turn.',hc4:'Wild ★',hd4:'Play it any time and choose the new color.',hc5:'Wild Draw Four +4',hd5:'Choose the new color. The next player draws 4 cards and loses their turn.',ht_t:'Tips',ht:'Keep Wild cards for when you are stuck. When you have one card left you will see "UNO!" at the top. The player with a glowing ring is the one playing now.'});
 Object.assign(L.fa,{hwt:'راهنمای بازی',hg_t:'هدف',hg:'اولین نفری باش که همهٔ کارت‌هایش را خالی می‌کند.',hr_t:'نوبت تو',hr:'کارتی بازی کن که با کارت وسط هم‌رنگ، هم‌عدد یا هم‌نماد باشد. کارت قابل‌بازی نداری؟ روی دسته کارت بزن تا یک کارت بکشی و نوبت به نفر بعدی برسد. کارت‌های قابل‌بازی روشن‌اند و بقیه کم‌رنگ.',hs_t:'شروع بازی',hs:'هر نفر ۷ کارت می‌گیرد. می‌توانی با ۱ تا ۴ بات بازی کنی یا دوستانت را با کد اتاق یا لینک دعوت کنی.',hc_t:'راهنمای کارت‌ها',hc0:'کارت‌های عددی (۰ تا ۹)',hd0:'رنگ یا عدد کارت وسط را هماهنگ کن.',hc1:'Skip ⊘ (پرش)',hd1:'نفر بعدی نوبتش را از دست می‌دهد.',hc2:'Reverse ⇄ (برعکس)',hd2:'جهت بازی را برعکس می‌کند. در بازی دونفره مثل Skip است.',hc3:'Draw Two +2 (دو کارت)',hd3:'نفر بعدی ۲ کارت می‌کشد و نوبتش می‌سوزد.',hc4:'Wild ★ (جوکر)',hd4:'هر وقت خواستی بازی کن و رنگ جدید را انتخاب کن.',hc5:'Wild +4 (جوکر چهار کارت)',hd5:'رنگ جدید را انتخاب کن. نفر بعدی ۴ کارت می‌کشد و نوبتش می‌سوزد.',ht_t:'نکته‌ها',ht:'جوکرها را برای وقتی نگه دار که گیر کرده‌ای. وقتی یک کارت برایت می‌ماند، بالای صفحه «UNO!» را می‌بینی. بازیکنی که دورش حلقهٔ نور دارد، نوبتش است.'});
 const TH={green:['#6ccf70','#4fa855','#16301c','#0b1a10','rgba(108,207,112,.20)','rgba(108,207,112,.08)'],white:['#e8e8e8','#bdbdbd','#2a2a2a','#111','rgba(255,255,255,.14)','rgba(255,255,255,.05)'],yellow:['#e3c35c','#b99a38','#2d2711','#15120a','rgba(227,195,92,.18)','rgba(227,195,92,.07)']};
@@ -326,7 +335,7 @@ const r1=E('div','cr'),r2=E('div','cr');r1.append(dk,ucard(V.tp,'tp'));r2.append
 V.hand.forEach((c,i)=>{const e=ucard(c,V.t==V.me&&V.w<0&&okv(c)?'':'dim');e.onclick=()=>utap(i);k.append(e)});
 $('us').textContent=V.w>=0?(V.w==V.me?_('win'):V.nm[V.w]+' '+_('wonb')):(V.t==V.me?(V.hand.length==1?'UNO! ':'')+_('turn'):V.nm[V.t]+' '+_('plays'));
 $('un').hidden=false;
-if(V.w>=0&&(!NET||NET.role=='host')){const r=E('button','big2',_('again'));r.onclick=()=>NET?hostStart():uno();m.append(r)}}
+if(V.w>=0)setTimeout(()=>{if(V&&V.w>=0)showUO()},500);else $('uo').hidden=true}
 function lbc(){const nm=[myn(),...NET.peers.map(p=>p.name)];NET.peers.forEach(p=>{try{p.conn.send({lob:{nm}})}catch(e){}});NET.lob={nm};lrv()}
 function hostRoom(){if(NET)return;if(typeof Peer=='undefined'){NET={role:'host',code:'-----',peers:[],bots:0,seats:[],msg:'connection library did not load'};lrv();return}const code=Math.random().toString(36).slice(2,7);NET={role:'host',code,peers:[],bots:1,seats:[],msg:_('conn')};lrv();
 const pe=new Peer('gvuno-'+code);NET.peer=pe;pe.on('error',e=>{NET.msg=e.type;lrv()});pe.on('open',()=>{NET.msg=_('ready');lrv()});pe.on('disconnected',()=>{try{pe.reconnect()}catch(e){}});
@@ -343,6 +352,10 @@ c.on('data',d=>{if(d.v){V=d.v;$('lby').hidden=true;$('hm').hidden=true;rv()}else
 c.on('close',()=>{NET.msg=_('left');if(V&&!$('un').hidden)$('us').textContent=_('left');else lrv()})})}
 const BOT='Maaafffar_bot',APP='';
 const invLink=()=>'https://t.me/'+BOT+(APP?'/'+APP:'')+'?startapp='+NET.code;
+function showUO(){const win=V.w==V.me,host=!NET||NET.role=='host';
+$('ut').textContent=win?_('youwin'):V.nm[V.w]+' '+_('wonb');$('ut').className=win?'win':'';
+$('us2').textContent='UNO · '+V.nm.length+' '+_('pl');$('ua').hidden=!host;$('uw').hidden=host;$('uo').hidden=false;
+lot($('uk2'),win?'win':'lose',win?'🏆':'😢')}
 function hwv(){const o=$('hwc');o.textContent='';$('hwt').textContent='💡 '+_('hwt');
 const sec=(t,p)=>{const d=E('div','hsec');d.append(E('h4','',t),E('p','',p));o.append(d)};
 sec('🎯 '+_('hg_t'),_('hg'));sec('▶️ '+_('hr_t'),_('hr'));sec('🃏 '+_('hs_t'),_('hs'));
@@ -351,6 +364,16 @@ const d=E('div','hsec');d.append(E('h4','','✨ '+_('hc_t')));
 const r=E('div','cr2'),k=ucard(c,'mini');if(c.c=='W')k.style.background='conic-gradient(#e8453c,#f2c230,#3fae5a,#3b82e0,#e8453c)';
 const t=E('div');t.append(E('b','',_(a)),E('p','',_(b)));r.append(k,t);d.append(r)});
 o.append(d);sec('💡 '+_('ht_t'),_('ht'))}
+const LC={};
+async function lot(el,base,fb,sd){el.textContent=fb||'';const say=t=>{if(sd)sd.textContent=t};
+const get=async u=>{const r=await fetch(u);if(!r.ok)return null;const b=new Uint8Array(await r.arrayBuffer());
+if(b[0]==80&&b[1]==75)throw Error('this is a ZIP file, unzip it first');
+return JSON.parse((b[0]==31&&b[1]==139)?pako.ungzip(b,{to:'string'}):new TextDecoder().decode(b))};
+try{let d=LC[base];if(!d){let er='';for(const e of['.json','.tgs']){try{d=await get(base+e);if(d)break}catch(x){er=base+e+': '+x.message}}
+if(!d){say(er||'file not found: '+base+'.json');return}LC[base]=d}
+if(typeof lottie=='undefined'){say('lottie library did not load');return}
+el.textContent='';lottie.loadAnimation({container:el,renderer:'svg',loop:true,autoplay:true,animationData:JSON.parse(JSON.stringify(d))});say('')}
+catch(e){say('error: '+e.message)}}
 const mname=()=>[_('nw'),_('w'),_('adv')][md];
 function showGO(pb){if(!ov)return;$('gt').textContent='🐍 '+mname();$('gs').textContent=pt;
 $('gb').textContent=_('yb').replace('{n}',Math.max(best,pt));$('gn').textContent='🏆 '+_('nrec');$('gn').hidden=!(pt>pb&&pt>0);$('go').hidden=false}
@@ -405,6 +428,7 @@ try{localStorage.st=JSON.stringify(st)}catch(x){}}
 function fdt(t){const d=new Date(t),n=new Date(),p=x=>String(x).padStart(2,'0');
 return(d.toDateString()==n.toDateString()?_('today'):d.getFullYear()+'/'+p(d.getMonth()+1)+'/'+p(d.getDate()))+' '+p(d.getHours())+':'+p(d.getMinutes())}
 function acs(){const o=$('ac');o.textContent='';const st=LS('st',{sp:0,up:0,bm:[0,0,0]}),h=LS('hist',[]);
+const sl=E('div','stk','🦆'),sd=E('div','sd');o.append(sl,sd);if(!o.hidden)lot(sl,'duck','🦆',sd);
 const g=E('div','sg');
 [[best,'🐍 '+_('bestsc')],[st.bm.join(' / '),'🐍 '+_('nw')+' / '+_('w')+' / '+_('adv')],[st.sp,'🐍 '+_('plays1')],[wins(),'🃏 '+_('unow')],[st.up,'🃏 '+_('plays1')]].forEach(([v,l])=>{const c=E('div','sc2');c.append(E('b','',v),E('small','',l));g.append(c)});
 o.append(E('h3','',_('rec')),g,E('h3','',_('recent')));
@@ -417,14 +441,15 @@ $('fe').children[1].textContent=u?_('und'):_('snd');$('ps').textContent=u?_('vs'
 function applyAll(){theme();document.title=_('title');
 $('hh').innerHTML='game<span class="vx">Vex</span>';$('n1').textContent=_('games');$('n2').textContent=_('activity');
 $('f1').textContent=_('snake');$('f2').textContent=_('solo1');$('bl').textContent=_('bestl');$('lh').textContent=_('lead');
-$('ux').textContent=_('home');$('sh').textContent=_('set');$('l1').textContent=_('lang');$('l2').textContent=_('theme');$('l3').textContent=_('vib');$('ga').textContent=_('again');$('gsh').textContent='📤 '+_('shr');$('gh').textContent='🏠 '+_('bhome');$('hwb').textContent='💡 '+_('hwt');if(!$('hw').hidden)hwv();
+$('ux').textContent=_('home');$('sh').textContent=_('set');$('l1').textContent=_('lang');$('l2').textContent=_('theme');$('l3').textContent=_('vib');$('ga').textContent=_('again');$('gsh').textContent='📤 '+_('shr');$('gh').textContent='🏠 '+_('bhome');$('ua').textContent=_('again');$('uh').textContent='🏠 '+_('bhome');$('uw').textContent=_('waitho');if(V&&V.w>=0)showUO();$('hwb').textContent='💡 '+_('hwt');if(!$('hw').hidden)hwv();
 $('nl').textContent=_('nbots');cbuild();mbuild();nbuild();stabs();
 if(!$('lb').hidden){ltabs();lrender()}if(V&&!$('un').hidden)rv();selg(sel)}
-function home(){inG=0;$('go').hidden=true;if(NET){try{NET.peer.destroy()}catch(e){}NET=null}U=null;V=null;$('lby').hidden=true;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
+function home(){inG=0;$('go').hidden=true;$('uo').hidden=true;if(NET){try{NET.peer.destroy()}catch(e){}NET=null}U=null;V=null;$('lby').hidden=true;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
 $('hb').onclick=home;
 $('ps').onclick=()=>{if(sel=='uno'){uno();return}inG=1;$('hm').hidden=true;init()};
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button,.cd'))hp(0)},true);
 $('hwb').onclick=()=>{hwv();$('hw').hidden=false};$('hx').onclick=()=>{$('hw').hidden=true};
+$('ua').onclick=()=>{$('uo').hidden=true;NET?hostStart():uno()};$('uh').onclick=()=>home();
 $('ga').onclick=()=>init();$('gh').onclick=()=>home();$('gsh').onclick=()=>shareScore();
 $('hl').onclick=()=>sel=='uno'?hostRoom():$('tp').onclick();
 $('jb').onclick=()=>{const v=$('jc').value.trim().toLowerCase();if(/^[a-z0-9]{3,8}$/.test(v))joinRoom(v)};
