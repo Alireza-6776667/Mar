@@ -182,6 +182,20 @@ html{background:#000}
 #lx,#sx{top:calc(10px + var(--st))}
 #tt{top:calc(70px + var(--st))}
 #nv{padding-bottom:var(--sb)}
+#bsel,#frs{position:fixed;inset:0;z-index:8;background:var(--bg);display:flex;flex-direction:column;justify-content:center;padding:calc(24px + var(--st)) 24px 24px}
+#bsel[hidden],#frs[hidden]{display:none}
+.bcard{width:min(100%,400px);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.bcard h3{margin:0;font-size:28px}.bcard p{margin:0;color:#aaa}.bcard .gbig,.bcard .sec2{width:100%}.bcard .sec2{height:50px}
+#bn{font-size:54px;font-weight:700;color:var(--a);text-shadow:0 5px 0 var(--d);line-height:1.1}
+#bav{display:flex;gap:10px}.bavt{width:52px;height:52px;border-radius:50%;background:#171717;border:2px solid #2a2a2a;display:flex;align-items:center;justify-content:center;font-size:26px;opacity:.28;transform:scale(.85);transition:opacity .2s,transform .2s,box-shadow .2s}
+.bavt.on{opacity:1;transform:scale(1);border-color:var(--a);box-shadow:0 0 16px var(--g)}
+#bt{position:relative;width:100%;height:34px;margin:10px 0 18px;touch-action:none;border-radius:17px;background:#1b1b1b;box-shadow:inset 0 2px 6px #000;cursor:pointer}
+#bfl{position:absolute;left:0;top:0;height:100%;border-radius:17px;background:linear-gradient(90deg,var(--d),var(--a));transition:width .15s}
+#bth{position:absolute;top:-3px;width:34px;height:40px;border-radius:14px;background:#fff;box-shadow:0 4px 0 #bbb,0 8px 14px #000a;transition:left .15s}
+#bt.drag #bth,#bt.drag #bfl{transition:none}
+.nt{position:absolute;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#0006}
+.or{color:#777;font-size:14px}
+#frs #jw{width:100%}
 #lb{z-index:8}
 .hh{display:flex;align-items:center;justify-content:space-between}.hh h1{margin:0}.hh>span{width:46px}
 #gr,#sx{width:40px;height:40px;border-radius:12px;border:2px solid #333;background:#1c1c1c;color:#fff;font-size:20px;padding:0}
@@ -211,13 +225,16 @@ html{background:#000}
 </div>
 <div id="hm"><div class="hh"><button id="lv"><b id="lvn">1</b></button><h1 id="hh">Mar Games</h1><button id="gr"></button></div>
 <div id="g1"><div id="fx"><div id="fe"><div class="fl"><h2 id="ft">Snake Game</h2><p id="fp">Eat, grow and don't bite your tail.</p><button class="pill" id="hwb" hidden></button></div><button class="shop" id="sb"></button></div>
-<div id="nbw" hidden><small id="nl"></small><div class="tb" id="nb"></div></div>
-<div id="jw" hidden><input id="jc" maxlength="8" autocapitalize="off" autocomplete="off"><button id="jb"></button></div>
 <div class="bt"><button class="big" id="ps">Play solo</button><button id="hl">🏆 Leaderboard</button><span id="bb"></span></div>
 </div><div id="cs"></div></div>
 <div id="ac" hidden><div id="at"></div></div>
 <div id="nv"><button class="on" id="n1">Games</button><button id="n2">Activity</button></div></div>
 <div id="st" hidden><button id="sx">✕</button><h3 id="sh">Settings</h3><label id="l1"></label><div class="tb" id="sl"></div><label id="l2"></label><div class="tb" id="sth"></div><label id="l3"></label><div class="tb" id="sv"></div></div>
+<div id="bsel" hidden><div class="bcard"><h3 id="bs1"></h3><p id="bs2"></p><div id="bn"></div><div id="bav"></div>
+<div id="bt"><div id="bfl"></div><i class="nt" style="left:17px"></i><i class="nt" style="left:calc(33.3% + 5px)"></i><i class="nt" style="left:calc(66.6% - 5px)"></i><i class="nt" style="left:calc(100% - 17px)"></i><div id="bth"></div></div>
+<button class="gbig" id="bgo"></button><button class="sec2" id="bcn"></button></div></div>
+<div id="frs" hidden><div class="bcard"><h3 id="fr1"></h3><button class="gbig" id="fr2"></button><div class="or" id="fr3"></div><p id="fr4"></p>
+<div id="jw"><input id="jc" maxlength="8" autocapitalize="off" autocomplete="off"><button id="jb"></button></div><button class="sec2" id="frc"></button></div></div>
 <div id="shp" hidden><div class="hwh"><h3 id="sht"></h3><button id="shx">✕</button></div><div id="shc"></div></div>
 <div id="jn" hidden><div id="jbox"><div class="stk" id="jk">🔒</div><h3 id="jt"></h3><p id="jd"></p><button class="gbig" id="jj"></button><button class="sec2" id="jc2"></button></div></div>
 <div id="tt" hidden></div>
@@ -312,7 +329,7 @@ if(ov){g.font='bold 40px Arial,sans-serif';g.fillText(_('rest'),W/2,H/2+132)}}}
 function loop(n){requestAnimationFrame(loop);if(run&&n-ls>=sp())step(n);render(n)}
 let tx,ty,on=0;
 function pos(e){return e.touches?e.touches[0]:e}
-function ts(e){if(e.target.closest('button,#lb,#go,#hw,#shp,#jn'))return;const p=pos(e);tx=p.clientX;ty=p.clientY;on=1}
+function ts(e){if(e.target.closest('button,#lb,#go,#hw,#shp,#jn,#bsel,#frs'))return;const p=pos(e);tx=p.clientX;ty=p.clientY;on=1}
 function tmv(e){if(!on||!inG)return;e.preventDefault();const p=pos(e),a=p.clientX-tx,b=p.clientY-ty,x=Math.abs(a),y=Math.abs(b);
 if(Math.max(x,y)>20&&(x>y*1.5||y>x*1.5)){if(x>y)go(a>0?1:-1,0);else go(0,b>0?1:-1);tx=p.clientX;ty=p.clientY}}
 document.addEventListener('touchstart',ts,{passive:false});
@@ -326,8 +343,8 @@ const L={en:{title:'gameVex',games:'Games',activity:'Activity',snake:'Snake Game
 fa:{title:'gameVex',games:'بازی‌ها',activity:'فعالیت',snake:'بازی مار',snd:'بخور، بزرگ شو و دمت را گاز نگیر.',solo:'بازی تک‌نفره',solo1:'تک‌نفره',lbb:'جدول امتیاز',best:'بهترین',bestl:'بهترین',wins:'برد',vs:'بازی با بات‌ها',und:'بات‌ها را شکست بده. رنگ یا عدد را هماهنگ کن.',arc:'آرکید کلاسیک',vsb:'بازی با بات‌ها',more:'بیشتر',way:'به‌زودی',start:'برای شروع بکش',over:'باختی',rest:'برای شروع دوباره بکش',soon:'جدول امتیاز به‌زودی',every:'همه، نیمه‌شب صفر می‌شود',all:'کل زمان',you:'شما',players:'بازیکن',youn:'شما',daily:'روزانه',overall:'کلی',nw:'بدون دیوار',w:'دیوار',adv:'پیشرفته',lead:'جدول امتیاز',home:'‹ خانه',bot:'بات',cards:'کارت',win:'تو بردی! 🎉',lose:'باختی 😢',turn:'نوبت توست',think:'بات‌ها بازی می‌کنند...',again:'بازی دوباره',set:'تنظیمات',lang:'زبان',theme:'تم',tw:'سفید',tg:'سبز',ty:'زرد',nbots:'تعداد بات',bestsc:'بهترین امتیاز',unow:'بردهای UNO',inv:'دعوت دوستان',friends:'بازی با دوستان',share:'ارسال لینک دعوت',startg:'شروع بازی',waitho:'منتظر میزبان...',botsl:'بات‌ها',invtxt:'بیا با هم UNO بازی کنیم!',left:'اتصال قطع شد',started:'بازی شروع شده',plays:'در حال بازی...',wonb:'برنده شد',conn:'در حال اتصال به سرور...',ready:'آماده! منتظر دوستان...',contohost:'در حال اتصال به میزبان...',noh:'به میزبان وصل نشد. کد را چک کن و دوباره امتحان کن.',ok:'وصل شدی! منتظر میزبان...',copy:'کپی لینک',copied:'لینک کپی شد!',joinb:'ورود',code:'کد اتاق',rec:'رکوردها',recent:'فعالیت‌های اخیر',plays1:'تعداد بازی',nohist:'هنوز فعالیتی نیست',wonl:'بردی',lostl:'باختی',today:'امروز',vib:'لرزش',on:'روشن',off:'خاموش',shr:'اشتراک نتیجه',bhome:'بازگشت به خانه',yb:'رکورد تو {n} است',nrec:'رکورد جدید!',shtxt:'من توی بازی مار gameVex امتیاز {n} ({m}) گرفتم! می‌تونی منو ببری؟',beat:'می‌تونی منو ببری؟',youwin:'تو بردی',pl:'بازیکن'}};
 Object.assign(L.en,{hwt:'How to play',hg_t:'Goal',hg:'Be the first player to get rid of all your cards.',hr_t:'On your turn',hr:'Play a card that matches the top card by color, number or symbol. No card to play? Tap the deck to draw one and your turn passes. Cards you can play are bright, the others are dimmed.',hs_t:'Setup',hs:'Everyone starts with 7 cards. Play against 1 to 4 bots, or invite friends with a room code or a link.',hc_t:'Card guide',hc0:'Number cards (0-9)',hd0:'Match the color or the number of the top card.',hc1:'Skip ⊘',hd1:'The next player loses their turn.',hc2:'Reverse ⇄',hd2:'Changes the direction of play. With only 2 players it works like Skip.',hc3:'Draw Two +2',hd3:'The next player draws 2 cards and loses their turn.',hc4:'Wild ★',hd4:'Play it any time and choose the new color.',hc5:'Wild Draw Four +4',hd5:'Choose the new color. The next player draws 4 cards and loses their turn.',ht_t:'Tips',ht:'Keep Wild cards for when you are stuck. When you have one card left you will see "UNO!" at the top. The player with a glowing ring is the one playing now.'});
 Object.assign(L.fa,{hwt:'راهنمای بازی',hg_t:'هدف',hg:'اولین نفری باش که همهٔ کارت‌هایش را خالی می‌کند.',hr_t:'نوبت تو',hr:'کارتی بازی کن که با کارت وسط هم‌رنگ، هم‌عدد یا هم‌نماد باشد. کارت قابل‌بازی نداری؟ روی دسته کارت بزن تا یک کارت بکشی و نوبت به نفر بعدی برسد. کارت‌های قابل‌بازی روشن‌اند و بقیه کم‌رنگ.',hs_t:'شروع بازی',hs:'هر نفر ۷ کارت می‌گیرد. می‌توانی با ۱ تا ۴ بات بازی کنی یا دوستانت را با کد اتاق یا لینک دعوت کنی.',hc_t:'راهنمای کارت‌ها',hc0:'کارت‌های عددی (۰ تا ۹)',hd0:'رنگ یا عدد کارت وسط را هماهنگ کن.',hc1:'Skip ⊘ (پرش)',hd1:'نفر بعدی نوبتش را از دست می‌دهد.',hc2:'Reverse ⇄ (برعکس)',hd2:'جهت بازی را برعکس می‌کند. در بازی دونفره مثل Skip است.',hc3:'Draw Two +2 (دو کارت)',hd3:'نفر بعدی ۲ کارت می‌کشد و نوبتش می‌سوزد.',hc4:'Wild ★ (جوکر)',hd4:'هر وقت خواستی بازی کن و رنگ جدید را انتخاب کن.',hc5:'Wild +4 (جوکر چهار کارت)',hd5:'رنگ جدید را انتخاب کن. نفر بعدی ۴ کارت می‌کشد و نوبتش می‌سوزد.',ht_t:'نکته‌ها',ht:'جوکرها را برای وقتی نگه دار که گیر کرده‌ای. وقتی یک کارت برایت می‌ماند، بالای صفحه «UNO!» را می‌بینی. بازیکنی که دورش حلقهٔ نور دارد، نوبتش است.'});
-Object.assign(L.en,{store:'Store',lvl:'Level',locked:'Level {n}',equip:'Equip',equipped:'Equipped',sk:'Snake skins',pal:'Card colors',bk:'Card backs',gtitle:'Join our channel to play',gdesc:'Join the channel, then come back and tap “I joined”.',gjoin:'Join channel',gdone:'I joined',gerr:'Connection problem',gretry:'Retry',gnot:'You have not joined yet',ghint:'The server did not answer: it may be blocked on your network, or the bot server is not updated yet.',lvup:'Level up!'});
-Object.assign(L.fa,{store:'فروشگاه',lvl:'سطح',locked:'سطح {n}',equip:'انتخاب',equipped:'انتخاب‌شده',sk:'ظاهر مار',pal:'رنگ کارت‌ها',bk:'پشت کارت‌ها',gtitle:'برای بازی کردن عضو کانال شو',gdesc:'عضو کانال شو، برگرد و «عضو شدم» رو بزن.',gjoin:'عضویت در کانال',gdone:'عضو شدم',gerr:'مشکل در اتصال',gretry:'تلاش دوباره',gnot:'هنوز عضو نشدی',ghint:'سرور جواب نداد: ممکنه شبکه‌ات اون رو بسته باشه یا کد سرور ربات هنوز آپدیت نشده باشه.',lvup:'ارتقای سطح!'});
+Object.assign(L.en,{hmb:'How many bots?',botw:'bots',cancel:'Cancel',mkroom:'Create a room',orx:'or',havec:'Have a room code?',store:'Store',lvl:'Level',locked:'Level {n}',equip:'Equip',equipped:'Equipped',sk:'Snake skins',pal:'Card colors',bk:'Card backs',gtitle:'Join our channel to play',gdesc:'Join the channel, then come back and tap “I joined”.',gjoin:'Join channel',gdone:'I joined',gerr:'Connection problem',gretry:'Retry',gnot:'You have not joined yet',ghint:'The server did not answer: it may be blocked on your network, or the bot server is not updated yet.',lvup:'Level up!'});
+Object.assign(L.fa,{hmb:'چند تا بات؟',botw:'بات',cancel:'انصراف',mkroom:'ساخت اتاق',orx:'یا',havec:'کد اتاق داری؟',store:'فروشگاه',lvl:'سطح',locked:'سطح {n}',equip:'انتخاب',equipped:'انتخاب‌شده',sk:'ظاهر مار',pal:'رنگ کارت‌ها',bk:'پشت کارت‌ها',gtitle:'برای بازی کردن عضو کانال شو',gdesc:'عضو کانال شو، برگرد و «عضو شدم» رو بزن.',gjoin:'عضویت در کانال',gdone:'عضو شدم',gerr:'مشکل در اتصال',gretry:'تلاش دوباره',gnot:'هنوز عضو نشدی',ghint:'سرور جواب نداد: ممکنه شبکه‌ات اون رو بسته باشه یا کد سرور ربات هنوز آپدیت نشده باشه.',lvup:'ارتقای سطح!'});
 const TH={green:['#6ccf70','#4fa855','#16301c','#0b1a10','rgba(108,207,112,.20)','rgba(108,207,112,.08)'],white:['#e8e8e8','#bdbdbd','#2a2a2a','#111','rgba(255,255,255,.14)','rgba(255,255,255,.05)'],yellow:['#e3c35c','#b99a38','#2d2711','#15120a','rgba(227,195,92,.18)','rgba(227,195,92,.07)']};
 let vib=true,lg='en',th='green',nb=1,sel='snake',U=null,pend=-1;
 const _=k=>(L[lg]&&L[lg][k])||L.en[k]||k;
@@ -446,6 +463,7 @@ const SK={classic:{lv:1,n:['Classic','کلاسیک']},ocean:{lv:2,n:['Ocean','ا
 const PAL={classic:{lv:1,n:['Classic','کلاسیک'],c:{R:'#e8453c',Y:'#f2c230',G:'#3fae5a',B:'#3b82e0'}},pastel:{lv:3,n:['Pastel','پاستلی'],c:{R:'#f08a8a',Y:'#f6dc8b',G:'#8ed6a4',B:'#8ab8f0'}},neon:{lv:6,n:['Neon','نئونی'],c:{R:'#ff2e63',Y:'#ffe600',G:'#00ff9c',B:'#00b3ff'}},noir:{lv:9,n:['Noir','تیره'],c:{R:'#8c1d2b',Y:'#8c7a1d',G:'#1d6b3a',B:'#1d4f8c'}}};
 const BK={dark:{lv:1,n:['Dark','تیره']},stripe:{lv:2,n:['Stripes','راه‌راه']},gold:{lv:5,n:['Gold','طلایی']},galaxy:{lv:8,n:['Galaxy','کهکشان']}};
 let PR={xp:0,wins:0,plays:0,eq:{sk:'classic',pal:'classic',bk:'dark'}},stab=0,GCH='';
+const ONLINE=false; // set to true when the Cloudflare worker is ready (channel lock + server XP)
 const API='https://gamevex-bot.alirezatayefii2009.workers.dev/api';
 const lvl=x=>Math.floor(Math.sqrt(x/50))+1;
 function loadP(){try{const p=JSON.parse(localStorage.pr);if(p&&p.eq)PR=p}catch(e){}}
@@ -454,7 +472,7 @@ function lvUpdate(){const l=lvl(PR.xp),lo=50*(l-1)*(l-1),hi=50*l*l;$('lvn').text
 function applyEq(){Object.assign(UC,(PAL[PR.eq.pal]||PAL.classic).c);$('un').className='bk-'+(PR.eq.bk||'dark');if(V&&!$('un').hidden)rv()}
 function setPR(r){PR.xp=r.xp;PR.wins=r.wins;PR.plays=r.plays;if(r.eq)PR.eq=r.eq;saveP();applyEq();lvUpdate()}
 const initD=()=>{try{return TG.initData||''}catch(e){return ''}};
-async function api(a,o){const d=initD();if(!d)return null;let r;
+async function api(a,o){const d=initD();if(!ONLINE||!d)return null;let r;
 try{r=await fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(Object.assign({initData:d,a},o||{}))})}catch(e){throw Error('network: '+(e.message||'failed'))}
 if(!r.ok){let t='',m='';try{const j=await r.json();t=j.err||'';m=j.msg||''}catch(e){}throw Error('HTTP '+r.status+(t?' ('+t+')':'')+(m?': '+m:''))}return r.json()}
 function toast0(t){const e=$('tt');e.textContent=t;e.hidden=false;clearTimeout(toast0.h);toast0.h=setTimeout(()=>{e.hidden=true},2600)}
@@ -465,7 +483,7 @@ async function boot(m){try{const r=await api('sync');if(!r){$('jn').hidden=true;
 if(r.member===false){gate('not',r.ch);if(m)toast0(_('gnot'));return}$('jn').hidden=true;setPR(r)}catch(e){gate('err',0,e.message)}}
 async function endEv(g,o){const old=lvl(PR.xp);let r=null;try{r=await api('event',Object.assign({g},o))}catch(e){}
 if(r&&r.member===false){gate('not',r.ch);return}
-let gain;if(r&&r.xp!=null){gain=r.xp-PR.xp;setPR(r)}else if(!initD()){gain=5+(o.win?50:0)+(o.rec?30:0);PR.xp+=gain;PR.plays++;if(o.win)PR.wins++;saveP();lvUpdate()}else return;
+let gain;if(r&&r.xp!=null){gain=r.xp-PR.xp;setPR(r)}else if(!ONLINE||!initD()){gain=5+(o.win?50:0)+(o.rec?30:0);PR.xp+=gain;PR.plays++;if(o.win)PR.wins++;saveP();lvUpdate()}else return;
 const nl=lvl(PR.xp);toast0(nl>old?'🎉 '+_('lvup')+' '+_('lvl')+' '+nl:(gain>0?'+'+gain+' XP':''));if(nl>old)hp(0)}
 async function equip(k,v){const it={sk:SK,pal:PAL,bk:BK}[k][v];if(!it||lvl(PR.xp)<it.lv)return;PR.eq[k]=v;saveP();applyEq();shv();
 try{const r=await api('equip',{eq:PR.eq});if(r&&r.eq){PR.eq=r.eq;saveP()}}catch(e){}}
@@ -481,6 +499,22 @@ const tb=E('div','tb');tb.id='stt';o.append(hd,bar,tb);tabs('stt',['🐍 '+_('sn
 const sec=(t,items,key,pv)=>{o.append(E('h4','',t));const g=E('div','ig');Object.keys(items).forEach(id=>{const it=items[id],lk=l<it.lv,on=PR.eq[key]==id,c=E('div','ic'+(on?' on':'')+(lk?' lk':'')),p=E('div','ipv');p.append(pv(id));
 const b=E('button','',lk?'🔒 '+_('locked').replace('{n}',it.lv):(on?_('equipped'):_('equip')));b.disabled=lk||on;b.onclick=()=>equip(key,id);c.append(p,E('b','',it.n[lg=='fa'?1:0]),b);g.append(c)});o.append(g)};
 if(!stab)sec(_('sk'),SK,'sk',skPrev);else{sec(_('pal'),PAL,'pal',palPrev);sec(_('bk'),BK,'bk',bkPrev)}}
+function insets(){try{const s=TG.safeAreaInset||{},c=TG.contentSafeAreaInset||{};let t=(s.top||0)+(c.top||0);if(!t&&TG.isFullscreen)t=100;document.documentElement.style.setProperty('--st',t+'px')}catch(e){}}
+function bvis(p){$('bth').style.left='calc('+p+' * (100% - 34px))';$('bfl').style.width='calc('+p+' * (100% - 34px) + 17px)'}
+function bav(){[...$('bav').children].forEach((x,i)=>{x.className='bavt'+(i<nb?' on':'')});$('bn').textContent=nb+' '+_('botw')}
+function bsv(){$('bs1').textContent=_('vs');$('bs2').textContent=_('hmb');$('bgo').textContent=_('startg');$('bcn').textContent=_('cancel');
+const a=$('bav');a.textContent='';for(let i=1;i<=4;i++)a.append(E('span','bavt','🤖'));bav();bvis((nb-1)/3);
+$('fr1').textContent=_('friends');$('fr2').textContent=_('mkroom');$('fr3').textContent=_('orx');$('fr4').textContent=_('havec');$('frc').textContent=_('cancel')}
+function openBots(){bsv();$('bsel').hidden=false}
+function openFr(){bsv();$('frs').hidden=false}
+(()=>{const tr=$('bt');let dr=0;
+const mv=e=>{const r=tr.getBoundingClientRect(),p=Math.min(1,Math.max(0,(e.clientX-r.left-17)/(r.width-34))),v=1+Math.round(p*3);bvis(p);if(v!=nb){nb=v;saveS();hs();bav()}};
+tr.addEventListener('pointerdown',e=>{dr=1;tr.classList.add('drag');try{tr.setPointerCapture(e.pointerId)}catch(x){}mv(e)});
+tr.addEventListener('pointermove',e=>{if(dr)mv(e)});
+const up=()=>{if(!dr)return;dr=0;tr.classList.remove('drag');bvis((nb-1)/3)};
+tr.addEventListener('pointerup',up);tr.addEventListener('pointercancel',up)})();
+$('bgo').onclick=()=>{$('bsel').hidden=true;uno()};$('bcn').onclick=()=>{$('bsel').hidden=true};
+$('fr2').onclick=()=>{$('frs').hidden=true;hostRoom()};$('frc').onclick=()=>{$('frs').hidden=true};
 const mname=()=>[_('nw'),_('w'),_('adv')][md];
 function showGO(pb){if(!ov)return;$('gt').textContent='🐍 '+mname();$('gs').textContent=pt;
 $('gb').textContent=_('yb').replace('{n}',Math.max(best,pt));lab($('gn'),'🏆',_('nrec'));const nr=pt>pb&&pt>0;$('gn').hidden=!nr;nr?lot($('gk'),['💯','hundred'],'💯'):lot($('gk'),'lose','😢');$('go').hidden=false}
@@ -543,28 +577,29 @@ if(!h.length)o.append(E('div','nh',_('nohist')));
 h.slice(0,15).forEach(e=>{const r=E('div','hi'),t=E('div');
 t.append(E('b','',e.g=='snake'?'🐍 '+[_('nw'),_('w'),_('adv')][e.m]+' · '+e.s:'🃏 UNO · '+(e.w?_('wonl'):_('lostl'))),E('small','',fdt(e.t)));r.append(t);o.append(r)})}
 function selg(k){sel=k;const u=k=='uno';$('ft').textContent=u?'UNO':_('snake');
-$('fp').textContent=u?_('und'):_('snd');$('ps').textContent=u?_('vs'):_('solo');if(u)$('hl').textContent=_('inv');else lab($('hl'),'🏆',_('lbb'));$('nbw').hidden=!u;$('hwb').hidden=!u;$('jw').hidden=!u;$('jc').placeholder=_('code');$('jb').textContent=_('joinb');$('bb').textContent=u?_('wins')+' '+wins():_('best')+' '+best;
+$('fp').textContent=u?_('und'):_('snd');$('ps').textContent=u?_('vs'):_('solo');if(u)$('hl').textContent=_('inv');else lab($('hl'),'🏆',_('lbb'));$('hwb').hidden=!u;$('jw').hidden=!u;$('jc').placeholder=_('code');$('jb').textContent=_('joinb');$('bb').textContent=u?_('wins')+' '+wins():_('best')+' '+best;
 [...$('cs').children].forEach(c=>c.classList.toggle('sel',c.dataset.k==k));acs()}
 function applyAll(){theme();lab($('sb'),'🏬',_('store'));lvUpdate();document.title=_('title');
 $('hh').innerHTML='game<span class="vx">Vex</span>';$('n1').textContent=_('games');$('n2').textContent=_('activity');
 $('f1').textContent=_('snake');$('f2').textContent=_('solo1');$('bl').textContent=_('bestl');$('lh').textContent=_('lead');
 $('ux').textContent=_('home');$('sh').textContent=_('set');$('l1').textContent=_('lang');$('l2').textContent=_('theme');$('l3').textContent=_('vib');$('ga').textContent=_('again');$('gsh').textContent='📤 '+_('shr');$('gh').textContent='🏠 '+_('bhome');$('ua').textContent=_('again');$('uh').textContent='🏠 '+_('bhome');$('uw').textContent=_('waitho');if(V&&V.w>=0)showUO();lab($('hwb'),'💡',_('hwt'));if(!$('hw').hidden)hwv();
-$('nl').textContent=_('nbots');cbuild();mbuild();nbuild();stabs();
+cbuild();mbuild();bsv();stabs();
 if(!$('lb').hidden){ltabs();lrender()}if(V&&!$('un').hidden)rv();if(!$('shp').hidden)shv();selg(sel)}
 function home(){inG=0;$('go').hidden=true;$('uo').hidden=true;if(NET){try{NET.peer.destroy()}catch(e){}NET=null}U=null;V=null;$('lby').hidden=true;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
 $('hb').onclick=home;
-$('ps').onclick=()=>{if(sel=='uno'){uno();return}inG=1;$('hm').hidden=true;init()};
+$('ps').onclick=()=>{if(sel=='uno'){openBots();return}inG=1;$('hm').hidden=true;init()};
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button,.cd'))hp(0)},true);
 $('hwb').onclick=()=>{hwv();$('hw').hidden=false};$('hx').onclick=()=>{$('hw').hidden=true};
 $('ua').onclick=()=>{$('uo').hidden=true;NET?hostStart():uno()};$('uh').onclick=()=>home();
 $('ga').onclick=()=>init();$('gh').onclick=()=>home();$('gsh').onclick=()=>shareScore();
 $('sb').onclick=$('lv').onclick=()=>{shv();$('shp').hidden=false};$('shx').onclick=()=>{$('shp').hidden=true};
-$('hl').onclick=()=>sel=='uno'?hostRoom():$('tp').onclick();
-$('jb').onclick=()=>{const v=$('jc').value.trim().toLowerCase();if(/^[a-z0-9]{3,8}$/.test(v))joinRoom(v)};
+$('hl').onclick=()=>sel=='uno'?openFr():$('tp').onclick();
+$('jb').onclick=()=>{const v=$('jc').value.trim().toLowerCase();if(/^[a-z0-9]{3,8}$/.test(v)){$('frs').hidden=true;joinRoom(v)}};
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&NET&&NET.peer&&NET.peer.disconnected){try{NET.peer.reconnect()}catch(e){}}});
 $('n1').onclick=()=>{$('g1').hidden=false;$('ac').hidden=true;$('n1').className='on';$('n2').className=''};
 $('n2').onclick=()=>{$('g1').hidden=true;$('ac').hidden=false;$('n2').className='on';$('n1').className='';acs()};
 
+insets();try{['safeAreaChanged','contentSafeAreaChanged','fullscreenChanged','viewportChanged'].forEach(v=>TG.onEvent(v,insets))}catch(x){}
 loadS();loadP();mark();init();applyAll();boot();{const rm=new URLSearchParams(location.search).get('room')||(()=>{try{return TG.initDataUnsafe.start_param}catch(e){}})();if(rm&&/^[a-z0-9]{3,8}$/.test(rm)){sel='uno';selg('uno');joinRoom(rm)}}{const gm=new URLSearchParams(location.search).get('game');if(gm=='snake'){selg('snake');$('ps').onclick()}else if(gm=='uno')selg('uno')}sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
 </script>
 </body>
