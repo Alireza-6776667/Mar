@@ -261,6 +261,7 @@ html{background:#000}
 <div class="row2" id="rr"><div><b id="rt"></b><small id="rs"></small></div><span>⌄</span></div>
 <div id="rp" hidden><small id="rl1"></small><div class="tb" id="cmo"></div><small id="rl2"></small><div class="tb" id="cdu"></div><small id="rl3"></small><div class="tb" id="cat"></div></div>
 <div class="row2"><div><b id="et"></b><small id="es"></small></div><span>🔒</span></div>
+<label class="cl" id="cl4"></label><div class="cin"><input id="acn" maxlength="7" autocomplete="off" autocapitalize="off"><button id="acb" class="sec2" style="width:auto;padding:0 16px;height:40px"></button></div>
 <small id="chn2" class="cl" hidden></small>
 <button class="gbig" id="chb" style="margin-top:14px"></button><div id="mya"></div></div></div>
 <div id="ars" hidden><div class="hwh"><h3 id="art"></h3><button id="arx">✕</button></div><div id="arc"></div></div>
@@ -372,8 +373,8 @@ const L={en:{title:'gameVex',games:'Games',activity:'Activity',snake:'Snake Game
 fa:{title:'gameVex',games:'بازی‌ها',activity:'فعالیت',snake:'بازی مار',snd:'بخور، بزرگ شو و دمت را گاز نگیر.',solo:'بازی تک‌نفره',solo1:'تک‌نفره',lbb:'جدول امتیاز',best:'بهترین',bestl:'بهترین',wins:'برد',vs:'بازی با بات‌ها',und:'بات‌ها را شکست بده. رنگ یا عدد را هماهنگ کن.',arc:'آرکید کلاسیک',vsb:'بازی با بات‌ها',more:'بیشتر',way:'به‌زودی',start:'برای شروع بکش',over:'باختی',rest:'برای شروع دوباره بکش',soon:'جدول امتیاز به‌زودی',every:'همه، نیمه‌شب صفر می‌شود',all:'کل زمان',you:'شما',players:'بازیکن',youn:'شما',daily:'روزانه',overall:'کلی',nw:'بدون دیوار',w:'دیوار',adv:'پیشرفته',lead:'جدول امتیاز',home:'‹ خانه',bot:'بات',cards:'کارت',win:'تو بردی! 🎉',lose:'باختی 😢',turn:'نوبت توست',think:'بات‌ها بازی می‌کنند...',again:'بازی دوباره',set:'تنظیمات',lang:'زبان',theme:'تم',tw:'سفید',tg:'سبز',ty:'زرد',nbots:'تعداد بات',bestsc:'بهترین امتیاز',unow:'بردهای UNO',inv:'دعوت دوستان',friends:'بازی با دوستان',share:'ارسال لینک دعوت',startg:'شروع بازی',waitho:'منتظر میزبان...',botsl:'بات‌ها',invtxt:'بیا با هم UNO بازی کنیم!',left:'اتصال قطع شد',started:'بازی شروع شده',plays:'در حال بازی...',wonb:'برنده شد',conn:'در حال اتصال به سرور...',ready:'آماده! منتظر دوستان...',contohost:'در حال اتصال به میزبان...',noh:'به میزبان وصل نشد. کد را چک کن و دوباره امتحان کن.',ok:'وصل شدی! منتظر میزبان...',copy:'کپی لینک',copied:'لینک کپی شد!',joinb:'ورود',code:'کد اتاق',rec:'رکوردها',recent:'فعالیت‌های اخیر',plays1:'تعداد بازی',nohist:'هنوز فعالیتی نیست',wonl:'بردی',lostl:'باختی',today:'امروز',vib:'لرزش',on:'روشن',off:'خاموش',shr:'اشتراک نتیجه',bhome:'بازگشت به خانه',yb:'رکورد تو {n} است',nrec:'رکورد جدید!',shtxt:'من توی بازی مار gameVex امتیاز {n} ({m}) گرفتم! می‌تونی منو ببری؟',beat:'می‌تونی منو ببری؟',youwin:'تو بردی',pl:'بازیکن'}};
 Object.assign(L.en,{hwt:'How to play',hg_t:'Goal',hg:'Be the first player to get rid of all your cards.',hr_t:'On your turn',hr:'Play a card that matches the top card by color, number or symbol. No card to play? Tap the deck to draw one and your turn passes. Cards you can play are bright, the others are dimmed.',hs_t:'Setup',hs:'Everyone starts with 7 cards. Play against 1 to 4 bots, or invite friends with a room code or a link.',hc_t:'Card guide',hc0:'Number cards (0-9)',hd0:'Match the color or the number of the top card.',hc1:'Skip ⊘',hd1:'The next player loses their turn.',hc2:'Reverse ⇄',hd2:'Changes the direction of play. With only 2 players it works like Skip.',hc3:'Draw Two +2',hd3:'The next player draws 2 cards and loses their turn.',hc4:'Wild ★',hd4:'Play it any time and choose the new color.',hc5:'Wild Draw Four +4',hd5:'Choose the new color. The next player draws 4 cards and loses their turn.',ht_t:'Tips',ht:'Keep Wild cards for when you are stuck. When you have one card left you will see "UNO!" at the top. The player with a glowing ring is the one playing now.'});
 Object.assign(L.fa,{hwt:'راهنمای بازی',hg_t:'هدف',hg:'اولین نفری باش که همهٔ کارت‌هایش را خالی می‌کند.',hr_t:'نوبت تو',hr:'کارتی بازی کن که با کارت وسط هم‌رنگ، هم‌عدد یا هم‌نماد باشد. کارت قابل‌بازی نداری؟ روی دسته کارت بزن تا یک کارت بکشی و نوبت به نفر بعدی برسد. کارت‌های قابل‌بازی روشن‌اند و بقیه کم‌رنگ.',hs_t:'شروع بازی',hs:'هر نفر ۷ کارت می‌گیرد. می‌توانی با ۱ تا ۴ بات بازی کنی یا دوستانت را با کد اتاق یا لینک دعوت کنی.',hc_t:'راهنمای کارت‌ها',hc0:'کارت‌های عددی (۰ تا ۹)',hd0:'رنگ یا عدد کارت وسط را هماهنگ کن.',hc1:'Skip ⊘ (پرش)',hd1:'نفر بعدی نوبتش را از دست می‌دهد.',hc2:'Reverse ⇄ (برعکس)',hd2:'جهت بازی را برعکس می‌کند. در بازی دونفره مثل Skip است.',hc3:'Draw Two +2 (دو کارت)',hd3:'نفر بعدی ۲ کارت می‌کشد و نوبتش می‌سوزد.',hc4:'Wild ★ (جوکر)',hd4:'هر وقت خواستی بازی کن و رنگ جدید را انتخاب کن.',hc5:'Wild +4 (جوکر چهار کارت)',hd5:'رنگ جدید را انتخاب کن. نفر بعدی ۴ کارت می‌کشد و نوبتش می‌سوزد.',ht_t:'نکته‌ها',ht:'جوکرها را برای وقتی نگه دار که گیر کرده‌ای. وقتی یک کارت برایت می‌ماند، بالای صفحه «UNO!» را می‌بینی. بازیکنی که دورش حلقهٔ نور دارد، نوبتش است.'});
-Object.assign(L.en,{chal:'Challenge',chal2:'Your friends, one leaderboard',newar:'New Snake Arena',arname:'ARENA NAME',arph:'Give it a name players remember',artype:'ARENA TYPE',fun:'Just for fun',fund:'No prize and no entry fee',setl:'SETTINGS',rules:'Game rules',entry:'Entry conditions',entrys:'Members of our channel can join',namear:'Name your arena',mkar:'Create arena',attm:'attempts',unl:'Unlimited attempts',ended:'Ended',yourbest:'Your best',noscores:'No scores yet. Be the first!',playnow:'Play',shr2:'Share arena',artxt:'🐍 Join my Snake arena “{n}” and beat my score!',needsrv:'Arenas need the bot server, which is not connected.',noatt:'No attempts left',myar:'Your arenas',open:'Open',arinfo:'Arena “{n}”: rank #{r} · attempts left {a}',mode:'Mode',dura:'Duration',hmb:'How many bots?',botw:'bots',cancel:'Cancel',mkroom:'Create a room',orx:'or',havec:'Have a room code?',store:'Store',lvl:'Level',locked:'Level {n}',equip:'Equip',equipped:'Equipped',sk:'Snake skins',pal:'Card colors',bk:'Card backs',gtitle:'Join our channel to play',gdesc:'Join the channel, then come back and tap “I joined”.',gjoin:'Join channel',gdone:'I joined',gerr:'Connection problem',gretry:'Retry',gnot:'You have not joined yet',ghint:'The server did not answer: it may be blocked on your network, or the bot server is not updated yet.',lvup:'Level up!'});
-Object.assign(L.fa,{chal:'چالش',chal2:'دوستات، یک جدول امتیاز',newar:'آرنای جدید مار',arname:'نام آرنا',arph:'اسمی بذار که بازیکن‌ها یادشون بمونه',artype:'نوع آرنا',fun:'فقط برای سرگرمی',fund:'بدون جایزه و بدون هزینهٔ ورود',setl:'تنظیمات',rules:'قوانین بازی',entry:'شرایط ورود',entrys:'اعضای کانال ما می‌توانند وارد شوند',namear:'اسم آرنا را بنویس',mkar:'ساخت آرنا',attm:'تلاش',unl:'تلاش نامحدود',ended:'تمام شد',yourbest:'بهترین امتیاز تو',noscores:'هنوز امتیازی نیست. اولین نفر باش!',playnow:'بازی',shr2:'ارسال آرنا',artxt:'🐍 بیا توی آرنای مار «{n}» و امتیازمو ببر!',needsrv:'آرنا به سرور ربات نیاز دارد که وصل نیست.',noatt:'تلاشی باقی نمانده',myar:'آرنا‌های تو',open:'باز کن',arinfo:'آرنا «{n}»: رتبه {r} · تلاش باقی‌مانده {a}',mode:'حالت',dura:'مدت',hmb:'چند تا بات؟',botw:'بات',cancel:'انصراف',mkroom:'ساخت اتاق',orx:'یا',havec:'کد اتاق داری؟',store:'فروشگاه',lvl:'سطح',locked:'سطح {n}',equip:'انتخاب',equipped:'انتخاب‌شده',sk:'ظاهر مار',pal:'رنگ کارت‌ها',bk:'پشت کارت‌ها',gtitle:'برای بازی کردن عضو کانال شو',gdesc:'عضو کانال شو، برگرد و «عضو شدم» رو بزن.',gjoin:'عضویت در کانال',gdone:'عضو شدم',gerr:'مشکل در اتصال',gretry:'تلاش دوباره',gnot:'هنوز عضو نشدی',ghint:'سرور جواب نداد: ممکنه شبکه‌ات اون رو بسته باشه یا کد سرور ربات هنوز آپدیت نشده باشه.',lvup:'ارتقای سطح!'});
+Object.assign(L.en,{hauth:'Open the game from @{b} (its “Open” button) and try again.',armiss:'This arena does not exist or has expired.',lcode:'HAVE AN ARENA CODE?',acode:'Arena code',chal:'Challenge',chal2:'Your friends, one leaderboard',newar:'New Snake Arena',arname:'ARENA NAME',arph:'Give it a name players remember',artype:'ARENA TYPE',fun:'Just for fun',fund:'No prize and no entry fee',setl:'SETTINGS',rules:'Game rules',entry:'Entry conditions',entrys:'Members of our channel can join',namear:'Name your arena',mkar:'Create arena',attm:'attempts',unl:'Unlimited attempts',ended:'Ended',yourbest:'Your best',noscores:'No scores yet. Be the first!',playnow:'Play',shr2:'Share arena',artxt:'🐍 Join my Snake arena “{n}” and beat my score!',needsrv:'Arenas need the bot server, which is not connected.',noatt:'No attempts left',myar:'Your arenas',open:'Open',arinfo:'Arena “{n}”: rank #{r} · attempts left {a}',mode:'Mode',dura:'Duration',hmb:'How many bots?',botw:'bots',cancel:'Cancel',mkroom:'Create a room',orx:'or',havec:'Have a room code?',store:'Store',lvl:'Level',locked:'Level {n}',equip:'Equip',equipped:'Equipped',sk:'Snake skins',pal:'Card colors',bk:'Card backs',gtitle:'Join our channel to play',gdesc:'Join the channel, then come back and tap “I joined”.',gjoin:'Join channel',gdone:'I joined',gerr:'Connection problem',gretry:'Retry',gnot:'You have not joined yet',ghint:'The server did not answer: it may be blocked on your network, or the bot server is not updated yet.',lvup:'Level up!'});
+Object.assign(L.fa,{hauth:'بازی را از بات @{b} (با دکمهٔ «Open») باز کن و دوباره امتحان کن.',armiss:'این آرنا وجود ندارد یا منقضی شده است.',lcode:'کد آرنا داری؟',acode:'کد آرنا',chal:'چالش',chal2:'دوستات، یک جدول امتیاز',newar:'آرنای جدید مار',arname:'نام آرنا',arph:'اسمی بذار که بازیکن‌ها یادشون بمونه',artype:'نوع آرنا',fun:'فقط برای سرگرمی',fund:'بدون جایزه و بدون هزینهٔ ورود',setl:'تنظیمات',rules:'قوانین بازی',entry:'شرایط ورود',entrys:'اعضای کانال ما می‌توانند وارد شوند',namear:'اسم آرنا را بنویس',mkar:'ساخت آرنا',attm:'تلاش',unl:'تلاش نامحدود',ended:'تمام شد',yourbest:'بهترین امتیاز تو',noscores:'هنوز امتیازی نیست. اولین نفر باش!',playnow:'بازی',shr2:'ارسال آرنا',artxt:'🐍 بیا توی آرنای مار «{n}» و امتیازمو ببر!',needsrv:'آرنا به سرور ربات نیاز دارد که وصل نیست.',noatt:'تلاشی باقی نمانده',myar:'آرنا‌های تو',open:'باز کن',arinfo:'آرنا «{n}»: رتبه {r} · تلاش باقی‌مانده {a}',mode:'حالت',dura:'مدت',hmb:'چند تا بات؟',botw:'بات',cancel:'انصراف',mkroom:'ساخت اتاق',orx:'یا',havec:'کد اتاق داری؟',store:'فروشگاه',lvl:'سطح',locked:'سطح {n}',equip:'انتخاب',equipped:'انتخاب‌شده',sk:'ظاهر مار',pal:'رنگ کارت‌ها',bk:'پشت کارت‌ها',gtitle:'برای بازی کردن عضو کانال شو',gdesc:'عضو کانال شو، برگرد و «عضو شدم» رو بزن.',gjoin:'عضویت در کانال',gdone:'عضو شدم',gerr:'مشکل در اتصال',gretry:'تلاش دوباره',gnot:'هنوز عضو نشدی',ghint:'سرور جواب نداد: ممکنه شبکه‌ات اون رو بسته باشه یا کد سرور ربات هنوز آپدیت نشده باشه.',lvup:'ارتقای سطح!'});
 const TH={green:['#6ccf70','#4fa855','#16301c','#0b1a10','rgba(108,207,112,.20)','rgba(108,207,112,.08)'],white:['#e8e8e8','#bdbdbd','#2a2a2a','#111','rgba(255,255,255,.14)','rgba(255,255,255,.05)'],yellow:['#e3c35c','#b99a38','#2d2711','#15120a','rgba(227,195,92,.18)','rgba(227,195,92,.07)']};
 let vib=true,lg='en',th='green',nb=1,sel='snake',U=null,pend=-1;
 const _=k=>(L[lg]&&L[lg][k])||L.en[k]||k;
@@ -454,8 +455,8 @@ pe.on('open',()=>{NET.msg=_('contohost');lrv();const c=pe.connect('gvuno-'+code,
 c.on('open',()=>{c.o2=1;NET.msg=_('ok');lrv();c.send({a:'join',name:myn()})});
 c.on('data',d=>{if(d.v){V=d.v;$('lby').hidden=true;$('hm').hidden=true;rv()}else if(d.lob){NET.lob=d.lob;lrv()}else if(d.err){NET.msg=_('started');lrv()}});
 c.on('close',()=>{NET.msg=_('left');if(V&&!$('un').hidden)$('us').textContent=_('left');else lrv()})})}
-const BOT='Maaafffar_bot',APP='';
-const invLink=()=>'https://t.me/'+BOT+(APP?'/'+APP:'')+'?startapp='+NET.code;
+let BOT='Maaafffar_bot';const APP='';
+const invLink=()=>'https://t.me/'+BOT+'?start=r_'+NET.code;
 function showUO(){const win=V.w==V.me,host=!NET||NET.role=='host';
 lab($('ut'),0,win?_('youwin'):V.nm[V.w]+' '+_('wonb'),win?'🏆':0);$('ut').className=win?'win':'';
 $('us2').textContent='UNO · '+V.nm.length+' '+_('pl');$('ua').hidden=!host;$('uw').hidden=host;$('uo').hidden=false;
@@ -468,8 +469,9 @@ const d=E('div','hsec'),h4=E('h4');h4.append(emo('✨'),' ',_('hc_t'));d.append(
 const r=E('div','cr2'),k=ucard(c,'mini');if(c.c=='W')k.style.background='conic-gradient(#e8453c,#f2c230,#3fae5a,#3b82e0,#e8453c)';
 const t=E('div');t.append(E('b','',_(a)),E('p','',_(b)));r.append(k,t);d.append(r)});
 o.append(d);sec('💡',_('ht_t'),_('ht'))}
-const LC={},LF={};
-async function lot(el,base,fb,sd){el.textContent=fb||'';const bs=[].concat(base),key=bs[0],say=t=>{if(sd)sd.textContent=t};
+const LC={},LF={};let ANS=[];
+function lz(on){try{on?lottie.freeze():lottie.unfreeze()}catch(e){}}
+async function lot(el,base,fb,sd){if(el._an){try{el._an.destroy()}catch(e){}el._an=null}el.textContent=fb||'';const bs=[].concat(base),key=bs[0],say=t=>{if(sd)sd.textContent=t};
 if(LF[key])return;
 const get=async u=>{const r=await fetch(u);if(!r.ok)return null;const b=new Uint8Array(await r.arrayBuffer());
 if(b[0]==80&&b[1]==75)throw Error('this is a ZIP file, unzip it first');
@@ -478,7 +480,9 @@ try{let d=LC[key],er='';
 if(!d){outer:for(const b of bs)for(const e of['.json','.tgs']){try{d=await get(encodeURIComponent(b)+e);if(d)break outer}catch(x){er=b+e+': '+x.message}}
 if(!d){LF[key]=1;say(er||'file not found: '+bs[0]+'.json');return}LC[key]=d}
 if(typeof lottie=='undefined'){say('lottie library did not load');return}
-el.textContent='';lottie.loadAnimation({container:el,renderer:'svg',loop:true,autoplay:true,animationData:JSON.parse(JSON.stringify(d))});say('')}
+el.textContent='';const an=lottie.loadAnimation({container:el,renderer:'svg',loop:true,autoplay:true,animationData:JSON.parse(JSON.stringify(d))});el._an=an;ANS.push(an);
+ANS=ANS.filter(a=>{if(a.wrapper&&a.wrapper.isConnected===false){try{a.destroy()}catch(e){}return false}return true});
+while(ANS.length>10){try{ANS.shift().destroy()}catch(e){}}say('')}
 catch(e){say('error: '+e.message)}}
 const EMO={'💯':['💯','hundred'],'🏆':['🏆','trophy'],'💡':['💡','bulb'],'▶️':['▶️','▶','play'],'✨':['✨','sparkles'],'🏬':['🏬','store']};
 function emo(e){const x=E('span','em',e);if(EMO[e])lot(x,EMO[e],e);return x}
@@ -501,15 +505,18 @@ function lvUpdate(){const l=lvl(PR.xp),lo=50*(l-1)*(l-1),hi=50*l*l;$('lvn').text
 function applyEq(){Object.assign(UC,(PAL[PR.eq.pal]||PAL.classic).c);$('un').className='bk-'+(PR.eq.bk||'dark');if(V&&!$('un').hidden)rv()}
 function setPR(r){PR.xp=r.xp;PR.wins=r.wins;PR.plays=r.plays;if(r.eq)PR.eq=r.eq;saveP();applyEq();lvUpdate()}
 const initD=()=>{try{return TG.initData||''}catch(e){return ''}};
-async function api(a,o){const d=initD();if(!ONLINE||!d)return null;let r;
-try{r=await fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(Object.assign({initData:d,a},o||{}))})}catch(e){throw Error('network: '+(e.message||'failed'))}
-if(!r.ok){let t='',m='';try{const j=await r.json();t=j.err||'';m=j.msg||''}catch(e){}throw Error('HTTP '+r.status+(t?' ('+t+')':'')+(m?': '+m:''))}return r.json()}
-function toast0(t){const e=$('tt');e.textContent=t;e.hidden=false;clearTimeout(toast0.h);toast0.h=setTimeout(()=>{e.hidden=true},2600)}
+async function api(a,o){const d=initD();if(!ONLINE||!d)return null;const ac=new AbortController(),to=setTimeout(()=>ac.abort(),12000);let r;
+try{r=await fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(Object.assign({initData:d,a},o||{})),signal:ac.signal})}
+catch(e){clearTimeout(to);throw Error('network: '+(e.name=='AbortError'?'timeout':(e.message||'failed')))}clearTimeout(to);
+if(!r.ok){let t='',m='',bt='';try{const j=await r.json();t=j.err||'';m=j.msg||'';bt=j.bot||''}catch(e){}if(bt)BOT=bt;
+throw Error('HTTP '+r.status+(t?' ('+t+')':'')+(m?': '+m:'')+(t=='auth'&&bt?'\n'+_('hauth').replace('{b}',bt):''))}return r.json()}
+function toast0(t,ms){const e=$('tt');e.textContent=t;e.hidden=false;clearTimeout(toast0.h);toast0.h=setTimeout(()=>{e.hidden=true},ms||2600)}
 function gate(kind,ch,det){const n=kind=='not';if(ch)GCH=ch;$('jn').hidden=false;$('jk').textContent=n?'🔒':'📡';$('jt').textContent=n?_('gtitle'):_('gerr');$('jd').textContent=n?_('gdesc'):(det?det+(det.indexOf('network')==0?'\n'+_('ghint'):''):'');
 $('jj').hidden=!n;$('jj').textContent='📢 '+_('gjoin');$('jj').onclick=()=>{try{TG.openTelegramLink(GCH)}catch(e){window.open(GCH)}};
 $('jc2').textContent=n?'✅ '+_('gdone'):'🔄 '+_('gretry');$('jc2').onclick=()=>boot(1)}
-async function boot(m){try{const r=await api('sync');if(!r){$('jn').hidden=true;return}
-if(r.member===false){gate('not',r.ch);if(m)toast0(_('gnot'));return}$('jn').hidden=true;setPR(r)}catch(e){gate('err',0,e.message)}}
+let AMP='';
+async function boot(m){try{const r=await api('sync');if(!r){$('jn').hidden=true;if(AMP){AMP='';toast0(_('needsrv'),6000)}return}
+if(r.member===false){gate('not',r.ch);if(m)toast0(_('gnot'));return}$('jn').hidden=true;setPR(r);if(AMP){const a=AMP;AMP='';openArena(a)}}catch(e){gate('err',0,e.message)}}
 async function endEv(g,o){const old=lvl(PR.xp);let r=null;try{r=await api('event',Object.assign({g},o))}catch(e){}
 if(r&&r.member===false){gate('not',r.ch);return}
 let gain;if(r&&r.xp!=null){gain=r.xp-PR.xp;setPR(r)}else if(!ONLINE||!initD()){gain=5+(o.win?50:0)+(o.rec?30:0);PR.xp+=gain;PR.plays++;if(o.win)PR.wins++;saveP();lvUpdate()}else return;
@@ -547,11 +554,11 @@ $('fr2').onclick=()=>{$('frs').hidden=true;hostRoom()};$('frc').onclick=()=>{$('
 let inAr=0,AR=null,CF={name:'',mode:1,dur:7200,att:3};
 const DUR=[[1800,'30 min','۳۰ دقیقه'],[7200,'2 hours','۲ ساعت'],[86400,'24 hours','۲۴ ساعت'],[604800,'7 days','۷ روز']],ATT=[[1,'1','۱'],[3,'3','۳'],[5,'5','۵'],[0,'∞','∞']];
 const li=()=>lg=='fa'?2:1;
-async function probe(){try{const r=await fetch(API),j=await r.json();ONLINE=!!(j&&j.ok&&j.db&&j.token)}catch(e){ONLINE=false}}
+async function probe(){try{const r=await fetch(API),j=await r.json();ONLINE=!!(j&&j.ok&&j.db&&j.token);if(j&&j.bot)BOT=j.bot}catch(e){ONLINE=false}}
 function chsum(){const d=DUR.find(x=>x[0]==CF.dur),a=ATT.find(x=>x[0]==CF.att);
 $('rs').textContent=[_('nw'),_('w'),_('adv')][CF.mode]+' · '+d[li()]+' · '+(CF.att?a[li()]+' '+_('attm'):_('unl'))}
 function chb(){const ok=CF.name.trim().length>0;$('chb').textContent=ok?_('mkar'):_('namear');$('chb').disabled=!ok}
-function chui(){$('cht').textContent='🐍 '+_('newar');$('cl1').textContent=_('arname');$('chn').placeholder=_('arph');$('cl2').textContent=_('artype');
+function chui(){$('cht').textContent='🐍 '+_('newar');$('cl4').textContent=_('lcode');$('acb').textContent=_('open');$('acn').placeholder=_('acode');$('cl1').textContent=_('arname');$('chn').placeholder=_('arph');$('cl2').textContent=_('artype');
 $('ot').textContent=_('fun');$('od').textContent=_('fund');$('cl3').textContent=_('setl');$('rt').textContent=_('rules');$('et').textContent=_('entry');$('es').textContent=_('entrys');
 $('rl1').textContent=_('mode');$('rl2').textContent=_('dura');$('rl3').textContent=_('attm');
 tabs('cmo',[_('nw'),_('w'),_('adv')],()=>CF.mode,i=>{CF.mode=i;chsum()});
@@ -560,8 +567,8 @@ tabs('cat',ATT.map(x=>x[li()]),()=>ATT.findIndex(x=>x[0]==CF.att),i=>{CF.att=ATT
 chsum();chb();$('chn2').hidden=ONLINE;$('chn2').textContent=_('needsrv');
 const l=LS('arl',[]),o=$('mya');o.textContent='';if(l.length){o.append(E('h4','',_('myar')));l.forEach(a=>{const r=E('div','mya'),b=E('button','sec2',_('open'));b.style.width='auto';b.style.padding='0 16px';b.onclick=()=>{$('chs').hidden=true;openArena(a.id)};r.append(E('b','',a.name),b);o.append(r)})}}
 function addArl(a){const l=LS('arl',[]).filter(x=>x.id!=a.id);l.unshift({id:a.id,name:a.name});try{localStorage.arl=JSON.stringify(l.slice(0,8))}catch(e){}}
-const arLink=id=>'https://t.me/'+BOT+(APP?'/'+APP:'')+'?startapp=a_'+id;
-function shareAr(A){const u=arLink(A.id),t=_('artxt').replace('{n}',A.name),x='https://t.me/share/url?url='+encodeURIComponent(u)+'&text='+encodeURIComponent(t);
+const arLink=id=>'https://t.me/'+BOT+'?start=a_'+id;
+function shareAr(A){const u=arLink(A.id),t=_('artxt').replace('{n}',A.name)+'\n🔑 '+A.id,x='https://t.me/share/url?url='+encodeURIComponent(u)+'&text='+encodeURIComponent(t);
 try{TG.openTelegramLink(x)}catch(e){try{navigator.share({text:t+' '+u})}catch(e2){window.open(x)}}}
 function fmt(s){const d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);return(d?d+'d ':'')+(h?h+'h ':'')+m+'m'}
 function arv(){const A=AR,o=$('arc');o.textContent='';$('art').textContent=A.name;
@@ -570,18 +577,19 @@ const left=Math.max(0,A.end-Math.floor(Date.now()/1000)),ended=A.ended||left<=0,
 const my=E('div','sum2');my.append(E('b','',A.me.b),E('small','',_('yourbest')));o.append(chips,my,E('h4','',_('lead')));
 if(!A.top.length)o.append(E('div','nh',_('noscores')));
 A.top.forEach(t=>o.append(row({rank:t.r,name:t.n,score:t.b,me:t.me})));
-const pb=E('button','gbig',_('playnow'));pb.disabled=ended||(A.att>0&&A.me.left<=0);pb.onclick=()=>playArena();
+const pb=E('button','gbig',_('playnow'));pb.disabled=ended||(A.att>0&&A.me.left<=0);pb.onclick=async()=>{pb.disabled=true;pb.textContent='…';await playArena();if(!inAr)arv()};
 const sb=E('button','sec2','📤 '+_('shr2'));sb.onclick=()=>shareAr(A);o.append(pb,sb)}
 async function openArena(id){if(!ONLINE){toast0(_('needsrv'));return}
 try{const r=await api('aget',{id});if(r&&r.member===false){gate('not',r.ch);return}
-if(r&&r.arena){AR=r.arena;addArl(AR);arv();$('ars').hidden=false}else toast0(_('gerr')+(r&&r.err?': '+r.err:''))}catch(e){toast0(_('gerr')+': '+e.message)}}
+if(r&&r.arena){AR=r.arena;addArl(AR);arv();$('ars').hidden=false}else toast0(r&&(r.err=='missing'||r.err=='id')?_('armiss'):_('gerr')+(r&&r.err?': '+r.err:''),7000)}catch(e){toast0(_('gerr')+': '+e.message,9000)}}
 async function playArena(){try{const r=await api('astart',{id:AR.id});if(r&&r.arena)AR=r.arena;
 if(!r||!r.ok){toast0(r&&r.err=='noattempts'?_('noatt'):r&&r.err=='ended'?_('ended'):_('gerr'));if(r&&r.arena)arv();return}
-md=AR.mode;mark();$('ars').hidden=true;$('hm').hidden=true;inAr=1;inG=1;init()}catch(e){toast0(_('gerr')+': '+e.message)}}
+md=AR.mode;mark();$('ars').hidden=true;$('hm').hidden=true;lz(1);inAr=1;inG=1;init()}catch(e){toast0(_('gerr')+': '+e.message,9000)}}
 function garUpd(){const A=AR;if(!A||!inAr)return;const rk=A.top.findIndex(t=>t.me)+1;$('gar').hidden=false;
 $('gar').textContent=_('arinfo').replace('{n}',A.name).replace('{r}',rk||'-').replace('{a}',A.att?A.me.left:'∞');$('ga').disabled=(A.att>0&&A.me.left<=0)||A.ended}
 async function arenaScore(sc){try{const r=await api('ascore',{id:AR.id,score:sc});if(r&&r.arena){AR=r.arena;garUpd()}}catch(e){}}
 $('chal').onclick=()=>{chui();$('chs').hidden=false};$('chx').onclick=()=>{$('chs').hidden=true};$('arx').onclick=()=>{$('ars').hidden=true;inAr=0};
+$('acb').onclick=()=>{const v=$('acn').value.trim().toLowerCase();if(/^[a-z0-9]{7}$/.test(v)){$('chs').hidden=true;openArena(v)}else toast0(_('armiss'),4000)};
 $('rr').onclick=()=>{$('rp').hidden=!$('rp').hidden};
 $('chn').addEventListener('input',()=>{CF.name=$('chn').value;$('chk').textContent=CF.name.length+'/32';chb()});
 $('chb').onclick=async()=>{if(!ONLINE){toast0(_('needsrv'));return}$('chb').disabled=true;
@@ -590,7 +598,7 @@ if(r&&r.member===false){gate('not',r.ch);return}
 if(r&&r.arena){AR=r.arena;addArl(AR);CF.name='';$('chn').value='';$('chk').textContent='0/32';$('chs').hidden=true;arv();$('ars').hidden=false;shareAr(AR)}else toast0(_('gerr')+(r&&r.err?': '+r.err:''))}
 catch(e){toast0(_('gerr')+': '+e.message)}chb()};
 const mname=()=>[_('nw'),_('w'),_('adv')][md];
-function showGO(pb){if(!ov)return;$('ga').disabled=false;$('gar').hidden=!inAr;if(inAr)garUpd();$('gt').textContent='🐍 '+mname();$('gs').textContent=pt;
+function showGO(pb){if(!ov)return;lz(0);$('ga').disabled=false;$('gar').hidden=!inAr;if(inAr)garUpd();$('gt').textContent='🐍 '+mname();$('gs').textContent=pt;
 $('gb').textContent=_('yb').replace('{n}',Math.max(best,pt));lab($('gn'),'🏆',_('nrec'));const nr=pt>pb&&pt>0;$('gn').hidden=!nr;nr?lot($('gk'),['💯','hundred'],'💯'):lot($('gk'),'lose','😢');$('go').hidden=false}
 async function shareScore(){hp(0);const t0=_('shtxt').replace('{n}',pt).replace('{m}',mname());
 try{await document.fonts.load('700 100px GV')}catch(e){}
@@ -659,13 +667,13 @@ $('f1').textContent=_('snake');$('f2').textContent=_('solo1');$('bl').textConten
 $('ux').textContent=_('home');$('sh').textContent=_('set');$('l1').textContent=_('lang');$('l2').textContent=_('theme');$('l3').textContent=_('vib');$('ga').textContent=_('again');$('gsh').textContent='📤 '+_('shr');$('gh').textContent='🏠 '+_('bhome');$('ua').textContent=_('again');$('uh').textContent='🏠 '+_('bhome');$('uw').textContent=_('waitho');if(V&&V.w>=0)showUO();lab($('hwb'),'💡',_('hwt'));if(!$('hw').hidden)hwv();
 cbuild();mbuild();bsv();stabs();
 if(!$('lb').hidden){ltabs();lrender()}if(V&&!$('un').hidden)rv();if(!$('shp').hidden)shv();selg(sel)}
-function home(){inG=0;inAr=0;$('go').hidden=true;$('uo').hidden=true;if(NET){try{NET.peer.destroy()}catch(e){}NET=null}U=null;V=null;$('lby').hidden=true;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
+function home(){lz(0);inG=0;inAr=0;$('go').hidden=true;$('uo').hidden=true;if(NET){try{NET.peer.destroy()}catch(e){}NET=null}U=null;V=null;$('lby').hidden=true;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
 $('hb').onclick=home;
-$('ps').onclick=()=>{if(sel=='uno'){openBots();return}inAr=0;inG=1;$('hm').hidden=true;init()};
+$('ps').onclick=()=>{if(sel=='uno'){openBots();return}inAr=0;lz(1);inG=1;$('hm').hidden=true;init()};
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button,.cd'))hp(0)},true);
 $('hwb').onclick=()=>{hwv();$('hw').hidden=false};$('hx').onclick=()=>{$('hw').hidden=true};
 $('ua').onclick=()=>{$('uo').hidden=true;NET?hostStart():uno()};$('uh').onclick=()=>home();
-$('ga').onclick=()=>inAr?playArena():init();$('gh').onclick=()=>{if(inAr){$('go').hidden=true;inG=0;$('hm').hidden=false;openArena(AR.id)}else home()};$('gsh').onclick=()=>shareScore();
+$('ga').onclick=()=>{if(inAr)playArena();else{lz(1);init()}};$('gh').onclick=()=>{if(inAr){$('go').hidden=true;inG=0;$('hm').hidden=false;openArena(AR.id)}else home()};$('gsh').onclick=()=>shareScore();
 $('sb').onclick=$('lv').onclick=()=>{shv();$('shp').hidden=false};$('shx').onclick=()=>{$('shp').hidden=true};
 $('hl').onclick=()=>sel=='uno'?openFr():$('tp').onclick();
 $('jb').onclick=()=>{const v=$('jc').value.trim().toLowerCase();if(/^[a-z0-9]{3,8}$/.test(v)){$('frs').hidden=true;joinRoom(v)}};
@@ -676,7 +684,8 @@ $('n2').onclick=()=>{$('g1').hidden=true;$('ac').hidden=false;$('n2').className=
 insets();try{['safeAreaChanged','contentSafeAreaChanged','fullscreenChanged','viewportChanged'].forEach(v=>TG.onEvent(v,insets))}catch(x){}
 loadS();loadP();mark();init();applyAll();
 const AM=(()=>{try{const s=TG.initDataUnsafe.start_param||'';return /^a_[a-z0-9]{7}$/.test(s)?s.slice(2):''}catch(e){return ''}})()||(new URLSearchParams(location.search).get('arena')||'');
-probe().then(()=>{boot();if(/^[a-z0-9]{7}$/.test(AM))openArena(AM)});{const rm=new URLSearchParams(location.search).get('room')||(()=>{try{return TG.initDataUnsafe.start_param}catch(e){}})();if(rm&&/^[a-z0-9]{3,8}$/.test(rm)){sel='uno';selg('uno');joinRoom(rm)}}{const gm=new URLSearchParams(location.search).get('game');if(gm=='snake'){selg('snake');$('ps').onclick()}else if(gm=='uno')selg('uno')}sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
+if(/^[a-z0-9]{7}$/.test(AM))AMP=AM;
+probe().then(()=>boot());{const rm=new URLSearchParams(location.search).get('room')||(()=>{try{return TG.initDataUnsafe.start_param}catch(e){}})();if(rm&&/^[a-z0-9]{3,8}$/.test(rm)){sel='uno';selg('uno');joinRoom(rm)}}{const gm=new URLSearchParams(location.search).get('game');if(gm=='snake'){selg('snake');$('ps').onclick()}else if(gm=='uno')selg('uno')}sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
 </script>
 </body>
 </html>
