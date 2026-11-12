@@ -243,7 +243,7 @@ html{background:#000}
 <div id="ft"><button id="hb">⌂</button><button id="pl">▶</button><div><b id="f1">Snake Game</b><small id="f2">Solo</small></div><button id="tp">🏆</button><span><i id="bl">BEST</i><b id="bs">0</b></span></div>
 </div>
 <div id="hm"><div class="hh"><button id="lv"><b id="lvn">1</b></button><h1 id="hh">Mar Games</h1><button id="gr"></button></div>
-<div id="g1"><div id="fx"><div id="fe"><div class="fl"><h2 id="ft">Snake Game</h2><p id="fp">Eat, grow and don't bite your tail.</p><button class="pill" id="hwb" hidden></button></div><button class="shop" id="sb"></button></div>
+<div id="g1"><div id="fx"><div id="fe"><div class="fl"><h2 id="gtl">Snake Game</h2><p id="fp">Eat, grow and don't bite your tail.</p><button class="pill" id="hwb" hidden></button></div><button class="shop" id="sb"></button></div>
 <div class="bt"><button class="big" id="ps">Play solo</button><button id="hl">🏆 Leaderboard</button><span id="bb"></span></div>
 <button class="chal" id="chal"><b id="ch1"></b><small id="ch2"></small></button></div><div id="cs"></div></div>
 <div id="ac" hidden><div id="at"></div></div>
@@ -658,7 +658,7 @@ o.append(E('h3','',_('rec')),g,E('h3','',_('recent')));
 if(!h.length)o.append(E('div','nh',_('nohist')));
 h.slice(0,15).forEach(e=>{const r=E('div','hi'),t=E('div');
 t.append(E('b','',e.g=='snake'?'🐍 '+[_('nw'),_('w'),_('adv')][e.m]+' · '+e.s:'🃏 UNO · '+(e.w?_('wonl'):_('lostl'))),E('small','',fdt(e.t)));r.append(t);o.append(r)})}
-function selg(k){sel=k;const u=k=='uno';$('ft').textContent=u?'UNO':_('snake');
+function selg(k){sel=k;const u=k=='uno';$('gtl').textContent=u?'UNO':_('snake');
 $('fp').textContent=u?_('und'):_('snd');$('ps').textContent=u?_('vs'):_('solo');if(u)$('hl').textContent=_('inv');else lab($('hl'),'🏆',_('lbb'));$('hwb').hidden=!u;$('chal').hidden=u;lab($('ch1'),'🏆',_('chal'));$('ch2').textContent=_('chal2');$('jw').hidden=!u;$('jc').placeholder=_('code');$('jb').textContent=_('joinb');$('bb').textContent=u?_('wins')+' '+wins():_('best')+' '+best;
 [...$('cs').children].forEach(c=>c.classList.toggle('sel',c.dataset.k==k));acs()}
 function applyAll(){theme();lab($('sb'),'🏬',_('store'));lvUpdate();document.title=_('title');
