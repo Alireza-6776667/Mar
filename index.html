@@ -687,5 +687,74 @@ const AM=(()=>{try{const s=TG.initDataUnsafe.start_param||'';return /^a_[a-z0-9]
 if(/^[a-z0-9]{7}$/.test(AM))AMP=AM;
 probe().then(()=>boot());{const rm=new URLSearchParams(location.search).get('room')||(()=>{try{return TG.initDataUnsafe.start_param}catch(e){}})();if(rm&&/^[a-z0-9]{3,8}$/.test(rm)){sel='uno';selg('uno');joinRoom(rm)}}{const gm=new URLSearchParams(location.search).get('game');if(gm=='snake'){selg('snake');$('ps').onclick()}else if(gm=='uno')selg('uno')}sync({mode:0},(e,r)=>{if(!e)ab(r)});requestAnimationFrame(loop);
 </script>
+
+<style>
+#hk{position:fixed;inset:0;z-index:50;background:radial-gradient(ellipse at center,#164b3c,#061b16 70%,#020806);color:#f7f1df;display:flex;flex-direction:column;padding:calc(12px + var(--st)) 12px calc(10px + var(--sb));gap:8px;font-family:inherit}
+#hk[hidden]{display:none}#hkhead{display:flex;align-items:center;justify-content:space-between}#hkhead button,.hkbtn{border:1px solid #ffffff25;background:#ffffff12;color:#fff;border-radius:14px;padding:10px 14px;font:700 15px inherit;font-family:inherit}
+#hkhead strong{font-size:24px;color:#f4d27a}#hkstatus{text-align:center;color:#d5cda9;font-size:13px;min-height:18px}
+#hktable{position:relative;flex:1;min-height:250px;border-radius:46%/35%;border:1px solid #e5d6a333;background:radial-gradient(ellipse,#26745166,#06291e88 70%);box-shadow:inset 0 0 40px #0005;overflow:hidden}
+.hkseat{position:absolute;display:flex;flex-direction:column;align-items:center;gap:3px;transform:translate(-50%,-50%);font-size:12px;color:#ddd}
+.hkseat b{background:#112c22;border:1px solid #d6c17a66;border-radius:20px;padding:4px 9px}.hkseat.active b{border-color:#ffe18a;box-shadow:0 0 16px #f4d27a55;color:#ffe18a}
+.hkseat .backs{display:flex}.hkback{width:17px;height:25px;border-radius:4px;border:1px solid #e9d18a;background:repeating-linear-gradient(45deg,#174a3c 0 3px,#24684e 3px 6px);margin-left:-8px}
+#hkcenter{position:absolute;inset:25% 22%;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px}
+.hkcard{position:relative;width:clamp(42px,11vw,62px);height:clamp(66px,17vw,92px);border-radius:9px;background:linear-gradient(145deg,#fffef8,#e9e3d4);color:#242321;border:1px solid #d8d0bd;box-shadow:0 5px 10px #0005;display:flex;flex-direction:column;justify-content:space-between;padding:4px 5px;font:700 17px Georgia,serif;touch-action:none;user-select:none;transition:transform .16s,box-shadow .16s;cursor:grab}
+.hkcard.red{color:#bd3542}.hkcard .pip{align-self:center;font-size:25px}.hkcard .corner2{align-self:flex-end;transform:rotate(180deg)}
+.hkcard.playable{box-shadow:0 0 0 2px #f4d27a,0 8px 16px #0006}.hkcard.dragging{opacity:.88;transform:scale(1.12) rotate(4deg);z-index:100}
+#hkhand{display:flex;justify-content:center;align-items:flex-end;gap:clamp(0px,1vw,5px);min-height:105px;padding:5px 0 8px;overflow:visible}
+#hkhand .hkcard{width:clamp(31px,8.4vw,49px);height:clamp(60px,16vw,82px);font-size:14px;padding:3px;border-radius:8px;margin-left:-2px}
+#hkhand .hkcard .pip{font-size:20px}
+#hkfoot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+#hkmodal{position:absolute;inset:0;z-index:110;background:#000b;display:flex;align-items:center;justify-content:center;padding:22px}
+#hkmodal[hidden]{display:none}#hkpanel{width:min(100%,360px);border:1px solid #f4d27a44;border-radius:24px;background:linear-gradient(#173b2e,#0b2119);padding:22px;display:flex;flex-direction:column;gap:12px;text-align:center;box-shadow:0 20px 50px #0008}
+#hkpanel h2{margin:0;color:#f4d27a;font-size:26px}#hkpanel p{margin:0;color:#d1d0c1;line-height:1.5}#hkpanel input{background:#07140f;border:1px solid #ffffff30;color:#fff;border-radius:12px;padding:12px;font-size:18px;text-align:center}
+#hkpanel .hkbtn.primary{background:linear-gradient(#f4d27a,#c9a34d);color:#182319;border:0}
+.hk-suits{display:flex;gap:8px;justify-content:center}.hk-suits button{font-size:30px;width:58px;height:56px;border-radius:14px;border:1px solid #ffffff30;background:#ffffff12}
+</style>
+<div id="hk" hidden>
+ <div id="hkhead"><button id="hkback">‹ خانه</button><strong>حُکم</strong><button id="hkhelp">قوانین</button></div>
+ <div id="hkstatus">آماده بازی</div>
+ <div id="hktable">
+  <div class="hkseat" id="hks0" style="left:50%;top:82%"><b>شما</b><div class="backs"></div></div>
+  <div class="hkseat" id="hks1" style="left:18%;top:50%"><b>بازیکن ۲</b><div class="backs"></div></div>
+  <div class="hkseat" id="hks2" style="left:50%;top:14%"><b>بازیکن ۳</b><div class="backs"></div></div>
+  <div class="hkseat" id="hks3" style="left:82%;top:50%"><b>بازیکن ۴</b><div class="backs"></div></div>
+  <div id="hkcenter"></div>
+ </div>
+ <div id="hkhand"></div><div id="hkfoot"></div>
+ <div id="hkmodal"><div id="hkpanel"><h2>حُکم</h2><p>یک بازی چهار نفره با کارت‌های نرم و انیمیشنی</p><button class="hkbtn primary" id="hksolo">بازی تک‌نفره با بات‌ها</button><button class="hkbtn" id="hkfriends">بازی با دوستان</button><button class="hkbtn" id="hkjoin">ورود با کد اتاق</button><button class="hkbtn" id="hkclose">بازگشت</button></div></div>
+</div>
+<script>
+(()=>{
+const $h=id=>document.getElementById(id), suits=['♠','♥','♦','♣'], ranks=['7','8','9','10','J','Q','K','A'], red=s=>s==='♥'||s==='♦';
+let H=null,peer=null,conn=null,host=false,room='',mode='solo',drag=null,started=false,turn=0,trump='♠',tricks=[0,0],lead=null,plays=[],hands=[],names=['شما','بات ۲','بات ۳','بات ۴'],trickNo=0;
+const rnd=()=>Math.random().toString(36).slice(2,6).toUpperCase();
+function modal(title,desc,buttons){const p=$h('hkpanel');p.innerHTML='';let h=document.createElement('h2');h.textContent=title;p.append(h);let d=document.createElement('p');d.textContent=desc;p.append(d);buttons.forEach(([txt,fn,primary])=>{let b=document.createElement('button');b.className='hkbtn'+(primary?' primary':'');b.textContent=txt;b.onclick=fn;p.append(b)})}
+function closeModal(){$h('hkmodal').hidden=true}
+function show(){ $h('hk').hidden=false;$h('hm').hidden=true;menu()}
+function menu(){started=false;modal('حُکم','بازی چهار نفره؛ تیم شما و یار روبه‌رو در برابر دو بات.',[['بازی تک‌نفره با بات‌ها',()=>startSolo(),true],['بازی با دوستان · ساخت اتاق',()=>createRoom()],['ورود با کد اتاق',()=>joinPrompt()],['بازگشت به بازی‌ها',()=>{$h('hk').hidden=true;$h('hm').hidden=false}]])}
+function deck(){let a=[];for(const s of suits)for(const r of ranks)a.push({s,r});for(let i=a.length-1;i;i--){let j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+function startSolo(){mode='solo';host=true;names=['شما','بات ۲','بات ۳','بات ۴'];deal();modal('انتخاب حکم','خال حکم را انتخاب کن.',['♠','♥','♦','♣'].map(s=>[s,()=>{trump=s;closeModal();turn=0;draw();botTurn()},s==='♥']))}
+function deal(){hands=[[],[],[],[]];let d=deck();for(let i=0;i<52;i++)hands[i%4].push(d[i]);hands.forEach(h=>h.sort((a,b)=>suits.indexOf(a.s)-suits.indexOf(b.s)||ranks.indexOf(a.r)-ranks.indexOf(b.r)));plays=[];tricks=[0,0];trickNo=0;lead=null;turn=0;started=true}
+function cardHTML(c,i,handCard){let e=document.createElement('div');e.className='hkcard'+(red(c.s)?' red':'')+(handCard&&legal(c)?' playable':'');e.innerHTML='<span>'+c.r+c.s+'</span><span class="pip">'+c.s+'</span><span class="corner2">'+c.r+c.s+'</span>';e.dataset.i=i;if(handCard){e.addEventListener('pointerdown',ev=>down(ev,e,i,c));}return e}
+function legal(c){return !lead||c.s===lead||!hands[turn].some(x=>x.s===lead)}
+function draw(){if(!started)return;$h('hkstatus').textContent=`دور ${names[turn]} · حکم ${trump} · امتیاز ${tricks[0]} - ${tricks[1]}`;$h('hkhand').innerHTML='';hands[0].forEach((c,i)=>$h('hkhand').append(cardHTML(c,i,true)));
+for(let p=0;p<4;p++){let seat=$h('hks'+p);seat.querySelector('b').textContent=names[p]+(p===turn?' ◉':'');seat.classList.toggle('active',p===turn);let backs=seat.querySelector('.backs');backs.innerHTML='';for(let k=0;k<hands[p].length;k++){let b=document.createElement('i');b.className='hkback';backs.append(b)}}
+$h('hkcenter').innerHTML='';plays.forEach(x=>$h('hkcenter').append(cardHTML(x.c,x.p,false)));$h('hkfoot').innerHTML='';
+if(mode==='friends'&&host){let b=document.createElement('button');b.className='hkbtn';b.textContent='کد اتاق: '+room+' · کپی';b.onclick=()=>navigator.clipboard?.writeText(room);$h('hkfoot').append(b)}
+}
+function down(ev,el,i,c){if(turn!==0||mode==='friends'&&!host||!legal(c))return;ev.preventDefault();drag={el,i,c,x:ev.clientX,y:ev.clientY};el.classList.add('dragging');el.setPointerCapture(ev.pointerId);el.onpointermove=e=>{if(drag){el.style.transform=`translate(${e.clientX-drag.x}px,${e.clientY-drag.y}px) scale(1.12) rotate(4deg)`}};el.onpointerup=e=>{if(!drag)return;let r=$h('hktable').getBoundingClientRect();let inside=e.clientY>r.top&&e.clientY<r.bottom;el.onpointermove=el.onpointerup=null;drag=null;if(inside)play(0,i);else{el.classList.remove('dragging');el.style.transform=''}}}
+function play(p,i){if(!started||p!==turn)return;let c=hands[p][i];if(!c||!legal(c))return;if(!lead)lead=c.s;hands[p].splice(i,1);plays.push({p,c});turn=(turn+1)%4;draw();if(plays.length===4)setTimeout(resolveTrick,700);else if(mode==='solo')setTimeout(botTurn,550);else if(host)broadcast()}
+function strength(c){return (c.s===trump?100: c.s===lead?50:0)+ranks.indexOf(c.r)}
+function resolveTrick(){let winner=plays.reduce((a,b)=>strength(a.c)>strength(b.c)?a:b).p;tricks[winner%2]++;trickNo++;plays=[];lead=null;turn=winner;draw();if(tricks[0]>=7||tricks[1]>=7||trickNo===13){started=false;modal(tricks[0]>tricks[1]?'بردی! 🎉':'این دست رو باختی','نتیجه: تیم شما '+tricks[0]+' · حریف '+tricks[1],[['دوباره بازی',()=>startSolo(),true],['خانه',()=>menu()]])}else if(mode==='solo')botTurn();else if(host)broadcast()}
+function botTurn(){if(!started||mode!=='solo'||turn===0)return;let h=hands[turn],ix=h.findIndex(legal);if(ix<0)ix=0;play(turn,ix)}
+function createRoom(){if(typeof Peer==='undefined'){modal('اتصال در دسترس نیست','کتابخانه PeerJS بارگذاری نشده است.',[['برگشت',menu]]);return}room=rnd();host=true;mode='friends';peer=new Peer('gvhokm-'+room);modal('ساخت اتاق','کد اتاق: '+room+'؛ این کد را برای سه دوستت بفرست.',[['شروع با بات‌های جایگزین',()=>{startSolo();mode='friends';host=true}],['برگشت',menu]]);peer.on('connection',c=>{conn=c;c.on('data',d=>{if(d.action==='card'&&started)play(d.player,d.index)});c.on('open',()=>{})});peer.on('error',()=>modal('خطای اتصال','این کد اتاق اشغال است. دوباره بساز.',[['تلاش دوباره',createRoom],['برگشت',menu]]))}
+function joinPrompt(){modal('ورود به اتاق','کد اتاق را وارد کن.',[['لغو',menu]]);let input=document.createElement('input');input.maxLength=4;input.placeholder='AB12';$h('hkpanel').append(input);let b=document.createElement('button');b.className='hkbtn primary';b.textContent='اتصال';b.onclick=()=>{room=input.value.toUpperCase();if(typeof Peer==='undefined')return;peer=new Peer();peer.on('open',()=>{conn=peer.connect('gvhokm-'+room,{reliable:true});conn.on('open',()=>modal('وصل شدی','منتظر میزبان بمان.',[['باشه',closeModal,true]]));conn.on('data',d=>{if(d.state){hands=d.state.hands;plays=d.state.plays;turn=d.state.turn;trump=d.state.trump;tricks=d.state.tricks;started=true;draw()}})})};$h('hkpanel').append(b)}
+function broadcast(){if(!host||!peer)return;peer.connections&&Object.values(peer.connections).flat().forEach(c=>{if(c.open)c.send({state:{hands,plays,turn,trump,tricks}})})}
+$h('hkback').onclick=()=>menu();$h('hkhelp').onclick=()=>modal('قانون کوتاه','خال حکم از بقیه خال‌ها قوی‌تر است. باید از خال شروع‌شده پیروی کنی اگر کارت آن خال را داری. هر تیم با بردن ۷ دست، راند را می‌برد.',[['متوجه شدم',()=>{if(started)draw();else menu()},true]]);
+$h('hksolo').onclick=startSolo;$h('hkfriends').onclick=createRoom;$h('hkjoin').onclick=joinPrompt;$h('hkclose').onclick=()=>{$h('hk').hidden=true;$h('hm').hidden=false};
+const old=cbuild;cbuild=function(){old();let tile=document.createElement('div');tile.className='cd';tile.style.borderColor='#d6b65b';tile.innerHTML='<div class="pv" style="font-size:48px;align-items:center;justify-content:center">🂡</div><span>حُکم</span><small>بازی چهار نفره</small>';tile.onclick=show;$('cs').append(tile)};
+})();
+</script>
+
 </body>
 </html>
