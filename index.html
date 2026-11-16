@@ -215,6 +215,33 @@ html{background:#000}
 .gbig:disabled{background:#1c1c1c;color:#666;box-shadow:none;transform:none}
 #gar{background:#0e0e0ecc;border:1px solid var(--d);border-radius:14px;padding:8px 14px;font-size:14px;margin-bottom:8px;text-align:center}#gar[hidden]{display:none}
 .mya{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:16px;background:#0e0e0ecc;border:1px solid #232323;margin-bottom:8px}
+#hk{position:fixed;inset:0;z-index:9;background:radial-gradient(ellipse at 50% 35%,#15331f 0,#07140c 55%,#020603 100%);display:flex;flex-direction:column;padding:calc(10px + var(--st)) 12px 12px;overflow:hidden}
+#hk[hidden]{display:none}
+#hkt{display:flex;align-items:center;gap:10px}#hkb{width:40px;height:40px;border-radius:12px;border:2px solid #2a2a2a;background:#141414;color:#fff;font-size:22px;padding:0}
+#hks{display:flex;gap:8px;flex:1}.hchip{background:#0e0e0ecc;border:1px solid #232323;border-radius:12px;padding:4px 10px;display:flex;flex-direction:column;align-items:center;min-width:72px}.hchip small{color:#888;font-size:10px}.hchip b{font-size:14px}
+#hkt2{display:flex;align-items:center;gap:6px;color:#aaa;font-size:12px}.tsy{font-size:22px;color:#eee}.tsy.red{color:#ff6b6b}
+#hkz{position:relative;flex:1;min-height:0;margin:6px 0}
+#hse .hseat{position:absolute;display:flex;flex-direction:column;align-items:center;gap:3px;transform:translate(-50%,-50%);width:84px}
+#hse .av2{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#000;font-weight:700;font-size:17px;border:3px solid #ffffff22;position:relative}
+.crown{position:absolute;top:-16px;font-size:16px}
+#hse .nm{font-size:11px;color:#ddd;max-width:84px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#hse .cn{font-size:11px;background:#ffffff1c;border-radius:8px;padding:0 7px}
+.hbks{display:flex;justify-content:center}.hb{width:10px;height:14px;border-radius:3px;margin:0 -2px;background:linear-gradient(#2a6bd6,#143c80);border:1px solid #ffffff30}
+.hseat.hs1{left:12%;top:40%}.hseat.hs2{left:50%;top:10%}.hseat.hs3{left:88%;top:40%}
+.hseat.act .av2{box-shadow:0 0 0 4px var(--g),0 0 18px var(--a);border-color:var(--a)}
+#hkm{position:absolute;left:50%;top:70%;transform:translateX(-50%);color:#ddd;font-size:14px;white-space:nowrap;background:#000a;padding:4px 12px;border-radius:12px}
+.hc{width:58px;height:84px;border-radius:12px;background:linear-gradient(160deg,#fffdf7,#ece8dc);border:1px solid #bbb;color:#111;font-weight:800;position:relative;box-shadow:0 6px 14px #000a;user-select:none;-webkit-user-select:none;touch-action:none}
+.hc.red{color:#c8232c}.hc .tl,.hc .br{position:absolute;font-size:12px;line-height:1;text-align:center}.hc .tl{top:5px;left:5px}.hc .br{bottom:5px;right:5px;transform:rotate(180deg)}
+.hc .mid{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px}
+.hc.tb{position:absolute;transition:transform .42s cubic-bezier(.2,.9,.3,1.1),opacity .3s,left .4s,top .4s;z-index:20;pointer-events:none}
+#hkd{position:relative;height:150px;display:flex;justify-content:center;align-items:flex-end;margin-bottom:6px}
+.hc.hh{position:absolute;bottom:0;left:50%;margin-left:-29px;transition:transform .18s ease-out,opacity .2s;cursor:grab}
+.hc.hh.dim{filter:brightness(.55)}
+#hkp{display:flex;gap:10px;justify-content:center;margin-bottom:8px}#hkp[hidden]{display:none}
+.suitb{width:58px;height:58px;border-radius:50%;border:0;background:linear-gradient(#303030,#1a1a1a);color:#eee;font-size:26px;box-shadow:0 5px 0 #0a0a0a,0 10px 16px #000b}
+.suitb.red{color:#ff6b6b}.suitb:active{transform:translateY(3px)}
+#hko{position:fixed;inset:0;z-index:12;background:#0008;display:flex;align-items:flex-end}#hko[hidden]{display:none}
+#hot{font-size:30px;font-weight:700;text-align:center}#hot.win{color:var(--a)}#hos{font-size:44px;font-weight:700;color:var(--a);text-align:center}
 #lb{z-index:8}
 .hh{display:flex;align-items:center;justify-content:space-between}.hh h1{margin:0}.hh>span{width:46px}
 #gr,#sx{width:40px;height:40px;border-radius:12px;border:2px solid #333;background:#1c1c1c;color:#fff;font-size:20px;padding:0}
@@ -265,6 +292,10 @@ html{background:#000}
 <small id="chn2" class="cl" hidden></small>
 <button class="gbig" id="chb" style="margin-top:14px"></button><div id="mya"></div></div></div>
 <div id="ars" hidden><div class="hwh"><h3 id="art"></h3><button id="arx">✕</button></div><div id="arc"></div></div>
+<div id="hk" hidden><div id="hkt"><button id="hkb" class="hkbk">‹</button><div id="hks"></div><div id="hkt2"></div></div>
+<div id="hkz"><div id="hse"></div><div id="hkm"></div></div>
+<div id="hkp" hidden></div><div id="hkd"></div>
+<div id="hko" hidden><div class="gcard"><div id="hot"></div><div id="hos"></div><button class="gbig" id="hoa"></button><div class="grow"><button id="hoh"></button></div></div></div></div>
 <div id="shp" hidden><div class="hwh"><h3 id="sht"></h3><button id="shx">✕</button></div><div id="shc"></div></div>
 <div id="jn" hidden><div id="jbox"><div class="stk" id="jk">🔒</div><h3 id="jt"></h3><p id="jd"></p><button class="gbig" id="jj"></button><button class="sec2" id="jc2"></button></div></div>
 <div id="tt" hidden></div>
@@ -371,8 +402,8 @@ document.addEventListener('mouseup',()=>on=0);
 document.addEventListener('keydown',e=>{const k={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(k){e.preventDefault();go(k[0],k[1])}});
 const L={en:{title:'gameVex',games:'Games',activity:'Activity',snake:'Snake Game',snd:"Eat, grow and don't bite your tail.",solo:'Play solo',solo1:'Solo',lbb:'Leaderboard',best:'Best',bestl:'BEST',wins:'Wins',vs:'Play vs Bots',und:'Beat the bots. Match colors or numbers.',arc:'Classic arcade',vsb:'Play vs bots',more:'More',way:'On its way',start:'Swipe to start',over:'Game over',rest:'Swipe to restart',soon:'Leaderboard coming soon',every:'Everyone, resets at midnight',all:'All time',you:'YOU',players:'PLAYERS',youn:'You',daily:'Daily',overall:'Overall',nw:'No walls',w:'Walls',adv:'Advanced',lead:'Leaderboard',home:'‹ Home',bot:'Bot',cards:'cards',win:'You win! 🎉',lose:'You lost 😢',turn:'Your turn',think:'Bots are playing...',again:'Play again',set:'Settings',lang:'Language',theme:'Theme',tw:'White',tg:'Green',ty:'Yellow',nbots:'Number of bots',bestsc:'Best score',unow:'UNO wins',inv:'Invite friends',friends:'Play with friends',share:'Share invite link',startg:'Start game',waitho:'Waiting for the host...',botsl:'Bots',invtxt:'Join my UNO game!',left:'Disconnected',started:'Game already started',plays:'is playing...',wonb:'wins',conn:'Connecting to server...',ready:'Ready! Waiting for friends...',contohost:'Connecting to the host...',noh:'Could not reach the host. Check the code and try again.',ok:'Connected! Waiting for the host...',copy:'Copy link',copied:'Link copied!',joinb:'Join',code:'Room code',rec:'Records',recent:'Recent activity',plays1:'Games played',nohist:'No activity yet',wonl:'Won',lostl:'Lost',today:'Today',vib:'Vibration',on:'On',off:'Off',shr:'Share result',bhome:'Back home',yb:'Your best is {n}',nrec:'New record!',shtxt:'I scored {n} in Snake ({m}) on gameVex! Can you beat me?',beat:'Can you beat me?',youwin:'You win',pl:'players'},
 fa:{title:'gameVex',games:'بازی‌ها',activity:'فعالیت',snake:'بازی مار',snd:'بخور، بزرگ شو و دمت را گاز نگیر.',solo:'بازی تک‌نفره',solo1:'تک‌نفره',lbb:'جدول امتیاز',best:'بهترین',bestl:'بهترین',wins:'برد',vs:'بازی با بات‌ها',und:'بات‌ها را شکست بده. رنگ یا عدد را هماهنگ کن.',arc:'آرکید کلاسیک',vsb:'بازی با بات‌ها',more:'بیشتر',way:'به‌زودی',start:'برای شروع بکش',over:'باختی',rest:'برای شروع دوباره بکش',soon:'جدول امتیاز به‌زودی',every:'همه، نیمه‌شب صفر می‌شود',all:'کل زمان',you:'شما',players:'بازیکن',youn:'شما',daily:'روزانه',overall:'کلی',nw:'بدون دیوار',w:'دیوار',adv:'پیشرفته',lead:'جدول امتیاز',home:'‹ خانه',bot:'بات',cards:'کارت',win:'تو بردی! 🎉',lose:'باختی 😢',turn:'نوبت توست',think:'بات‌ها بازی می‌کنند...',again:'بازی دوباره',set:'تنظیمات',lang:'زبان',theme:'تم',tw:'سفید',tg:'سبز',ty:'زرد',nbots:'تعداد بات',bestsc:'بهترین امتیاز',unow:'بردهای UNO',inv:'دعوت دوستان',friends:'بازی با دوستان',share:'ارسال لینک دعوت',startg:'شروع بازی',waitho:'منتظر میزبان...',botsl:'بات‌ها',invtxt:'بیا با هم UNO بازی کنیم!',left:'اتصال قطع شد',started:'بازی شروع شده',plays:'در حال بازی...',wonb:'برنده شد',conn:'در حال اتصال به سرور...',ready:'آماده! منتظر دوستان...',contohost:'در حال اتصال به میزبان...',noh:'به میزبان وصل نشد. کد را چک کن و دوباره امتحان کن.',ok:'وصل شدی! منتظر میزبان...',copy:'کپی لینک',copied:'لینک کپی شد!',joinb:'ورود',code:'کد اتاق',rec:'رکوردها',recent:'فعالیت‌های اخیر',plays1:'تعداد بازی',nohist:'هنوز فعالیتی نیست',wonl:'بردی',lostl:'باختی',today:'امروز',vib:'لرزش',on:'روشن',off:'خاموش',shr:'اشتراک نتیجه',bhome:'بازگشت به خانه',yb:'رکورد تو {n} است',nrec:'رکورد جدید!',shtxt:'من توی بازی مار gameVex امتیاز {n} ({m}) گرفتم! می‌تونی منو ببری؟',beat:'می‌تونی منو ببری؟',youwin:'تو بردی',pl:'بازیکن'}};
-Object.assign(L.en,{hwt:'How to play',hg_t:'Goal',hg:'Be the first player to get rid of all your cards.',hr_t:'On your turn',hr:'Play a card that matches the top card by color, number or symbol. No card to play? Tap the deck to draw one and your turn passes. Cards you can play are bright, the others are dimmed.',hs_t:'Setup',hs:'Everyone starts with 7 cards. Play against 1 to 4 bots, or invite friends with a room code or a link.',hc_t:'Card guide',hc0:'Number cards (0-9)',hd0:'Match the color or the number of the top card.',hc1:'Skip ⊘',hd1:'The next player loses their turn.',hc2:'Reverse ⇄',hd2:'Changes the direction of play. With only 2 players it works like Skip.',hc3:'Draw Two +2',hd3:'The next player draws 2 cards and loses their turn.',hc4:'Wild ★',hd4:'Play it any time and choose the new color.',hc5:'Wild Draw Four +4',hd5:'Choose the new color. The next player draws 4 cards and loses their turn.',ht_t:'Tips',ht:'Keep Wild cards for when you are stuck. When you have one card left you will see "UNO!" at the top. The player with a glowing ring is the one playing now.'});
-Object.assign(L.fa,{hwt:'راهنمای بازی',hg_t:'هدف',hg:'اولین نفری باش که همهٔ کارت‌هایش را خالی می‌کند.',hr_t:'نوبت تو',hr:'کارتی بازی کن که با کارت وسط هم‌رنگ، هم‌عدد یا هم‌نماد باشد. کارت قابل‌بازی نداری؟ روی دسته کارت بزن تا یک کارت بکشی و نوبت به نفر بعدی برسد. کارت‌های قابل‌بازی روشن‌اند و بقیه کم‌رنگ.',hs_t:'شروع بازی',hs:'هر نفر ۷ کارت می‌گیرد. می‌توانی با ۱ تا ۴ بات بازی کنی یا دوستانت را با کد اتاق یا لینک دعوت کنی.',hc_t:'راهنمای کارت‌ها',hc0:'کارت‌های عددی (۰ تا ۹)',hd0:'رنگ یا عدد کارت وسط را هماهنگ کن.',hc1:'Skip ⊘ (پرش)',hd1:'نفر بعدی نوبتش را از دست می‌دهد.',hc2:'Reverse ⇄ (برعکس)',hd2:'جهت بازی را برعکس می‌کند. در بازی دونفره مثل Skip است.',hc3:'Draw Two +2 (دو کارت)',hd3:'نفر بعدی ۲ کارت می‌کشد و نوبتش می‌سوزد.',hc4:'Wild ★ (جوکر)',hd4:'هر وقت خواستی بازی کن و رنگ جدید را انتخاب کن.',hc5:'Wild +4 (جوکر چهار کارت)',hd5:'رنگ جدید را انتخاب کن. نفر بعدی ۴ کارت می‌کشد و نوبتش می‌سوزد.',ht_t:'نکته‌ها',ht:'جوکرها را برای وقتی نگه دار که گیر کرده‌ای. وقتی یک کارت برایت می‌ماند، بالای صفحه «UNO!» را می‌بینی. بازیکنی که دورش حلقهٔ نور دارد، نوبتش است.'});
+Object.assign(L.en,{waitone:'Invite at least one friend first',hkfour:'Hokm needs 4 players: empty seats are played by bots.',hokm:'Hokm',hokms:'4 players · trump & tricks',hsolo:'Solo',hfriends:'With friends',us:'You',them:'Them',partner:'Partner',trump:'Trump',hk_pick:'Choose the trump suit',hk_picking:'{n} is choosing the trump…',hk_turn:'Your turn: swipe a card up',hk_wait:'Waiting for {n}…',hk_round:'Round won by {t}',hk_follow:'You must follow the suit',hk_win:'You win the match 🏆',hk_lose:'Your team lost the match',hwt:'How to play',hg_t:'Goal',hg:'Be the first player to get rid of all your cards.',hr_t:'On your turn',hr:'Play a card that matches the top card by color, number or symbol. No card to play? Tap the deck to draw one and your turn passes. Cards you can play are bright, the others are dimmed.',hs_t:'Setup',hs:'Everyone starts with 7 cards. Play against 1 to 4 bots, or invite friends with a room code or a link.',hc_t:'Card guide',hc0:'Number cards (0-9)',hd0:'Match the color or the number of the top card.',hc1:'Skip ⊘',hd1:'The next player loses their turn.',hc2:'Reverse ⇄',hd2:'Changes the direction of play. With only 2 players it works like Skip.',hc3:'Draw Two +2',hd3:'The next player draws 2 cards and loses their turn.',hc4:'Wild ★',hd4:'Play it any time and choose the new color.',hc5:'Wild Draw Four +4',hd5:'Choose the new color. The next player draws 4 cards and loses their turn.',ht_t:'Tips',ht:'Keep Wild cards for when you are stuck. When you have one card left you will see "UNO!" at the top. The player with a glowing ring is the one playing now.'});
+Object.assign(L.fa,{waitone:'اول حداقل یک دوست دعوت کن',hkfour:'حکم ۴ بازیکن می‌خواهد: صندلی‌های خالی را بات‌ها بازی می‌کنند.',hokm:'حکم',hokms:'۴ نفره · حکم و دست',hsolo:'تک‌نفره',hfriends:'با دوستان',us:'تو',them:'حریف',partner:'هم‌تیمی',trump:'حکم',hk_pick:'خال حکم را انتخاب کن',hk_picking:'{n} دارد حکم را انتخاب می‌کند…',hk_turn:'نوبت توست: کارت را به بالا بکش',hk_wait:'منتظر {n}…',hk_round:'دور را {t} برد',hk_follow:'باید خال را رعایت کنی',hk_win:'تو مسابقه را بردی 🏆',hk_lose:'تیمت مسابقه را باخت',hwt:'راهنمای بازی',hg_t:'هدف',hg:'اولین نفری باش که همهٔ کارت‌هایش را خالی می‌کند.',hr_t:'نوبت تو',hr:'کارتی بازی کن که با کارت وسط هم‌رنگ، هم‌عدد یا هم‌نماد باشد. کارت قابل‌بازی نداری؟ روی دسته کارت بزن تا یک کارت بکشی و نوبت به نفر بعدی برسد. کارت‌های قابل‌بازی روشن‌اند و بقیه کم‌رنگ.',hs_t:'شروع بازی',hs:'هر نفر ۷ کارت می‌گیرد. می‌توانی با ۱ تا ۴ بات بازی کنی یا دوستانت را با کد اتاق یا لینک دعوت کنی.',hc_t:'راهنمای کارت‌ها',hc0:'کارت‌های عددی (۰ تا ۹)',hd0:'رنگ یا عدد کارت وسط را هماهنگ کن.',hc1:'Skip ⊘ (پرش)',hd1:'نفر بعدی نوبتش را از دست می‌دهد.',hc2:'Reverse ⇄ (برعکس)',hd2:'جهت بازی را برعکس می‌کند. در بازی دونفره مثل Skip است.',hc3:'Draw Two +2 (دو کارت)',hd3:'نفر بعدی ۲ کارت می‌کشد و نوبتش می‌سوزد.',hc4:'Wild ★ (جوکر)',hd4:'هر وقت خواستی بازی کن و رنگ جدید را انتخاب کن.',hc5:'Wild +4 (جوکر چهار کارت)',hd5:'رنگ جدید را انتخاب کن. نفر بعدی ۴ کارت می‌کشد و نوبتش می‌سوزد.',ht_t:'نکته‌ها',ht:'جوکرها را برای وقتی نگه دار که گیر کرده‌ای. وقتی یک کارت برایت می‌ماند، بالای صفحه «UNO!» را می‌بینی. بازیکنی که دورش حلقهٔ نور دارد، نوبتش است.'});
 Object.assign(L.en,{hauth:'Open the game from @{b} (its “Open” button) and try again.',armiss:'This arena does not exist or has expired.',lcode:'HAVE AN ARENA CODE?',acode:'Arena code',chal:'Challenge',chal2:'Your friends, one leaderboard',newar:'New Snake Arena',arname:'ARENA NAME',arph:'Give it a name players remember',artype:'ARENA TYPE',fun:'Just for fun',fund:'No prize and no entry fee',setl:'SETTINGS',rules:'Game rules',entry:'Entry conditions',entrys:'Members of our channel can join',namear:'Name your arena',mkar:'Create arena',attm:'attempts',unl:'Unlimited attempts',ended:'Ended',yourbest:'Your best',noscores:'No scores yet. Be the first!',playnow:'Play',shr2:'Share arena',artxt:'🐍 Join my Snake arena “{n}” and beat my score!',needsrv:'Arenas need the bot server, which is not connected.',noatt:'No attempts left',myar:'Your arenas',open:'Open',arinfo:'Arena “{n}”: rank #{r} · attempts left {a}',mode:'Mode',dura:'Duration',hmb:'How many bots?',botw:'bots',cancel:'Cancel',mkroom:'Create a room',orx:'or',havec:'Have a room code?',store:'Store',lvl:'Level',locked:'Level {n}',equip:'Equip',equipped:'Equipped',sk:'Snake skins',pal:'Card colors',bk:'Card backs',gtitle:'Join our channel to play',gdesc:'Join the channel, then come back and tap “I joined”.',gjoin:'Join channel',gdone:'I joined',gerr:'Connection problem',gretry:'Retry',gnot:'You have not joined yet',ghint:'The server did not answer: it may be blocked on your network, or the bot server is not updated yet.',lvup:'Level up!'});
 Object.assign(L.fa,{hauth:'بازی را از بات @{b} (با دکمهٔ «Open») باز کن و دوباره امتحان کن.',armiss:'این آرنا وجود ندارد یا منقضی شده است.',lcode:'کد آرنا داری؟',acode:'کد آرنا',chal:'چالش',chal2:'دوستات، یک جدول امتیاز',newar:'آرنای جدید مار',arname:'نام آرنا',arph:'اسمی بذار که بازیکن‌ها یادشون بمونه',artype:'نوع آرنا',fun:'فقط برای سرگرمی',fund:'بدون جایزه و بدون هزینهٔ ورود',setl:'تنظیمات',rules:'قوانین بازی',entry:'شرایط ورود',entrys:'اعضای کانال ما می‌توانند وارد شوند',namear:'اسم آرنا را بنویس',mkar:'ساخت آرنا',attm:'تلاش',unl:'تلاش نامحدود',ended:'تمام شد',yourbest:'بهترین امتیاز تو',noscores:'هنوز امتیازی نیست. اولین نفر باش!',playnow:'بازی',shr2:'ارسال آرنا',artxt:'🐍 بیا توی آرنای مار «{n}» و امتیازمو ببر!',needsrv:'آرنا به سرور ربات نیاز دارد که وصل نیست.',noatt:'تلاشی باقی نمانده',myar:'آرنا‌های تو',open:'باز کن',arinfo:'آرنا «{n}»: رتبه {r} · تلاش باقی‌مانده {a}',mode:'حالت',dura:'مدت',hmb:'چند تا بات؟',botw:'بات',cancel:'انصراف',mkroom:'ساخت اتاق',orx:'یا',havec:'کد اتاق داری؟',store:'فروشگاه',lvl:'سطح',locked:'سطح {n}',equip:'انتخاب',equipped:'انتخاب‌شده',sk:'ظاهر مار',pal:'رنگ کارت‌ها',bk:'پشت کارت‌ها',gtitle:'برای بازی کردن عضو کانال شو',gdesc:'عضو کانال شو، برگرد و «عضو شدم» رو بزن.',gjoin:'عضویت در کانال',gdone:'عضو شدم',gerr:'مشکل در اتصال',gretry:'تلاش دوباره',gnot:'هنوز عضو نشدی',ghint:'سرور جواب نداد: ممکنه شبکه‌ات اون رو بسته باشه یا کد سرور ربات هنوز آپدیت نشده باشه.',lvup:'ارتقای سطح!'});
 const TH={green:['#6ccf70','#4fa855','#16301c','#0b1a10','rgba(108,207,112,.20)','rgba(108,207,112,.08)'],white:['#e8e8e8','#bdbdbd','#2a2a2a','#111','rgba(255,255,255,.14)','rgba(255,255,255,.05)'],yellow:['#e3c35c','#b99a38','#2d2711','#15120a','rgba(227,195,92,.18)','rgba(227,195,92,.07)']};
@@ -550,7 +581,7 @@ tr.addEventListener('pointermove',e=>{if(dr)mv(e)});
 const up=()=>{if(!dr)return;dr=0;tr.classList.remove('drag');bvis((nb-1)/3)};
 tr.addEventListener('pointerup',up);tr.addEventListener('pointercancel',up)})();
 $('bgo').onclick=()=>{$('bsel').hidden=true;uno()};$('bcn').onclick=()=>{$('bsel').hidden=true};
-$('fr2').onclick=()=>{$('frs').hidden=true;hostRoom()};$('frc').onclick=()=>{$('frs').hidden=true};
+$('fr2').onclick=()=>{$('frs').hidden=true;if(sel=='hokm')hkHostRoom();else hostRoom()};$('frc').onclick=()=>{$('frs').hidden=true};
 let inAr=0,AR=null,CF={name:'',mode:1,dur:7200,att:3};
 const DUR=[[1800,'30 min','۳۰ دقیقه'],[7200,'2 hours','۲ ساعت'],[86400,'24 hours','۲۴ ساعت'],[604800,'7 days','۷ روز']],ATT=[[1,'1','۱'],[3,'3','۳'],[5,'5','۵'],[0,'∞','∞']];
 const li=()=>lg=='fa'?2:1;
@@ -597,6 +628,122 @@ try{const r=await api('acreate',{name:CF.name.trim(),mode:CF.mode,dur:CF.dur,att
 if(r&&r.member===false){gate('not',r.ch);return}
 if(r&&r.arena){AR=r.arena;addArl(AR);CF.name='';$('chn').value='';$('chk').textContent='0/32';$('chs').hidden=true;arv();$('ars').hidden=false;shareAr(AR)}else toast0(_('gerr')+(r&&r.err?': '+r.err:''))}
 catch(e){toast0(_('gerr')+': '+e.message)}chb()};
+const HS=['♠','♥','♣','♦'],HR=['2','3','4','5','6','7','8','9','10','J','Q','K','A'],hS=c=>c/13|0,hR=c=>c%13;
+let HG=null,HV=null,HK={on:{},sig:'',rec:0,dirty:0};
+const REL=[{x:50,y:66},{x:27,y:47},{x:50,y:28},{x:73,y:47}],FLY=[[0,180],[-200,0],[0,-180],[200,0]];
+const hsort=a=>a.slice().sort((x,y)=>hS(x)-hS(y)||hR(y)-hR(x));
+const hkw=()=>{try{return +localStorage.hw||0}catch(e){return 0}};
+/* ---------- engine (runs on the host / solo) ---------- */
+function hkNew(ty,nm){HG={g:(HG?HG.g:0)+1,bt:0,ty,nm,h:[],f5:[],hk:Math.random()*4|0,tr:-1,t:0,tk:[],ld:-1,tw:[0,0],pt:[0,0],ph:'trump',col:-1,rd:1,over:-1,rw:-1};HK.rec=0;hkDeal()}
+function hkDeal(){const d=shuf(Array.from({length:52},(x,i)=>i));HG.h=[0,1,2,3].map(i=>hsort(d.slice(i*13,i*13+13)));HG.f5=hsort(d.slice(HG.hk*13,HG.hk*13+5));
+HG.tr=-1;HG.ph='trump';HG.t=HG.hk;HG.tk=[];HG.ld=-1;HG.tw=[0,0];HG.col=-1;HG.rw=-1;hkBc();hkNext()}
+const hkVal=c=>(hS(c)==HG.tr?100:hS(c)==HG.ld?0:-100)+hR(c);
+function hkWin(){let b=HG.tk[0];for(const x of HG.tk)if(hkVal(x.c)>hkVal(b.c))b=x;return b.s}
+const hkLegal=(s,c)=>HG.ld<0||!HG.h[s].some(x=>hS(x)==HG.ld)||hS(c)==HG.ld;
+function hkView(s){return{me:s,nm:HG.nm,cnt:HG.h.map(x=>x.length),hand:HG.ph=='trump'?(s==HG.hk?HG.f5:[]):HG.h[s],tr:HG.tr,hk:HG.hk,t:HG.t,tk:HG.tk,ld:HG.ld,tw:HG.tw,pt:HG.pt,ph:HG.ph,col:HG.col,rd:HG.rd,over:HG.over,rw:HG.rw}}
+function hkBc(){HV=hkView(0);hkR();if(NET&&NET.role=='host')NET.peers.forEach(p=>{if(p.hs!=null&&p.conn.open)try{p.conn.send({hv:hkView(p.hs)})}catch(e){}})}
+function hkNext(){if(!HG)return;const g=HG.g,k=++HG.bt,go=(HG.ph=='trump'&&HG.ty[HG.hk]=='b')||(HG.ph=='play'&&HG.ty[HG.t]=='b');
+if(go)setTimeout(()=>{if(HG&&HG.g==g&&HG.bt==k)hkBot()},HG.ph=='trump'?1000:800+Math.random()*500)}
+function hkAct(s,a){if(!HG)return;
+if(a.a=='hsuit'){if(HG.ph=='trump'&&s==HG.hk&&a.s>=0&&a.s<4){HG.tr=a.s|0;HG.ph='play';HG.t=HG.hk;hkBc();hkNext()}return}
+if(a.a!='hplay')return;const c=a.c;if(HG.ph!='play'||HG.t!=s||!HG.h[s].includes(c)||!hkLegal(s,c))return;
+HG.h[s]=HG.h[s].filter(x=>x!=c);if(!HG.tk.length)HG.ld=hS(c);HG.tk.push({s,c});
+if(HG.tk.length<4){HG.t=(s+1)%4;hkBc();hkNext();return}
+HG.ph='wait';hkBc();const g=HG.g;
+setTimeout(()=>{if(!HG||HG.g!=g)return;HG.col=hkWin();HG.ph='collect';hkBc();setTimeout(()=>{if(HG&&HG.g==g)hkEnd()},650)},1200)}
+function hkEnd(){const w=HG.col;HG.tw[w%2]++;HG.tk=[];HG.ld=-1;HG.col=-1;HG.ph='play';HG.t=w;
+if(HG.tw[0]>=7||HG.tw[1]>=7){const wt=HG.tw[0]>=7?0:1;HG.pt[wt]++;HG.rw=wt;if(HG.hk%2!=wt)HG.hk=(HG.hk+1)%4;
+if(HG.pt[wt]>=7){HG.ph='over';HG.over=wt;hkBc();return}
+HG.ph='roundend';HG.rd++;hkBc();const g=HG.g;setTimeout(()=>{if(HG&&HG.g==g&&HG.ph=='roundend')hkDeal()},2600);return}
+hkBc();hkNext()}
+function hkBot(){if(!HG)return;
+if(HG.ph=='trump'){const cnt=[0,0,0,0],sum=[0,0,0,0];HG.f5.forEach(c=>{cnt[hS(c)]++;sum[hS(c)]+=hR(c)});let b=0;for(let i=1;i<4;i++)if(cnt[i]>cnt[b]||(cnt[i]==cnt[b]&&sum[i]>sum[b]))b=i;hkAct(HG.hk,{a:'hsuit',s:b});return}
+if(HG.ph!='play')return;const s=HG.t,legal=HG.h[s].filter(c=>hkLegal(s,c));if(!legal.length)return;let pick;
+if(!HG.tk.length){const nt=legal.filter(c=>hS(c)!=HG.tr);pick=nt.length?nt.slice().sort((a,b)=>hR(b)-hR(a))[0]:legal.slice().sort((a,b)=>hR(a)-hR(b))[0]}
+else{let w=HG.tk[0];for(const x of HG.tk)if(hkVal(x.c)>hkVal(w.c))w=x;const ls=legal.slice().sort((a,b)=>hkVal(a)-hkVal(b));
+if(w.s%2==s%2)pick=ls[0];else{const bt=ls.filter(c=>hkVal(c)>hkVal(w.c));pick=bt.length?bt[0]:ls[0]}}
+hkAct(s,{a:'hplay',c:pick})}
+function hkStart(ty,nm){inG=0;lz(0);$('hm').hidden=true;$('uo').hidden=true;$('go').hidden=true;$('hko').hidden=true;$('hkz').textContent='';HK.on={};HK.sig='';hkNew(ty,nm)}
+function hokmSolo(){NET=null;hkStart(['h','b','b','b'],[myn(),_('bot')+' 1',_('partner'),_('bot')+' 2'])}
+function hkStartNet(){const pr=NET.peers.filter(p=>p.conn.open),order=[2,1,3],ty=['h','b','b','b'],nm=[myn(),_('bot')+' 1',_('partner'),_('bot')+' 2'];
+pr.forEach((p,i)=>{p.hs=order[i];ty[order[i]]='h';nm[order[i]]=p.name});hkStart(ty,nm)}
+/* ---------- cards & table ---------- */
+function hcard(c,cls){const r=HR[hR(c)],s=HS[hS(c)],e=E('div','hc '+(cls||'')+(hS(c)%2?' red':'')),t=E('span','tl'),b=E('span','br');
+t.append(r,E('br'),s);b.append(r,E('br'),s);e.append(t,E('span','mid',hR(c)>8?r:s),b);return e}
+function hkPut(c,seat){if(HK.on[c])return;const v=HV,rel=(seat-v.me+4)%4,e=hcard(c,'tb'),r=((c*37)%17)-8,p=REL[rel];
+e.style.left=p.x+'%';e.style.top=p.y+'%';e.style.opacity=0;e.style.transform='translate(-50%,-50%) translate('+FLY[rel][0]+'px,'+FLY[rel][1]+'px) scale(.7) rotate('+(r*3)+'deg)';
+$('hkz').append(e);HK.on[c]=e;setTimeout(()=>{e.style.opacity=1;e.style.transform='translate(-50%,-50%) rotate('+r+'deg)'},30)}
+const hkOK=(v,c)=>v.ld<0||!v.hand.some(x=>hS(x)==v.ld)||hS(c)==v.ld;
+function hkSend(a){hp(0);if(NET&&NET.role=='guest'){try{NET.conn.send(a)}catch(e){}}else hkAct(0,a)}
+function hkDrag(e,c){let sx,sy,dr=0;
+e.addEventListener('pointerdown',ev=>{if(!HV||HV.ph!='play'||HV.t!=HV.me)return;dr=1;sx=ev.clientX;sy=ev.clientY;e.style.transition='none';e.style.zIndex=99;try{e.setPointerCapture(ev.pointerId)}catch(x){}hs()});
+e.addEventListener('pointermove',ev=>{if(!dr)return;const dx=ev.clientX-sx,dy=ev.clientY-sy;e.style.transform='translate('+dx+'px,'+dy+'px) rotate('+(dx*.05)+'deg) '+e._b+' scale(1.1)'});
+const up=ev=>{if(!dr)return;dr=0;const dx=ev.clientX-sx,dy=ev.clientY-sy;
+if(dy<-70&&HV.ph=='play'&&HV.t==HV.me){
+if(!hkOK(HV,c)){toast0(_('hk_follow'),2200);e.style.transition='transform .3s cubic-bezier(.2,.9,.3,1.3)';e.style.transform=e._b;e.style.zIndex='';return}
+const z=$('hkz').getBoundingClientRect(),r=e.getBoundingClientRect(),tx=z.left+z.width*REL[0].x/100-(r.left+r.width/2),ty=z.top+z.height*REL[0].y/100-(r.top+r.height/2);
+e.style.transition='transform .22s ease-out,opacity .22s';e.style.transform='translate('+(dx+tx)+'px,'+(dy+ty)+'px) '+e._b+' scale(.85)';e.style.opacity=0;
+HK.dirty=1;hkPut(c,HV.me);hkSend({a:'hplay',c});return}
+e.style.transition='transform .3s cubic-bezier(.2,.9,.3,1.3)';e.style.transform=e._b;e.style.zIndex=''};
+e.addEventListener('pointerup',up);e.addEventListener('pointercancel',up)}
+function hkHand(v){const sig=v.hand.join()+'|'+v.t+'|'+v.ph+'|'+v.ld+'|'+v.hk;if(sig==HK.sig&&!HK.dirty)return;HK.sig=sig;HK.dirty=0;
+const d=$('hkd');d.textContent='';const my=v.ph=='play'&&v.t==v.me,n=v.hand.length,W=d.clientWidth||360,sp=Math.min(36,(W-70)/Math.max(1,n-1)),mid=(n-1)/2;
+v.hand.forEach((c,i)=>{const ok=my&&hkOK(v,c),e=hcard(c,'hh'+(my&&!ok?' dim':'')),x=(i-mid)*sp,a=(i-mid)*Math.min(3.4,40/Math.max(n,1)),y=Math.pow(Math.abs(i-mid),2)*.9-(ok?16:0);
+e._b='translate('+x+'px,'+y+'px) rotate('+a+'deg)';e.style.transform=e._b;e.style.zIndex=i+1;if(my)hkDrag(e,c);d.append(e)})}
+function hkR(){const v=HV;if(!v)return;const me=v.me,ps=me%2,rel=s=>(s-me+4)%4;
+$('hk').hidden=false;$('lby').hidden=true;$('hm').hidden=true;
+const chip=(l,x)=>{const d=E('div','hchip');d.append(E('small','',l),E('b','',x));return d};
+$('hks').textContent='';$('hks').append(chip(_('us'),v.pt[ps]+' · '+v.tw[ps]),chip(_('them'),v.pt[1-ps]+' · '+v.tw[1-ps]));
+$('hkt2').textContent='';if(v.tr>=0)$('hkt2').append(E('small','',_('trump')),E('span','tsy'+(v.tr%2?' red':''),HS[v.tr]));
+const se=$('hse');se.textContent='';
+for(let r=1;r<4;r++){const s=(me+r)%4,x=E('div','hseat hs'+r+(v.t==s&&v.ph=='play'?' act':'')),a=E('div','av2',(v.nm[s]||'?')[0].toUpperCase()),bk=E('div','hbks');
+a.style.background=['#e8584a','#6ccf70','#f2d04b','#5aa9e6','#b784e0'][s%5];if(v.hk==s)a.append(E('span','crown','👑'));
+for(let i=0;i<Math.min(5,v.cnt[s]);i++)bk.append(E('i','hb'));x.append(a,E('div','nm',(r==2?'🤝 ':'')+v.nm[s]),bk,E('div','cn',v.cnt[s]));se.append(x)}
+const ids=v.tk.map(x=>x.c);v.tk.forEach(x=>hkPut(x.c,x.s));
+for(const k of Object.keys(HK.on)){const e=HK.on[k];if(!ids.includes(+k)){const el=e;el.style.opacity=0;setTimeout(()=>{if(el.remove)el.remove()},300);delete HK.on[k]}
+else if(v.ph=='collect'&&v.col>=0){const f=FLY[rel(v.col)];e.style.opacity=0;e.style.transform='translate(-50%,-50%) translate('+f[0]+'px,'+f[1]+'px) scale(.5)'}}
+let m='';if(v.ph=='trump')m=v.hk==me?_('hk_pick'):_('hk_picking').replace('{n}',v.nm[v.hk]);
+else if(v.ph=='play')m=v.t==me?_('hk_turn'):_('hk_wait').replace('{n}',v.nm[v.t]);
+else if(v.ph=='roundend')m=_('hk_round').replace('{t}',v.rw==ps?_('us'):_('them'));
+$('hkm').textContent=m;$('hkp').hidden=!(v.ph=='trump'&&v.hk==me);
+hkHand(v);
+if(v.ph=='over'){const win=v.over==ps;if(!HK.rec){HK.rec=1;addH({g:'hokm',w:win?1:0});endEv('hokm',{win});if(win)try{localStorage.hw=hkw()+1}catch(e){}}
+setTimeout(()=>{if(HV&&HV.ph=='over')hkOver()},900)}else{HK.rec=0;$('hko').hidden=true}}
+function hkOver(){const v=HV,ps=v.me%2,win=v.over==ps,host=!NET||NET.role=='host';
+lab($('hot'),0,win?_('hk_win'):_('hk_lose'),win?'🏆':0);$('hot').className=win?'win':'';$('hos').textContent=v.pt[ps]+' – '+v.pt[1-ps];
+$('hoa').hidden=!host;$('how').hidden=host;$('hko').hidden=false;win?lot($('hok'),['💯','hundred'],'💯'):lot($('hok'),'lose','😢')}
+['♠','♥','♣','♦'].forEach((s,i)=>{const b=E('button','suitb'+(i%2?' red':''),s);b.onclick=()=>hkSend({a:'hsuit',s:i});$('hkp').append(b)});
+$('hkb').onclick=()=>home();
+$('hoa').onclick=()=>{$('hko').hidden=true;NET?hkStartNet():hokmSolo()};$('hoh').onclick=()=>home();
+function pvH(){const w=E('div');w.style.cssText='position:relative;width:110px;height:100px;transform:scale(.72)';
+[[0,'♠',-24,0],[11,'♥',-8,16],[12,'♣',8,32],[9,'♦',24,48]].forEach(([r,s,rot,x])=>{const e=E('div','hc '+(s=='♥'||s=='♦'?'red':''));e.style.cssText='position:absolute;left:'+(x-6)+'px;top:6px;width:52px;height:78px;transform:rotate('+rot+'deg)';
+const t=E('span','tl'),b=E('span','br');t.append('A',E('br'),s);b.append('A',E('br'),s);e.append(t,E('span','mid',s),b);w.append(e)});return w}
+
+function hkHostRoom(){if(NET)return;if(typeof Peer=='undefined'){toast0(_('noh'),4000);return}
+const code=Math.random().toString(36).slice(2,7);NET={role:'host',code,peers:[],bots:0,seats:[],game:'hokm',msg:_('conn')};hkLobby();
+const pe=new Peer('gvhk-'+code);NET.peer=pe;pe.on('error',e=>{NET.msg=e.type;hkLobby()});pe.on('open',()=>{NET.msg=_('ready');hkLobby()});
+pe.on('connection',c=>{c.on('data',d=>{if(d.a=='join'){if(HG||NET.peers.length>=3){c.send({err:'started'});return}
+const seat=NET.peers.length+1;NET.peers.push({conn:c,name:String(d.name||'Player').slice(0,14),hs:seat});hkLobby();hkLobbyPush()}
+else if(d.a=='hplay'||d.a=='hsuit'){const p=NET.peers.find(x=>x.conn===c);if(p)hkAct(p.hs,d)}});
+c.on('close',()=>{NET.peers=NET.peers.filter(p=>p.conn!==c);if(!HG)hkLobby()})})}
+function hkLobbyPush(){const nm=[myn(),...NET.peers.map(p=>p.name)];NET.peers.forEach(p=>{try{p.conn.send({hlob:{nm}})}catch(e){}})}
+function hkJoin(code){if(NET)return;if(typeof Peer=='undefined'){toast0(_('noh'),4000);return}
+NET={role:'guest',code,game:'hokm',msg:_('conn')};hkLobby();const pe=new Peer();NET.peer=pe;
+pe.on('error',e=>{NET.msg=e.type=='peer-unavailable'?_('noh'):e.type;hkLobby()});
+pe.on('open',()=>{const c=pe.connect('gvhk-'+code,{reliable:true});NET.conn=c;NET.msg=_('contohost');hkLobby();
+c.on('open',()=>{NET.msg=_('ok');hkLobby();c.send({a:'join',name:myn()})});
+c.on('data',d=>{if(d.hv){HV=d.hv;hkR()}else if(d.hlob){NET.lob=d.hlob;hkLobby()}else if(d.err){NET.msg=_('started');hkLobby()}});
+c.on('close',()=>{NET.msg=_('left');hkLobby()})})}
+function hkLobby(){const o=$('lby'),host=NET.role=='host';o.textContent='';o.hidden=false;$('hm').hidden=true;
+const bk=E('button','sec','‹');bk.style.width='48px';bk.onclick=()=>{try{NET.peer.destroy()}catch(e){}NET=null;home()};
+o.append(bk,E('h3','',_('hokm')),E('div','code',NET.code.toUpperCase()));
+const nm=host?[myn(),...NET.peers.map(p=>p.name)]:(NET.lob?NET.lob.nm:[]);
+nm.forEach((n,i)=>o.append(E('div','r',(i?'':'👑 ')+n)));
+if(NET.msg)o.append(E('small','',NET.msg));
+if(host){const s=E('button','big2',_('share'));s.onclick=()=>{const u='https://t.me/'+BOT+'?start=h_'+NET.code,x='https://t.me/share/url?url='+encodeURIComponent(u)+'&text='+encodeURIComponent(_('invtxt'));try{TG.openTelegramLink(x)}catch(e){window.open(x)}};
+const g=E('button','big2',_('startg'));g.onclick=()=>{if(NET.peers.length<1){toast0(_('waitone'),3000);return}hkStartNet()};o.append(s,g,E('small','',_('hkfour')))}
+else o.append(E('small','',_('waitho')))}
+function hkBotFill(ty,nm){/* empty seats are filled with bots so there are always 4 players */}
 const mname=()=>[_('nw'),_('w'),_('adv')][md];
 function showGO(pb){if(!ov)return;lz(0);$('ga').disabled=false;$('gar').hidden=!inAr;if(inAr)garUpd();$('gt').textContent='🐍 '+mname();$('gs').textContent=pt;
 $('gb').textContent=_('yb').replace('{n}',Math.max(best,pt));lab($('gn'),'🏆',_('nrec'));const nr=pt>pb&&pt>0;$('gn').hidden=!nr;nr?lot($('gk'),['💯','hundred'],'💯'):lot($('gk'),'lose','😢');$('go').hidden=false}
@@ -641,7 +788,7 @@ x.fillStyle='#000';x.beginPath();x.arc(52,70,1.8,0,7);x.arc(52,78,1.8,0,7);x.fil
 x.fillStyle='#ffd166';[[0,0],[-5,0],[5,0],[0,-5],[0,5]].forEach(([a,b])=>x.fillRect(94+a-2.5,92+b-2.5,5,5));return c}
 function pvU(){const w=E('div');w.style.cssText='position:relative;width:110px;height:100px;transform:scale(.72)';
 [['#e8453c','7',-22,0],['#f2c230','+2',0,16],['#3b82e0','⊘',22,32]].forEach(([c,t,r,x])=>{const e=E('div','uc2',t);e.style.cssText+=';background:'+c+';position:absolute;left:'+(x+8)+'px;top:6px;transform:rotate('+r+'deg)';w.append(e)});return w}
-function cbuild(){$('cs').textContent='';[[_('snake'),_('arc'),'snake',pvS],['UNO',_('vsb'),'uno',pvU],[_('more'),_('way'),0,pvM]].forEach(([n,d,k,pv])=>{
+function cbuild(){$('cs').textContent='';[[_('snake'),_('arc'),'snake',pvS],['UNO',_('vsb'),'uno',pvU],[_('hokm'),_('hokms'),'hokm',pvH],[_('more'),_('way'),0,pvM]].forEach(([n,d,k,pv])=>{
 const c=E('div','cd'+(k?'':' off')),p=E('div','pv');if(k)c.dataset.k=k;if(pv)p.append(pv());const tt=E('span','',n);if(!k){const e=E('span','em');e.style.cssText='width:1.1em;height:1.1em;margin-left:6px';tt.append(e);lot(e,'soon','⏳')}c.append(p,tt,E('small','',d));if(k)c.onclick=()=>pick(k);$('cs').appendChild(c)})}
 const LS=(k,d)=>{try{return JSON.parse(localStorage[k])||d}catch(e){return d}};
 function addH(e){e.t=Date.now();const h=LS('hist',[]);h.unshift(e);try{localStorage.hist=JSON.stringify(h.slice(0,40))}catch(x){}
@@ -658,8 +805,8 @@ o.append(E('h3','',_('rec')),g,E('h3','',_('recent')));
 if(!h.length)o.append(E('div','nh',_('nohist')));
 h.slice(0,15).forEach(e=>{const r=E('div','hi'),t=E('div');
 t.append(E('b','',e.g=='snake'?'🐍 '+[_('nw'),_('w'),_('adv')][e.m]+' · '+e.s:'🃏 UNO · '+(e.w?_('wonl'):_('lostl'))),E('small','',fdt(e.t)));r.append(t);o.append(r)})}
-function selg(k){sel=k;const u=k=='uno';$('gtl').textContent=u?'UNO':_('snake');
-$('fp').textContent=u?_('und'):_('snd');$('ps').textContent=u?_('vs'):_('solo');if(u)$('hl').textContent=_('inv');else lab($('hl'),'🏆',_('lbb'));$('hwb').hidden=!u;$('chal').hidden=u;lab($('ch1'),'🏆',_('chal'));$('ch2').textContent=_('chal2');$('jw').hidden=!u;$('jc').placeholder=_('code');$('jb').textContent=_('joinb');$('bb').textContent=u?_('wins')+' '+wins():_('best')+' '+best;
+function selg(k){sel=k;const u=k=='uno';$('gtl').textContent=k=='uno'?'UNO':k=='hokm'?_('hokm'):_('snake');
+$('fp').textContent=k=='uno'?_('und'):k=='hokm'?_('hokms'):_('snd');$('ps').textContent=u?_('vs'):_('solo');if(u)$('hl').textContent=_('inv');else lab($('hl'),'🏆',_('lbb'));$('hwb').hidden=!u;$('chal').hidden=u;lab($('ch1'),'🏆',_('chal'));$('ch2').textContent=_('chal2');$('jw').hidden=!u;$('jc').placeholder=_('code');$('jb').textContent=_('joinb');$('bb').textContent=u?_('wins')+' '+wins():_('best')+' '+best;
 [...$('cs').children].forEach(c=>c.classList.toggle('sel',c.dataset.k==k));acs()}
 function applyAll(){theme();lab($('sb'),'🏬',_('store'));lvUpdate();document.title=_('title');
 $('hh').innerHTML='game<span class="vx">Vex</span>';$('n1').textContent=_('games');$('n2').textContent=_('activity');
@@ -669,14 +816,14 @@ cbuild();mbuild();bsv();stabs();
 if(!$('lb').hidden){ltabs();lrender()}if(V&&!$('un').hidden)rv();if(!$('shp').hidden)shv();selg(sel)}
 function home(){lz(0);inG=0;inAr=0;$('go').hidden=true;$('uo').hidden=true;if(NET){try{NET.peer.destroy()}catch(e){}NET=null}U=null;V=null;$('lby').hidden=true;$('hm').hidden=false;$('un').hidden=true;selg(sel)}
 $('hb').onclick=home;
-$('ps').onclick=()=>{if(sel=='uno'){openBots();return}inAr=0;lz(1);inG=1;$('hm').hidden=true;init()};
+$('ps').onclick=()=>{if(sel=='hokm'){hokmSolo();return}if(sel=='uno'){openBots();return}inAr=0;lz(1);inG=1;$('hm').hidden=true;init()};
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button,.cd'))hp(0)},true);
 $('hwb').onclick=()=>{hwv();$('hw').hidden=false};$('hx').onclick=()=>{$('hw').hidden=true};
 $('ua').onclick=()=>{$('uo').hidden=true;NET?hostStart():uno()};$('uh').onclick=()=>home();
 $('ga').onclick=()=>{if(inAr)playArena();else{lz(1);init()}};$('gh').onclick=()=>{if(inAr){$('go').hidden=true;inG=0;$('hm').hidden=false;openArena(AR.id)}else home()};$('gsh').onclick=()=>shareScore();
 $('sb').onclick=$('lv').onclick=()=>{shv();$('shp').hidden=false};$('shx').onclick=()=>{$('shp').hidden=true};
-$('hl').onclick=()=>sel=='uno'?openFr():$('tp').onclick();
-$('jb').onclick=()=>{const v=$('jc').value.trim().toLowerCase();if(/^[a-z0-9]{3,8}$/.test(v)){$('frs').hidden=true;joinRoom(v)}};
+$('hl').onclick=()=>sel=='uno'||sel=='hokm'?openFr():$('tp').onclick();
+$('jb').onclick=()=>{const v=$('jc').value.trim().toLowerCase();if(/^[a-z0-9]{3,8}$/.test(v)){$('frs').hidden=true;if(sel=='hokm')hkJoin(v);else joinRoom(v)}};
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&NET&&NET.peer&&NET.peer.disconnected){try{NET.peer.reconnect()}catch(e){}}});
 $('n1').onclick=()=>{$('g1').hidden=false;$('ac').hidden=true;$('n1').className='on';$('n2').className=''};
 $('n2').onclick=()=>{$('g1').hidden=true;$('ac').hidden=false;$('n2').className='on';$('n1').className='';acs()};
